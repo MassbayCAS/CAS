@@ -1,4 +1,4 @@
-package courseassignmentsoftware;
+package CAS;
 
 public class CourseAssignmentSoftware {
 
