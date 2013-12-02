@@ -12,7 +12,9 @@ public class MainWindow extends JFrame {
   private JPanel courseReportPanel;
   private JPanel instructorReportPanel;
   private JPanel coursePanel;
+  //private CoursePanel coursePanel;
   private JPanel instructorPanel;
+  //private InstructorPanel instructorPanel;
   
   private JPanel reportPanel;
   private JPanel detailsPanel;
@@ -52,10 +54,12 @@ public class MainWindow extends JFrame {
     instructorReportPanel.setBackground(Color.GRAY);
                               
     coursePanel = new JPanel();
+    //coursePanel = new CoursePanel();
     coursePanel.add(new JLabel("CoursePanel"));
     coursePanel.setBackground(Color.LIGHT_GRAY);
                     
     instructorPanel = new JPanel();
+    //instructorPanel = new InstructorPanel();
     instructorPanel.add(new JLabel("InstructorPanel"));
     instructorPanel.setBackground(Color.LIGHT_GRAY);
     
