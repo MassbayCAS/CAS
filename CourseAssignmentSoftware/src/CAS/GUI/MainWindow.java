@@ -21,6 +21,8 @@ public class MainWindow extends JFrame {
   
   private JPanel topPanel;
   private JPanel middlePanel;
+  private JPanel middleLeftPanel;
+  private JPanel middleRightPanel;
   private JPanel bottomPanel;
   
   private JButton detailsButton;
@@ -32,9 +34,11 @@ public class MainWindow extends JFrame {
   public MainWindow()
   {
     super();
-    setSize(600,480);
+    setSize(640,480);
+    setMaximumSize(new Dimension(640, 480));
+    setMinimumSize(new Dimension(640, 480));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLayout(new GridBagLayout());
+    setLayout(null);
     setResizable(false);
     
     buildPanels();
@@ -43,7 +47,7 @@ public class MainWindow extends JFrame {
   }
   
   public void buildPanels() {
-    GridBagConstraints constraints = new GridBagConstraints();
+//    GridBagConstraints constraints = new GridBagConstraints();
     
     courseReportPanel = new JPanel();
     courseReportPanel.add(new JLabel("CourseReportPanel"));
@@ -55,7 +59,15 @@ public class MainWindow extends JFrame {
                               
     coursePanel = new JPanel();
     //coursePanel = new CoursePanel();
-    coursePanel.add(new JLabel("CoursePanel"));
+    coursePanel.setLayout(new BorderLayout());
+    coursePanel.add(new JLabel("Details Area"), BorderLayout.NORTH);
+    JTextArea details = new JTextArea("This is the area where all the details" +
+            " of a selected instructor or course would be displayed once the" +
+            " \"details\" button was pressed.");
+    details.setEditable(false);
+    details.setLineWrap(true);
+    details.setWrapStyleWord(true);
+    coursePanel.add(details, BorderLayout.CENTER);
     coursePanel.setBackground(Color.LIGHT_GRAY);
                     
     instructorPanel = new JPanel();
@@ -67,52 +79,83 @@ public class MainWindow extends JFrame {
     detailsPanel = coursePanel;
     
     topPanel = new JPanel();
-    topPanel.setLayout(new GridLayout(1,2));
+    topPanel.setSize(640, 30);
+    topPanel.setLocation(0, 0);
+    topPanel.setLayout(null);
     detailsButton = new JButton("Details");
+    detailsButton.setSize(100, 30);
+    detailsButton.setLocation(220, 0);
     detailsButton.addActionListener(new ButtonListener());
     topPanel.add(detailsButton);
     topPanel.add(new JPanel());
     
+    middleRightPanel = new JPanel();
+    middleRightPanel.setSize(220, 300);
+    middleRightPanel.setLocation(370, 0);
+    middleRightPanel.setLayout(new BorderLayout());
+    middleRightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    middleRightPanel.add(detailsPanel);
+    
+    middleLeftPanel = new JPanel();
+    middleLeftPanel.setSize(300, 350);
+    middleLeftPanel.setLocation(20, 0);
+    middleLeftPanel.setLayout(new BorderLayout());
+    middleLeftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    middleLeftPanel.add(reportPanel);
+    
     middlePanel = new JPanel();
-    middlePanel.setLayout(new GridLayout(1,2));
-    middlePanel.add(reportPanel);
-    middlePanel.add(detailsPanel);
+    middlePanel.setSize(640, 375);
+    middlePanel.setLocation(0, 30);
+    middlePanel.setLayout(null);
+    middlePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    middlePanel.add(middleLeftPanel);
+    middlePanel.add(middleRightPanel);
                  
     bottomPanel = new JPanel();
-    bottomPanel.setLayout(new GridLayout(1,4));
+    bottomPanel.setSize(640, 40);
+    bottomPanel.setLocation(0, 405);
+    bottomPanel.setLayout(null);
     assignButton = new JButton("Assign");
+    assignButton.setSize(100, 30);
+    assignButton.setLocation(85, 5);
     toggleButton = new JButton("Instructors");
+    toggleButton.setSize(100, 30);
+    toggleButton.setLocation(270, 5);
     reportButton = new JButton("Report");
-    printButton = new JButton("Print");
+    reportButton.setSize(100, 30);
+    reportButton.setLocation(455, 5);
+//    printButton = new JButton("Print");
+//    printButton.setSize(100, 30);
+//    printButton.setLocation(540, 20);
     assignButton.addActionListener(new ButtonListener());
     toggleButton.addActionListener(new ButtonListener());
     reportButton.addActionListener(new ButtonListener());
-    printButton.addActionListener(new ButtonListener());
+//    printButton.addActionListener(new ButtonListener());
     bottomPanel.add(assignButton);
     bottomPanel.add(toggleButton);
     bottomPanel.add(reportButton);
-    bottomPanel.add(printButton);
+//    bottomPanel.add(printButton);
     
-    constraints.anchor = GridBagConstraints.FIRST_LINE_START;
-    constraints.fill = GridBagConstraints.BOTH;
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    constraints.weightx = 1.0;
-    constraints.weighty = 0.1;
+//    constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+//    constraints.fill = GridBagConstraints.BOTH;
+//    constraints.gridx = 0;
+//    constraints.gridy = 0;
+//    constraints.weightx = 1.0;
+//    constraints.weighty = 0.1;
     
-    add(topPanel, constraints);
+    add(topPanel);
     
-    constraints.fill = GridBagConstraints.BOTH;
-    constraints.gridy = 1;
-    constraints.weighty = 0.7;
+//    constraints.fill = GridBagConstraints.BOTH;
+//    constraints.gridy = 1;
+//    constraints.weighty = 0.7;
     
-    add(middlePanel, constraints);
+    add(middlePanel);
     
-    constraints.fill = GridBagConstraints.BOTH;
-    constraints.gridy = 2;
-    constraints.weighty = 0.2;
+//    constraints.fill = GridBagConstraints.BOTH;
+//    constraints.gridy = 2;
+//    constraints.weighty = 0.2;
     
-    add(bottomPanel, constraints);
+    add(bottomPanel);
   }
   
   public static void main(String[] args)
@@ -127,27 +170,54 @@ public class MainWindow extends JFrame {
       if (e.getSource() == toggleButton)
       {
         if(reportPanel.equals(courseReportPanel)) {
-          middlePanel.remove(reportPanel);
-          middlePanel.remove(detailsPanel);
+          middleLeftPanel.remove(reportPanel);
           reportPanel = instructorReportPanel;
-          detailsPanel = instructorPanel;
-          middlePanel.add(reportPanel);
-          middlePanel.add(detailsPanel);
-          middlePanel.revalidate();
+          middleLeftPanel.add(reportPanel);
+          middleLeftPanel.revalidate();
           toggleButton.setText("Courses");
           repaint();
         }
         else {
-          middlePanel.remove(reportPanel);
-          middlePanel.remove(detailsPanel);
+          middleLeftPanel.remove(reportPanel);
           reportPanel = courseReportPanel;
-          detailsPanel = coursePanel;
-          middlePanel.add(reportPanel);
-          middlePanel.add(detailsPanel);
-          middlePanel.revalidate();
+          middleLeftPanel.add(reportPanel);
+          middleLeftPanel.revalidate();
           toggleButton.setText("Instructors");
           repaint();
         }
+      }
+      if (e.getSource() == reportButton) {
+          JFrame jf = new JFrame();
+          jf.setLayout(null);
+          jf.setSize(300,300);
+          JButton p = new JButton("Print");
+          p.setSize(100, 30);
+          p.setLocation(185, 230);
+          JButton s = new JButton("Save");
+          s.setSize(100, 30);
+          s.setLocation(0, 230);
+          JTextArea t = new JTextArea("This is the area where the report" +
+                  " would go, and the buttons below would allow you to save" +
+                  " the report to a file or to print it.");
+          t.setEditable(false);
+          t.setLineWrap(true);
+          t.setWrapStyleWord(true);
+          t.setSize(225, 200);
+          t.setLocation(25, 0);
+          t.setBorder(BorderFactory.createLineBorder(Color.black));
+          jf.add(p);
+          jf.add(s);
+          jf.add(t);
+          jf.setVisible(true);   
+      }
+      if (e.getSource() == detailsButton) {
+          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
+                  " details of the currently selected instructor or course to" +
+                  " the details box on the right.");
+      }
+      if (e.getSource() == assignButton) {
+          JOptionPane.showMessageDialog(null, "Clicking this would use the backend" +
+                  " methods to run the next round of the course assignment process.");
       }
     }
   }
