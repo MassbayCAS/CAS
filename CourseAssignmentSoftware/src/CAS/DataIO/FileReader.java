@@ -16,7 +16,7 @@ public class FileReader
 {
     private File file;
     
-    public FileReader(String filename) throws IOException
+    public FileReader(String filename) throws FileNotFoundException
     {
         this.file = new File(filename);
     }
