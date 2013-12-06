@@ -1,3 +1,7 @@
+/*
+  Tauseef Pirzada
+  06122013
+*/
 import java.util.ArrayList;
 public class Xor
 {

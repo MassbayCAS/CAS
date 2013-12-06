@@ -1,3 +1,7 @@
+/*
+  Tauseef Pirzada
+  06122013
+*/
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -65,8 +69,13 @@ public class RegisterFrame extends JFrame
                             szAnswer))
               JOptionPane.showMessageDialog(null,"Account: "+szUsername+" already exists.","Duplicate Username",JOptionPane.INFORMATION_MESSAGE);
             else
+            {
               JOptionPane.showMessageDialog(null,"Account: "+
                                             szUsername+" created successfully!");
+              setVisible(false);
+              jLoginFrame.setVisible(true);
+              dispose();
+            }
           }
           catch(IOException ioe)
           {

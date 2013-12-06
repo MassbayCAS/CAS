@@ -1,3 +1,7 @@
+/*
+  Tauseef Pirzada
+  06122013
+*/
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -61,13 +65,15 @@ public class RecoverFrame extends JFrame
           {
             String rec = ub.recover(szUsername,szEmail,szQuestion,szAnswer);
             if(rec!=null)
+            {
               JOptionPane.showMessageDialog(null,"Your passcode is\r\n"+
                                             rec);
+              setVisible(false);
+              jLoginFrame.setVisible(true);
+              dispose();
+            }
             else
               JOptionPane.showMessageDialog(null,"Your passcode could not be recovered.\r\nVerify you've entered the fields correctly");
-            setVisible(false);
-            jLoginFrame.setVisible(true);
-            dispose();
           }
           catch(IOException e)
           {
