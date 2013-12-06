@@ -23,7 +23,7 @@ public class Course
     
     public int hashCode(){
         // todo
-        return 0;
+        return title.hashCode();
     }
     
     public boolean equals(Object object){
