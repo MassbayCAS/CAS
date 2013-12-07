@@ -106,7 +106,7 @@ public class DataIO
                 profName = c.getInstructor().getName();
             
     
-            sb.append (c.getWorkarea()); sb.append ("\t");
+            sb.append (c.getWorkArea()); sb.append ("\t");
             sb.append (c.getId()); sb.append ("\t");
             sb.append (c.getSection()); sb.append ("\t");
             sb.append (c.getTitle()); sb.append ("\t");
@@ -155,9 +155,9 @@ public class DataIO
       {
           // Sort courses alphabetically by course area first,
           // and then by course ID
-          return (c1.getWorkarea().equals(c2.getWorkarea())
+          return (c1.getWorkArea().equals(c2.getWorkArea())
                   ? c1.getId() - c2.getId()
-                  : c1.getWorkarea().compareTo(c2.getWorkarea()));
+                  : c1.getWorkArea().compareTo(c2.getWorkArea()));
       }
     }
 }
