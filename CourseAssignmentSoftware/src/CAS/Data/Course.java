@@ -18,16 +18,22 @@ public class Course
  private String room;
 
  public Course(){
-  // todo complete constructor  
  }
 
  public int hashCode(){
-  // todo
-  return number + title.hashCode();
+  String hash = number + title;
+  return hash.hashCode();
  }
 
- public boolean equals(Object object){
-  // todo
+ public boolean equals(Course course){
+  if(number != course.number)
+      return false;
+  if(!subject.equals(course.subject))
+      return false;
+  if(!title.equals(course.title))
+      return false;
+  if(credits != course.credits)
+      return false;
   return true;
  }
 
