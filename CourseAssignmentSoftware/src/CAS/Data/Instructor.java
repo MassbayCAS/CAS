@@ -8,12 +8,14 @@ import java.util.HashMap;
 public class Instructor {
 	  private String name;
 	  private String phoneNumber;
-	  private HashMap<String, Integer> seniorities= new HashMap<String, Integer>();
-	  private ArrayList<Course> courses= new ArrayList<Course>();
-	  public TAF taf= new TAF();
+	  private HashMap<String, Integer> seniorities;
+	  private ArrayList<Course> courses;
+	  public TAF taf;
 	  
 	  public Instructor(TAF taf){
 		  this.taf=taf;
+                  seniorities= new HashMap<String, Integer>();
+                  courses= new ArrayList<Course>();
 	  }
 	  public String getName(){
 		  return name;
