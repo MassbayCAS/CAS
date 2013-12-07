@@ -11,7 +11,9 @@ public class TAF {
 	private ArrayDeque<String> preferredCourses;
         
         public TAF(ArrayList<Day> preferredDays,ArrayList<TimeSchedule> preferredTimes,ArrayDeque<String> preferredCourses){
-            
+            this.preferredDays = preferredDays;
+            this.preferredTimes = preferredTimes;
+            this.preferredCourses = preferredCourses;
         }
 	
 	public Date getDateOfSubmission(){
