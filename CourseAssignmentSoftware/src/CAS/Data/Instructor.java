@@ -12,7 +12,9 @@ public class Instructor {
 	  private ArrayList<Course> courses;
 	  public TAF taf;
 	  
-	  public Instructor(TAF taf){
+	  public Instructor(TAF taf,String ame,String phoneNumber){
+                  this.name=name;
+                  this.phoneNumber=phoneNumber;
 		  this.taf=taf;
                   seniorities= new HashMap<String, Integer>();
                   courses= new ArrayList<Course>();

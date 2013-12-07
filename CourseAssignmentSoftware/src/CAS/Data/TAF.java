@@ -9,6 +9,10 @@ public class TAF {
 	private ArrayList<Day> preferredDays;
 	private ArrayList<TimeSchedule> preferredTimes;
 	private ArrayDeque<String> preferredCourses;
+        
+        public TAF(ArrayList<Day> preferredDays,ArrayList<TimeSchedule> preferredTimes,ArrayDeque<String> preferredCourses){
+            
+        }
 	
 	public Date getDateOfSubmission(){
 		return dateOfSubmission;
