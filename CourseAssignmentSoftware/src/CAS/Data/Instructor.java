@@ -30,10 +30,10 @@ public class Instructor {
 	  public Date getDateOfSubmission(){
 		  return taf.getDateOfSubmission();
 	  }
-	  public ArrayList<Date> getPreferredDays(){
+	  public ArrayList<Day> getPreferredDays(){
 		  return taf.getPreferredDays();
 	  }
-	  public boolean[] getPreferredTimes(){
+	  public ArrayList<TimeSchedule> getPreferredTimes(){
 		  return taf.getPreferredTimes();
 	  }
 	  public ArrayDeque<String> getPreferredCourses(){
