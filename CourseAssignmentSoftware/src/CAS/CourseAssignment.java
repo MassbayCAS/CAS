@@ -44,13 +44,24 @@ public class CourseAssignment {
       */    
     public boolean loadData()
     {
-        //courses = DataIO.loadCourses();
-        //instructors = DataIO.loadInstructors();
-        //DataIO.loadSeniorityList(instructors);
-        //load work areas
+        loadCourses();
+        loadInstructors();
+        loadSeniorityList();
+        loadWorkAreas();
         return true;
     }
     
+    public void loadCourses()
+    { /**courses = DataIO.LoadCourses();*/ }
+    
+    public void loadInstructors()
+    { /** instructors = DataIO.LoadInstructors();*/ }
+    
+    public void loadSeniorityList()
+    { /**DataIO.LoadSeniorityList(instructors);*/ }
+    
+    public void loadWorkAreas()
+    { /** load work areas */ }
     
   /** Iterates through each instructor and attempts to assign
       * their top available preferred course,  each instructor will have 
@@ -61,7 +72,7 @@ public class CourseAssignment {
         for(Instructor instructor : instructors.values())
         {
             boolean assigned = false;
-            while(!assigned)
+            while(!assigned && !instructor.getPreferredCourses().isEmpty())
             {
                 Course preferredCourse =courses.get( instructor.getPreferredCourses().pop());
                 if(preferredCourse.getInstructor() == null)
@@ -75,8 +86,6 @@ public class CourseAssignment {
                     preferredCourse.setInstructor(instructor);
                     assigned = true;
                 }
-                if(instructor.getPreferredCourses().isEmpty())
-                    break;
             }
         }
     }
@@ -87,7 +96,6 @@ public class CourseAssignment {
       */       
     public boolean writeReports()
     {
-        
-        return true;
+            return true;
     }
 }
