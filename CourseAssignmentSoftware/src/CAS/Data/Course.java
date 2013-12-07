@@ -2,228 +2,144 @@ package CAS.Data;
 
 public class Course
 {
-    private int id;
-    private String workarea;
-    private Instructor instructor;
-    private Day[] day;
-    private Time start;
-    private Time end;
-    private String subject;
-    private int number;
-    private String section;
-    private int session;
-    private String title;
-    private int credits;
-    private String campus;
-    private String room;
-       
-    public Course(){
-       // todo complete constructor  
-    }
-    
-    public int hashCode(){
-        // todo
-        return title.hashCode();
-    }
-    
-    public boolean equals(Object object){
-        // todo
-        return true;
-    }
+ private int id;
+ private String workarea;
+ private Instructor instructor;
+ private Day[] day;
+ private Time start;
+ private Time end;
+ private String subject;
+ private int number;
+ private String section;
+ private int session;
+ private String title;
+ private int credits;
+ private String campus;
+ private String room;
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
+ public Course(){
+  // todo complete constructor  
+ }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+ public int hashCode(){
+  // todo
+  return number + title.hashCode();
+ }
 
-    /**
-     * @return the workarea
-     */
-    public String getWorkarea() {
-        return workarea;
-    }
+ public boolean equals(Object object){
+  // todo
+  return true;
+ }
 
-    /**
-     * @param workarea the workarea to set
-     */
-    public void setWorkarea(String workarea) {
-        this.workarea = workarea;
-    }
+ public int getId() {
+  return id;
+ }
 
-    /**
-     * @return the instructor
-     */
-    public Instructor getInstructor() {
-        return instructor;
-    }
+ public void setId(int id) {
+  this.id = id;
+ }
 
-    /**
-     * @param instructor the instructor to set
-     */
-    public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
-    }
+ public String getWorkarea() {
+  return workarea;
+ }
 
-    /**
-     * @return the day
-     */
-    public Day[] getDay() {
-        return day;
-    }
+ public void setWorkarea(String workarea) {
+  this.workarea = workarea;
+ }
 
-    /**
-     * @param day the day to set
-     */
-    public void setDay(Day[] day) {
-        this.day = day;
-    }
+ public Instructor getInstructor() {
+  return instructor;
+ }
 
-    /**
-     * @return the start
-     */
-    public Time getStart() {
-        return start;
-    }
+ public void setInstructor(Instructor instructor) {
+  this.instructor = instructor;
+ }
 
-    /**
-     * @param start the start to set
-     */
-    public void setStart(Time start) {
-        this.start = start;
-    }
+ public Day[] getDay() {
+  return day;
+ }
 
-    /**
-     * @return the end
-     */
-    public Time getEnd() {
-        return end;
-    }
+ public void setDay(Day[] day) {
+  this.day = day;
+ }
 
-    /**
-     * @param end the end to set
-     */
-    public void setEnd(Time end) {
-        this.end = end;
-    }
+ public Time getStart() {
+  return start;
+ }
 
-    /**
-     * @return the subject
-     */
-    public String getSubject() {
-        return subject;
-    }
+ public void setStart(Time start) {
+  this.start = start;
+ }
 
-    /**
-     * @param subject the subject to set
-     */
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
+ public Time getEnd() {
+  return end;
+ }
 
-    /**
-     * @return the number
-     */
-    public int getNumber() {
-        return number;
-    }
+ public void setEnd(Time end) {
+  this.end = end;
+ }
 
-    /**
-     * @param number the number to set
-     */
-    public void setNumber(int number) {
-        this.number = number;
-    }
+ public String getSubject() {
+  return subject;
+ }
 
-    /**
-     * @return the section
-     */
-    public String getSection() {
-        return section;
-    }
+ public void setSubject(String subject) {
+  this.subject = subject;
+ }
 
-    /**
-     * @param section the section to set
-     */
-    public void setSection(String section) {
-        this.section = section;
-    }
+ public String getSection() {
+  return section;
+ }
 
-    /**
-     * @return the session
-     */
-    public int getSession() {
-        return session;
-    }
+ public void setSection(String section) {
+  this.section = section;
+ }
 
-    /**
-     * @param session the session to set
-     */
-    public void setSession(int session) {
-        this.session = session;
-    }
+ public int getSession() {
+  return session;
+ }
 
-    /**
-     * @return the title
-     */
-    public String getTitle() {
-        return title;
-    }
+ public void setSession(int session) {
+  this.session = session;
+ }
 
-    /**
-     * @param title the title to set
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
+ public int getCredits() {
+  return credits;
+ }
 
-    /**
-     * @return the credits
-     */
-    public int getCredits() {
-        return credits;
-    }
+ public void setCredits(int credits) {
+  this.credits = credits;
+ }
 
-    /**
-     * @param credits the credits to set
-     */
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
+ public String getTitle() {
+  return title;
+ }
 
-    /**
-     * @return the campus
-     */
-    public String getCampus() {
-        return campus;
-    }
+ public void setTitle(String title) {
+  this.title = title;
+ }
 
-    /**
-     * @param campus the campus to set
-     */
-    public void setCampus(String campus) {
-        this.campus = campus;
-    }
+ public String getCampus() {
+  return campus;
+ }
 
-    /**
-     * @return the room
-     */
-    public String getRoom() {
-        return room;
-    }
+ public void setCampus(String campus) {
+  this.campus = campus;
+ }
 
-    /**
-     * @param room the room to set
-     */
-    public void setRoom(String room) {
-        this.room = room;
-    }
+ public String getRoom() {
+  return room;
+ }
+
+ public void setRoom(String room) {
+  this.room = room;
+ }
+ 
+ public void setNumber(int number){
+  this.number = number;
+ }
+ 
+ public int getNumber(){
+  return number;
+ }
 }

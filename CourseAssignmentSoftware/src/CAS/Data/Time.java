@@ -1,11 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package CAS.Data;
 
-class Time {
-    
+public class Time{
+ private int hour;
+ private int min;
+ private int sec;
+
+ public Time(){
+
+ }
+
+ public int getHour() {
+  return hour;
+ }
+
+ public void setHour(int hour) {
+  this.hour = hour;
+ }
+
+ public int getMin() {
+  return min;
+ }
+
+ public void setMin(int min) {
+  this.min = min;
+ }
+
+ public int getSec() {
+  return sec;
+ }
+
+ public void setSec(int sec) {
+  this.sec = sec;
+ }
+ 
+ public String toString(){
+  return getHour() + ":" + getMin() + ":" + getSec();
+ }
+ 
 }
