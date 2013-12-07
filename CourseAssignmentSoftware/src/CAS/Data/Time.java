@@ -13,6 +13,10 @@ public class Time{
      min = ((m >= 0 && m < 60) ? m :0);
 }
  
+ public int getHour() {
+     return hour;
+ }
+ 
 // convert to String in universal-time format (HH:MM)
  public String toUniversalString(){
      return String.format( "%02d:%02", hour, min);
