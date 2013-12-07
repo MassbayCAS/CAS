@@ -1,3 +1,5 @@
+package CAS.GUI;
+
 /* Richard Hayes
  * CS208 Final Program
  * 11/30/2013
@@ -50,11 +52,25 @@ public class MainWindow extends JFrame {
 //    GridBagConstraints constraints = new GridBagConstraints();
     
     courseReportPanel = new JPanel();
-    courseReportPanel.add(new JLabel("CourseReportPanel"));
+    courseReportPanel.setLayout(new BorderLayout());
+    courseReportPanel.add(new JLabel("CourseReportPanel"), BorderLayout.NORTH);
+    JTextArea courseReport = new JTextArea("Course : Instructor\nCourse : Instructor\nCourse : Instructor\n" +
+            "Course : Instructor\nCourse : Instructor\nCourse : Instructor\n");
+    courseReport.setEditable(false);
+    courseReport.setLineWrap(true);
+    courseReport.setWrapStyleWord(true);
+    courseReportPanel.add(courseReport, BorderLayout.CENTER);
     courseReportPanel.setBackground(Color.GRAY);
                           
     instructorReportPanel = new JPanel();
-    instructorReportPanel.add(new JLabel("InstructorReportPanel"));
+    instructorReportPanel.setLayout(new BorderLayout());
+    instructorReportPanel.add(new JLabel("InstructorReportPanel"), BorderLayout.NORTH);
+    JTextArea instructorReport = new JTextArea("Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3\n" +
+            "Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3");
+    instructorReport.setEditable(false);
+    instructorReport.setLineWrap(true);
+    instructorReport.setWrapStyleWord(true);
+    instructorReportPanel.add(instructorReport, BorderLayout.CENTER);
     instructorReportPanel.setBackground(Color.GRAY);
                               
     coursePanel = new JPanel();

@@ -1,3 +1,6 @@
+package CAS.GUI.Login;
+import CAS.GUI.FileSelectorWindow;
+
 /*
   Tauseef Pirzada
   06122013
@@ -56,7 +59,7 @@ public class LoginFrame extends JFrame
             if(ub.authenticate(szUsername,szPasscode))
             {
               setVisible(false);
-              //new MainWindow();
+              new FileSelectorWindow();
               dispose();
             }
             else
