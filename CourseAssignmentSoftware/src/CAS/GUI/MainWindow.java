@@ -10,6 +10,7 @@ import java.awt.event.*;
 public class MainWindow extends JFrame {
     
     private CourseAssignment courseAssignment;
+    private int round;
   
     private JPanel courseReportPanel;
     private JPanel instructorReportPanel;
@@ -43,6 +44,7 @@ public class MainWindow extends JFrame {
     setLayout(new GridBagLayout());
     
     this.courseAssignment = courseAssignment;
+    round = 1;
     buildPanels();
 
     setVisible(true);
@@ -178,7 +180,7 @@ public class MainWindow extends JFrame {
 //    bottomPanel.setSize(640, 40);
 //    bottomPanel.setLocation(0, 405);
     bottomPanel.setLayout(new GridBagLayout());
-    assignButton = new JButton("Assign");
+    assignButton = new JButton("Round 1");
 //    assignButton.setSize(100, 30);
 //    assignButton.setLocation(85, 5);
     toggleButton = new JButton("Instructors");
@@ -195,47 +197,47 @@ public class MainWindow extends JFrame {
     reportButton.addActionListener(new ButtonListener());
 //    printButton.addActionListener(new ButtonListener());
     constraints.weightx = 0.1;
-    constraints.weighty = 0.1;
+    constraints.weighty = 0.2;
     constraints.gridx = 0;
     constraints.gridy = 0;
     bottomPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.1;
-    constraints.weighty = 0.8;
+    constraints.weighty = 0.6;
     constraints.gridx = 0;
     constraints.gridy = 1;
     bottomPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.2;
-    constraints.weighty = 0.8;
+    constraints.weighty = 0.6;
     constraints.gridx = 1;
     constraints.gridy = 1;
     bottomPanel.add(assignButton, constraints);
     constraints.weightx = 0.1;
-    constraints.weighty = 0.8;
+    constraints.weighty = 0.6;
     constraints.gridx = 2;
     constraints.gridy = 1;
     bottomPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.2;
-    constraints.weighty = 0.8;
+    constraints.weighty = 0.6;
     constraints.gridx = 3;
     constraints.gridy = 1;
     bottomPanel.add(toggleButton, constraints);
     constraints.weightx = 0.1;
-    constraints.weighty = 0.8;
+    constraints.weighty = 0.6;
     constraints.gridx = 4;
     constraints.gridy = 1;
     bottomPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.2;
-    constraints.weighty = 0.8;
+    constraints.weighty = 0.6;
     constraints.gridx = 5;
     constraints.gridy = 1;
     bottomPanel.add(reportButton, constraints);
     constraints.weightx = 0.1;
-    constraints.weighty = 0.8;
+    constraints.weighty = 0.6;
     constraints.gridx = 6;
     constraints.gridy = 1;
     bottomPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.1;
-    constraints.weighty = 0.1;
+    constraints.weighty = 0.2;
     constraints.gridx = 0;
     constraints.gridy = 2;
     bottomPanel.add(new JPanel(), constraints);
@@ -317,8 +319,17 @@ public class MainWindow extends JFrame {
                   " the details box on the right.");
       }
       if (e.getSource() == assignButton) {
-          JOptionPane.showMessageDialog(null, "Clicking this would use the backend" +
-                  " methods to run the next round of the course assignment process.");
+          if(round == 1) {
+              courseAssignment.assignCourses();
+              assignButton.setText("Round 2");
+              round = 2;
+          }
+          else if(round == 2) {
+              courseAssignment.assignCourses();
+              assignButton.setText("Done");
+              assignButton.setEnabled(false);
+              round = 3;
+          }
       }
     }
   }
