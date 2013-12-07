@@ -1,55 +1,56 @@
 package CAS.GUI;
 
-/* Richard Hayes
- * CS208 Final Program
- * 11/30/2013
- */
+/* Richard Hayes */
 
+import CAS.CourseAssignment;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class MainWindow extends JFrame {
+    
+    private CourseAssignment courseAssignment;
   
-  private JPanel courseReportPanel;
-  private JPanel instructorReportPanel;
-  private JPanel coursePanel;
-  //private CoursePanel coursePanel;
-  private JPanel instructorPanel;
-  //private InstructorPanel instructorPanel;
+    private JPanel courseReportPanel;
+    private JPanel instructorReportPanel;
+    private JPanel coursePanel;
+    //private CoursePanel coursePanel;
+    private JPanel instructorPanel;
+    //private InstructorPanel instructorPanel;
   
-  private JPanel reportPanel;
-  private JPanel detailsPanel;
+    private JPanel reportPanel;
+    private JPanel detailsPanel;
   
-  private JPanel topPanel;
-  private JPanel middlePanel;
-  private JPanel middleLeftPanel;
-  private JPanel middleRightPanel;
-  private JPanel bottomPanel;
+    private JPanel topPanel;
+    private JPanel middlePanel;
+    private JPanel middleLeftPanel;
+    private JPanel middleRightPanel;
+    private JPanel bottomPanel;
   
-  private JButton detailsButton;
-  private JButton assignButton;
-  private JButton toggleButton;
-  private JButton reportButton;
-  private JButton printButton;
+    private JButton detailsButton;
+    private JButton assignButton;
+    private JButton toggleButton;
+    private JButton reportButton;
+    private JButton printButton;
  
-  public MainWindow()
+  public MainWindow(CourseAssignment courseAssignment)
   {
     super();
     setSize(640,480);
     setMaximumSize(new Dimension(640, 480));
     setMinimumSize(new Dimension(640, 480));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLayout(null);
-    setResizable(false);
+    setLayout(new GridBagLayout());
     
+    this.courseAssignment = courseAssignment;
     buildPanels();
 
     setVisible(true);
   }
   
   public void buildPanels() {
-//    GridBagConstraints constraints = new GridBagConstraints();
+    GridBagConstraints constraints = new GridBagConstraints();
+    constraints.fill = GridBagConstraints.BOTH;
     
     courseReportPanel = new JPanel();
     courseReportPanel.setLayout(new BorderLayout());
@@ -95,51 +96,97 @@ public class MainWindow extends JFrame {
     detailsPanel = coursePanel;
     
     topPanel = new JPanel();
-    topPanel.setSize(640, 30);
-    topPanel.setLocation(0, 0);
-    topPanel.setLayout(null);
+//    topPanel.setSize(640, 30);
+//    topPanel.setLocation(0, 0);
+    topPanel.setLayout(new GridBagLayout());
+    constraints.weightx = 0.3;
+    constraints.weighty = 1;
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    topPanel.add(new JPanel(), constraints);
     detailsButton = new JButton("Details");
     detailsButton.setSize(100, 30);
-    detailsButton.setLocation(220, 0);
     detailsButton.addActionListener(new ButtonListener());
-    topPanel.add(detailsButton);
-    topPanel.add(new JPanel());
+    constraints.weightx = 0.2;
+    constraints.weighty = 0.8;
+    constraints.gridx = 1;
+    constraints.gridy = 1;
+    topPanel.add(detailsButton, constraints);
+    constraints.weightx = 0.5;
+    constraints.weighty = 1;
+    constraints.gridx = 2;
+    constraints.gridy = 0;
+    topPanel.add(new JPanel(), constraints);
+    constraints.weightx = 0.3;
+    constraints.weighty = 0.1;
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    topPanel.add(new JPanel(), constraints);
+    constraints.weightx = 0.3;
+    constraints.weighty = 0.1;
+    constraints.gridx = 0;
+    constraints.gridy = 2;
+    topPanel.add(new JPanel(), constraints);
     
     middleRightPanel = new JPanel();
-    middleRightPanel.setSize(220, 300);
-    middleRightPanel.setLocation(370, 0);
-    middleRightPanel.setLayout(new BorderLayout());
-    middleRightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-    middleRightPanel.add(detailsPanel);
+//    middleRightPanel.setSize(220, 300);
+//    middleRightPanel.setLocation(370, 0);
+    middleRightPanel.setLayout(new GridBagLayout());
+    constraints.weightx = 0.3;
+    constraints.weighty = 1;
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    middleRightPanel.add(new JPanel(), constraints);
+    constraints.weightx = 0.4;
+    constraints.weighty = 0.6;
+    constraints.gridx = 1;
+    constraints.gridy = 0;
+    detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    middleRightPanel.add(detailsPanel, constraints);
+    constraints.weightx = 0.3;
+    constraints.weighty = 1;
+    constraints.gridx = 2;
+    constraints.gridy = 0;
+    middleRightPanel.add(new JPanel(), constraints);
+    constraints.weightx = 1;
+    constraints.weighty = 0.4;
+    constraints.gridx = 1;
+    constraints.gridy = 1;
+    middleRightPanel.add(new JPanel(), constraints);
     
     middleLeftPanel = new JPanel();
-    middleLeftPanel.setSize(300, 350);
-    middleLeftPanel.setLocation(20, 0);
+//    middleLeftPanel.setSize(300, 350);
+//    middleLeftPanel.setLocation(20, 0);
     middleLeftPanel.setLayout(new BorderLayout());
     middleLeftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     middleLeftPanel.add(reportPanel);
     
     middlePanel = new JPanel();
-    middlePanel.setSize(640, 375);
-    middlePanel.setLocation(0, 30);
-    middlePanel.setLayout(null);
+//    middlePanel.setSize(640, 375);
+//    middlePanel.setLocation(0, 30);
+    middlePanel.setLayout(new GridBagLayout());
     middlePanel.setBorder(BorderFactory.createLineBorder(Color.black));
-    middlePanel.add(middleLeftPanel);
-    middlePanel.add(middleRightPanel);
+    constraints.weightx = 0.5;
+    constraints.weighty = 1;
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    middlePanel.add(middleLeftPanel, constraints);
+    constraints.gridx = 1;
+    middlePanel.add(middleRightPanel, constraints);
                  
     bottomPanel = new JPanel();
-    bottomPanel.setSize(640, 40);
-    bottomPanel.setLocation(0, 405);
-    bottomPanel.setLayout(null);
+//    bottomPanel.setSize(640, 40);
+//    bottomPanel.setLocation(0, 405);
+    bottomPanel.setLayout(new GridBagLayout());
     assignButton = new JButton("Assign");
-    assignButton.setSize(100, 30);
-    assignButton.setLocation(85, 5);
+//    assignButton.setSize(100, 30);
+//    assignButton.setLocation(85, 5);
     toggleButton = new JButton("Instructors");
-    toggleButton.setSize(100, 30);
-    toggleButton.setLocation(270, 5);
+//    toggleButton.setSize(100, 30);
+//    toggleButton.setLocation(270, 5);
     reportButton = new JButton("Report");
-    reportButton.setSize(100, 30);
-    reportButton.setLocation(455, 5);
+//    reportButton.setSize(100, 30);
+//    reportButton.setLocation(455, 5);
 //    printButton = new JButton("Print");
 //    printButton.setSize(100, 30);
 //    printButton.setLocation(540, 20);
@@ -147,36 +194,74 @@ public class MainWindow extends JFrame {
     toggleButton.addActionListener(new ButtonListener());
     reportButton.addActionListener(new ButtonListener());
 //    printButton.addActionListener(new ButtonListener());
-    bottomPanel.add(assignButton);
-    bottomPanel.add(toggleButton);
-    bottomPanel.add(reportButton);
+    constraints.weightx = 0.1;
+    constraints.weighty = 0.1;
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    bottomPanel.add(new JPanel(), constraints);
+    constraints.weightx = 0.1;
+    constraints.weighty = 0.8;
+    constraints.gridx = 0;
+    constraints.gridy = 1;
+    bottomPanel.add(new JPanel(), constraints);
+    constraints.weightx = 0.2;
+    constraints.weighty = 0.8;
+    constraints.gridx = 1;
+    constraints.gridy = 1;
+    bottomPanel.add(assignButton, constraints);
+    constraints.weightx = 0.1;
+    constraints.weighty = 0.8;
+    constraints.gridx = 2;
+    constraints.gridy = 1;
+    bottomPanel.add(new JPanel(), constraints);
+    constraints.weightx = 0.2;
+    constraints.weighty = 0.8;
+    constraints.gridx = 3;
+    constraints.gridy = 1;
+    bottomPanel.add(toggleButton, constraints);
+    constraints.weightx = 0.1;
+    constraints.weighty = 0.8;
+    constraints.gridx = 4;
+    constraints.gridy = 1;
+    bottomPanel.add(new JPanel(), constraints);
+    constraints.weightx = 0.2;
+    constraints.weighty = 0.8;
+    constraints.gridx = 5;
+    constraints.gridy = 1;
+    bottomPanel.add(reportButton, constraints);
+    constraints.weightx = 0.1;
+    constraints.weighty = 0.8;
+    constraints.gridx = 6;
+    constraints.gridy = 1;
+    bottomPanel.add(new JPanel(), constraints);
+    constraints.weightx = 0.1;
+    constraints.weighty = 0.1;
+    constraints.gridx = 0;
+    constraints.gridy = 2;
+    bottomPanel.add(new JPanel(), constraints);
 //    bottomPanel.add(printButton);
     
-//    constraints.anchor = GridBagConstraints.FIRST_LINE_START;
-//    constraints.fill = GridBagConstraints.BOTH;
-//    constraints.gridx = 0;
-//    constraints.gridy = 0;
-//    constraints.weightx = 1.0;
-//    constraints.weighty = 0.1;
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    constraints.weightx = 1;
+    constraints.weighty = 0.1;
     
-    add(topPanel);
+    add(topPanel, constraints);
     
-//    constraints.fill = GridBagConstraints.BOTH;
-//    constraints.gridy = 1;
-//    constraints.weighty = 0.7;
+    constraints.gridy = 1;
+    constraints.weighty = 0.7;
     
-    add(middlePanel);
+    add(middlePanel, constraints);
     
-//    constraints.fill = GridBagConstraints.BOTH;
-//    constraints.gridy = 2;
-//    constraints.weighty = 0.2;
+    constraints.gridy = 2;
+    constraints.weighty = 0.2;
     
-    add(bottomPanel);
+    add(bottomPanel, constraints);
   }
   
   public static void main(String[] args)
   {
-    new MainWindow();
+    new MainWindow(new CourseAssignment());
   }
   
    private class ButtonListener implements ActionListener
