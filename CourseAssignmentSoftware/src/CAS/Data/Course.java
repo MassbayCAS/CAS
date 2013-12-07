@@ -1,11 +1,13 @@
 package CAS.Data;
 
+import java.util.ArrayList;
+
 public class Course
 {
  private int id;
- private String workarea;
+ private String workArea;
  private Instructor instructor;
- private Day[] day;
+ private ArrayList<Day> days;
  private Time start;
  private Time end;
  private String subject;
@@ -17,7 +19,20 @@ public class Course
  private String campus;
  private String room;
 
- public Course(){
+ public Course(int id, String workArea, ArrayList<Day> days, Time start, Time end,
+         String subject, int number, String section, int session, String title,
+         int credits, String campus, String room){
+     this.id = id;
+     this.workArea = workArea;
+     instructor = null;
+     days = new ArrayList<Day>();
+     this.subject = subject;
+     this.number = number;
+     this.section = section;
+     this.title = title;
+     this.credits = credits;
+     this.campus = campus;
+     this.room = room;
  }
 
  public int hashCode(){
@@ -45,12 +60,12 @@ public class Course
   this.id = id;
  }
 
- public String getWorkarea() {
-  return workarea;
+ public String getWorkArea() {
+  return workArea;
  }
 
- public void setWorkarea(String workarea) {
-  this.workarea = workarea;
+ public void setWorkarea(String workArea) {
+  this.workArea = workArea;
  }
 
  public Instructor getInstructor() {
@@ -61,12 +76,16 @@ public class Course
   this.instructor = instructor;
  }
 
- public Day[] getDay() {
-  return day;
+ public ArrayList<Day> getDays() {
+  return days;
  }
 
- public void setDay(Day[] day) {
-  this.day = day;
+ public void setDays(ArrayList<Day> days) {
+  this.days = days;
+ }
+ 
+ public void addDay(Day day) {
+     days.add(day);
  }
 
  public Time getStart() {
