@@ -4,9 +4,9 @@ import CAS.Data.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 /**
  * @author Peter Collins - Final Project CS208
@@ -87,19 +87,77 @@ public class DataIO
      */
     public static String GetCourseReport (HashMap <String, Course> courses, boolean isAssigned)
     {
-        StringBuilder sb = new StringBuilder ();
-        // TODO
+        StringBuilder sb = new StringBuilder (); 
+        PriorityQueue<Course> coursePQ = GetSortedCourses (courses, isAssigned);
+        
+        // the following can be modified to retreieve whatever course fields
+        // are desireable for the report
+        sb.append ("Work Area"); sb.append ("\t");
+        sb.append ("ID"); sb.append ("\t");
+        sb.append ("Section"); sb.append ("\t");
+        sb.append ("Course Name"); sb.append ("\t");
+        sb.append ("Instructor"); sb.append ("\n");
+        sb.append ("------------------------------------------------------------------------------------------\n");
+        while (!coursePQ.isEmpty() && coursePQ.peek() != null) {
+            Course c = coursePQ.poll();
+            String profName = "";
+            
+            if (c.getInstructor() != null)
+                profName = c.getInstructor().getName();
+            
+    
+            sb.append (c.getWorkarea()); sb.append ("\t");
+            sb.append (c.getId()); sb.append ("\t");
+            sb.append (c.getSection()); sb.append ("\t");
+            sb.append (c.getTitle()); sb.append ("\t");
+            sb.append (profName); sb.append ("\n");
+        }
         return sb.toString ();
+    }
+    
+    /** Gets a sorted priority queue of courses
+     *  This method can  be used to fetch both the assigned, 
+     *  and unassigned courses.
+     *  @param courses - The map of courses.
+     *  @param isAssigned - True if the report should be of assigned courses,
+     *  false if the report should be of unassigned courses.
+     *  @return Returns a sorted queue of courses
+     */
+    public static PriorityQueue<Course> GetSortedCourses (HashMap <String, Course> courses, boolean isAssigned)
+    {
+        PriorityQueue<Course> coursePQ = new PriorityQueue (100, new CourseComparator());
+        
+        // sort courses by desired reporting qualities
+        for (Course c : courses.values()) {
+            // only add assigned or unassigned courses
+            if (isAssigned == (c.getInstructor() != null)) {
+                coursePQ.offer (c);
+            }
+        }
+        return coursePQ;
     }
     
      /** Gets a sorted and formatted unfulfilled request report
      *  @param instructors - The map of instructors.
      *  @return Returns a formatted unfulfilled assignment report.
      */
-    public static String GetunfulfilledRequests (HashMap <String, Instructor> instructors)
+    public static String GetUnfulfilledRequestReport (HashMap <String, Instructor> instructors)
     {
         StringBuilder sb = new StringBuilder ();
         // TODO
         return sb.toString ();
+    }
+    
+    static class CourseComparator implements Comparator<Course>
+    {
+      @Override
+      public int compare (Course c1, Course c2)
+      {
+          // Sort courses alphabetically by course area first,
+          // and then by course ID
+          return (c1.getWorkarea().equals(c2.getWorkarea())
+                  ? c1.getId() - c2.getId()
+                  : c1.getWorkarea().compareTo(c2.getWorkarea()));
+      }
     }
 }
