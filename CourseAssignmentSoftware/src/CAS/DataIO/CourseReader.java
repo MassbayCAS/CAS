@@ -42,7 +42,7 @@ public class CourseReader extends FileReader
             Time start;
             Time end;
             
-            if(splitline[5] != null)
+            if(splitline.length > 5)
             {
                 days = new ArrayList<Day>();
                 if(splitline[5].contains("M"))
@@ -86,7 +86,7 @@ public class CourseReader extends FileReader
             
             String[] subjectNumber = splitline[1].split("\\s");
             String subject = subjectNumber[0];
-            int number = Integer.parseInt(subjectNumber[1]);
+            String number = subjectNumber[1];
             String section = splitline[2];
             int session = 0;
             String title = splitline[3];
