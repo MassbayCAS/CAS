@@ -35,9 +35,10 @@ public class CourseReader extends FileReader
         {
             String line = scan.nextLine();
             String[] splitline = line.split("\\t");
-            
+
             int id = Integer.parseInt(splitline[0]);
             String workArea = null;
+
             ArrayList<Day> days;
             Time start;
             Time end;
@@ -85,6 +86,72 @@ public class CourseReader extends FileReader
             }
             
             String[] subjectNumber = splitline[1].split("\\s");
+            switch(subjectNumber[0])
+            {
+                case "BI":
+                    if(subjectNumber[1].equals("113")
+                            || subjectNumber[1].equals("115")
+                            || subjectNumber[1].equals("116"))
+                        workArea = "Anatomy & Physiology";
+                    if(subjectNumber[1].equals("101")
+                            || subjectNumber[1].equals("102")
+                            || subjectNumber[1].equals("110")
+                            || subjectNumber[1].equals("120")
+                            || subjectNumber[1].equals("210"))
+                        workArea = "Biology";
+                    if(subjectNumber[1].equals("118")
+                            || subjectNumber[1].equals("123")
+                            || subjectNumber[1].equals("220")
+                            || subjectNumber[1].equals("240"))
+                        workArea = "Microbiology";
+                    break;                    
+                case "BT":
+                    workArea = "Biotechnology";
+                    break;
+                case "CH":
+                    workArea = "Chemistry";
+                    break;
+                case "CS":
+                    if(subjectNumber[1].equals("100"))
+                        workArea = "Computer Literacy";
+                    else
+                        workArea = "Computer Science";
+                    break;
+                case "EE":
+                    workArea = "Engineering";
+                    break;
+                case "EV":
+                    workArea = "Environmental Science";
+                    break;
+                case "MA":
+                    if(subjectNumber[1].equals("105"))
+                        workArea = "Statistics";
+                    else
+                        workArea = "Mathematics";
+                    break;
+                case "MAC":
+                    workArea = "Mathematics";
+                    break;
+                case "MN":
+                    if(subjectNumber[1].equals("121")
+                            || subjectNumber[1].equals("130")
+                            || subjectNumber[1].equals("135")
+                            || subjectNumber[1].equals("140")
+                            || subjectNumber[1].equals("141")
+                            || subjectNumber[1].equals("241")
+                            || subjectNumber[1].equals("261")
+                            || subjectNumber[1].equals("271"))
+                        workArea = "Mechanical CAD";
+                    break;
+                case "PY":
+                    workArea = "Physics";
+                    break;
+                case "SC":
+                    workArea = "Science";
+                    break;        
+                default: workArea = null;
+                    break;
+            }
             String subject = subjectNumber[0];
             String number = subjectNumber[1];
             String section = splitline[2];
