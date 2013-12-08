@@ -56,12 +56,16 @@ public class TAFReader
         ArrayList<Day> preferredDays = new ArrayList<Day>();
         ArrayList<TimeSchedule> prefTimes = new ArrayList<TimeSchedule>();
         ArrayDeque<String> preferredCourse = new ArrayDeque<String>();
-        HashMap<String, Instructor> theMap = new HashMap<>();
+        HashMap<String, Instructor> theMap = new HashMap<String, Instructor>();
         StringTokenizer st;
         String info = "";
         String temp;
         while(scan.hasNextLine()) //checks if we are at the end of file if not continues
         {
+            
+            prefTimes = new ArrayList<TimeSchedule>();
+            preferredCourse = new ArrayDeque<String>();
+            preferredDays = new ArrayList<Day>();
             scan.nextLine();
             info = scan.nextLine(); // gets first line which has a name followed by a phone number
             //System.out.println("info: " + info);
@@ -104,14 +108,16 @@ public class TAFReader
                         info = scan.nextLine();
                         if(!info.equals("")) {
                         preferredCourse.offerLast(info); // adds the preferred course using fifo
-                        //System.out.println("courses: " + info);
+                        System.out.println("courses: " + info);
                         }
                 }
-                //System.out.println(name);
+                System.out.println(preferredCourse);
                 theMap.put(name, new Instructor(new TAF(preferredDays,prefTimes,preferredCourse),name,number));//Instructor and Taf have no Constructor???
+                /*
                 prefTimes.clear(); //clears arrays for new info
                 preferredCourse.clear();
                 preferredDays.clear();
+                * */
             }
             
         }
