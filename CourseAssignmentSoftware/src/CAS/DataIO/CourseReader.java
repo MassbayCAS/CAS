@@ -38,38 +38,51 @@ public class CourseReader extends FileReader
             
             int id = Integer.parseInt(splitline[0]);
             String workArea = null;
-            ArrayList<Day> days = new ArrayList<Day>();
-            if(splitline[5].contains("M"))
-                days.add(Day.MONDAY);
-            if(splitline[5].contains("T"))
-                days.add(Day.TUESDAY);
-            if(splitline[5].contains("W"))
-                days.add(Day.WEDNESDAY);
-            if(splitline[5].contains("R"))
-                days.add(Day.THURSDAY);
-            if(splitline[5].contains("F"))
-                days.add(Day.FRIDAY);
-            if(splitline[5].contains("Sa"))
-                days.add(Day.SATURDAY);
-            if(splitline[5].contains("Su"))
-                days.add(Day.SUNDAY);
+            ArrayList<Day> days;
+            Time start;
+            Time end;
             
-            String[] startTime = splitline[6].split(":");
-            int hour = Integer.parseInt(startTime[0].trim());
-            char[] startMin = startTime[1].toCharArray();
-            String minString = String.valueOf(startMin[0]) + String.valueOf(startMin[1]);
-            int min = Integer.parseInt(minString);
-            if(startMin[2] == 'p')
-                hour += 12;
-            Time start = new Time(hour, min);
-            String[] endTime = splitline[7].split(":");
-            hour = Integer.parseInt(endTime[0].trim());
-            char[] endMin = endTime[1].toCharArray();
-            minString = String.valueOf(endMin[0]) + String.valueOf(endMin[1]);
-            min = Integer.parseInt(minString);
-            if(endMin[2] == 'p')
-                hour += 12;
-            Time end = new Time(hour, min);
+            if(splitline[5] != null)
+            {
+                days = new ArrayList<Day>();
+                if(splitline[5].contains("M"))
+                    days.add(Day.MONDAY);
+                if(splitline[5].contains("T"))
+                    days.add(Day.TUESDAY);
+                if(splitline[5].contains("W"))
+                    days.add(Day.WEDNESDAY);
+                if(splitline[5].contains("R"))
+                    days.add(Day.THURSDAY);
+                if(splitline[5].contains("F"))
+                    days.add(Day.FRIDAY);
+                if(splitline[5].contains("Sa"))
+                    days.add(Day.SATURDAY);
+                if(splitline[5].contains("Su"))
+                    days.add(Day.SUNDAY);
+
+                String[] startTime = splitline[6].split(":");
+                int hour = Integer.parseInt(startTime[0].trim());
+                char[] startMin = startTime[1].toCharArray();
+                String minString = String.valueOf(startMin[0]) + String.valueOf(startMin[1]);
+                int min = Integer.parseInt(minString);
+                if(startMin[2] == 'p')
+                    hour += 12;
+                start = new Time(hour, min);
+                String[] endTime = splitline[7].split(":");
+                hour = Integer.parseInt(endTime[0].trim());
+                char[] endMin = endTime[1].toCharArray();
+                minString = String.valueOf(endMin[0]) + String.valueOf(endMin[1]);
+                min = Integer.parseInt(minString);
+                if(endMin[2] == 'p')
+                    hour += 12;
+                end = new Time(hour, min);
+            }
+            else
+            {
+                days = null;
+                start = null;
+                end = null;
+            }
             
             String[] subjectNumber = splitline[1].split("\\s");
             String subject = subjectNumber[0];
@@ -81,7 +94,6 @@ public class CourseReader extends FileReader
             String campus = splitline[4];
             String room = null;
             
-            // Waiting on Course class to be finished to finalize this part
             Course course = new Course(id, workArea, days, start, end, subject, 
                     number, section, session, title, credits, campus, room);
             String key = course.getSubject() + course.getNumber() + course.getSection();
