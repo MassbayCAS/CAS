@@ -6,6 +6,7 @@ public class Time{
  private int min;
 
  public Time(int hour, int min){
+     setTime(hour, min);
  }
  
  public void setTime(int h, int m){

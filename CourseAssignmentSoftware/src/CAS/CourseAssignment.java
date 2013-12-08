@@ -6,8 +6,11 @@ package CAS;
 
 import CAS.Data.Course;
 import CAS.Data.Instructor;
-import CAS.DataIO.DataIO;
-import java.util.ArrayList;
+import CAS.DataIO.CourseReader;
+import CAS.DataIO.SeniorityListReader;
+import CAS.DataIO.TAFReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 /**
@@ -42,23 +45,25 @@ public class CourseAssignment {
       *  data files.
       *  @return Returns whether or not loading succeeded.
       */    
-    public boolean loadData()
+    /*
+    public boolean loadData() throws FileNotFoundException
     {
-        loadCourses();
-        loadInstructors();
-        loadSeniorityList();
-        loadWorkAreas();
+        loadCourses(file);
+        loadInstructors(file);
+        loadSeniorityList(file);
+        //loadWorkAreas();
         return true;
     }
+    * */
     
-    public void loadCourses()
-    { /**courses = DataIO.LoadCourses();*/ }
+    public void loadCourses(File file) throws FileNotFoundException
+    { courses = CourseReader.loadCourses(file); }
     
-    public void loadInstructors()
-    { /** instructors = DataIO.LoadInstructors();*/ }
+    public void loadInstructors(File file) throws FileNotFoundException
+    { instructors = TAFReader.loadInstructors(file); }
     
-    public void loadSeniorityList()
-    { /**DataIO.LoadSeniorityList(instructors);*/ }
+    public void loadSeniorityList(File file) throws FileNotFoundException
+    { SeniorityListReader.loadSeniorityList(file, instructors); }
     
     public void loadWorkAreas()
     { /** load work areas */ }

@@ -19,16 +19,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class CourseReader extends FileReader
+public class CourseReader
 {
+    /*
     public CourseReader(String filename) throws FileNotFoundException
     {
         super(filename);
     }
+    * */
     
-    public HashMap<String, Course> loadCourses() throws FileNotFoundException
+    public static HashMap<String, Course> loadCourses(String filename) throws FileNotFoundException {
+        return loadCourses(new File(filename));
+    }
+    
+    public static HashMap<String, Course> loadCourses(File file) throws FileNotFoundException
     {
-        Scanner scan = new Scanner(getFile());
+        Scanner scan = new Scanner(file);
         HashMap<String, Course> courseList = new HashMap<String, Course>();
         scan.nextLine();
         while(scan.hasNext())

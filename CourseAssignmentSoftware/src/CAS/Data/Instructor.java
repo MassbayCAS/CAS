@@ -12,7 +12,7 @@ public class Instructor {
     private ArrayList<Course> courses;
     private TAF taf;
 
-    public Instructor(TAF taf, String ame, String phoneNumber) {
+    public Instructor(TAF taf, String name, String phoneNumber) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.taf = taf;
@@ -56,7 +56,7 @@ public class Instructor {
         return taf;
     }
 
-    public int compareTo(Instructor instructor, Course course) {
+    public int compareSeniorities(Instructor instructor, Course course) {
         String workArea = course.getWorkArea();
         int seniorityComparison = instructor.getSeniorities().get(workArea) - seniorities.get(workArea);
         if (seniorityComparison != 0) {
@@ -66,5 +66,22 @@ public class Instructor {
             int dateComparison = instructor.getTAF().getDateOfSubmission().compareTo(taf.getDateOfSubmission());
             return dateComparison;
         }
+    }
+    
+    @Override
+    public int hashCode() {
+        String hash = name;
+        return hash.hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {            return false;        }
+        if (object == this) {            return true;        }
+        if (object instanceof Instructor) {
+            Instructor other = (Instructor)object;
+            return name.equals(other.getName()) && phoneNumber.equals(other.getPhoneNumber());
+        }
+        return false;
     }
 }
