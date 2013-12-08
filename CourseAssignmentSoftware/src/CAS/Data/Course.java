@@ -11,7 +11,7 @@ public class Course
  private Time start;
  private Time end;
  private String subject;
- private int number;
+ private String number;
  private String section;
  private int session;
  private String title;
@@ -20,7 +20,7 @@ public class Course
  private String room;
 
  public Course(int id, String workArea, ArrayList<Day> days, Time start, Time end,
-         String subject, int number, String section, int session, String title,
+         String subject, String number, String section, int session, String title,
          int credits, String campus, String room){
      this.id = id;
      this.workArea = workArea;
@@ -160,11 +160,11 @@ public class Course
   this.room = room;
  }
  
- public void setNumber(int number){
+ public void setNumber(String number){
   this.number = number;
  }
  
- public int getNumber(){
+ public String getNumber(){
   return number;
  }
 }
