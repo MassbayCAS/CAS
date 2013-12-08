@@ -35,19 +35,22 @@ public class Course
      this.room = room;
  }
 
+ @Override
  public int hashCode(){
-  String hash = number + title;
+  String hash = subject + number;
   return hash.hashCode();
  }
 
- public boolean equals(Course course){
-  if(number != course.number)
+ @Override
+ public boolean equals(Object object){
+     Course course = (Course)object;
+  if(number != course.getNumber())
       return false;
-  if(!subject.equals(course.subject))
+  if(!subject.equals(course.getSubject()))
       return false;
-  if(!title.equals(course.title))
+  if(!title.equals(course.getTitle()))
       return false;
-  if(credits != course.credits)
+  if(credits != course.getCredits())
       return false;
   return true;
  }

@@ -19,8 +19,9 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.io.*;
 import java.util.StringTokenizer;
-public class TAFReader extends FileReader
+public class TAFReader
 {
+    /*
     private Scanner scan;
     private String name;
     private String number;
@@ -29,35 +30,54 @@ public class TAFReader extends FileReader
     private ArrayList<TimeSchedule> prefTimes;
     private ArrayDeque<String> preferredCourse;
     private HashMap<String, Instructor> theMap;
+    * */
     /* Constructor Takes in a name of a file as an parameter and sends it to
     the super and intializes the data sturctures
     */
+    /*
     public TAFReader(String name) throws FileNotFoundException
     {
         super(name);
-        scan = new Scanner(super.getFile());
-        preferredDays = new ArrayList<Day>();
-        prefTimes = new ArrayList<>();
-        preferredCourse = new ArrayDeque<String>();
-        theMap = new HashMap<>();
+        
     }
+    * */
+    
+    public static HashMap<String,Instructor> loadInstructors(String filename) throws FileNotFoundException {
+        return loadInstructors(new File(filename));
+    }
+    
     // Takes info from the file and parses it in a HashMap of <String,Instructor>
-    public HashMap<String,Instructor> loadInstructor()
+    public static HashMap<String,Instructor> loadInstructors(File file) throws FileNotFoundException
     {
+        Scanner scan = new Scanner(file);
+        String name;
+        String number;
+        Date admission;
+        ArrayList<Day> preferredDays = new ArrayList<Day>();
+        ArrayList<TimeSchedule> prefTimes = new ArrayList<TimeSchedule>();
+        ArrayDeque<String> preferredCourse = new ArrayDeque<String>();
+        HashMap<String, Instructor> theMap = new HashMap<>();
         StringTokenizer st;
         String info = "";
         String temp;
         while(scan.hasNextLine()) //checks if we are at the end of file if not continues
         {
+            scan.nextLine();
             info = scan.nextLine(); // gets first line which has a name followed by a phone number
+            //System.out.println("info: " + info);
             if(!info.equals("")){ // check to see if the file is at a "" string
+                //System.out.println("info: " + info);
                 st = new StringTokenizer(info,"\t"); //tokenizes the first line into name and phone number
                 name = st.nextToken(); // saves name
+                //System.out.println("name: " + name);
                 number = st.nextToken(); // saves number
+                //System.out.println("number: " + number);
                 info = scan.nextLine(); // gets next line which has preferred day and times
-                st = new StringTokenizer(info,",\t"); // tokenizes using , and tab as delimiters
+                st = new StringTokenizer(info,",\t "); // tokenizes using , and tab as delimiters
+                //System.out.println("st: " + info);
                 while(st.hasMoreTokens()){ // check to see if there is more on the line
                     temp = st.nextToken();  //temp gets the token for checking
+                    //System.out.println("temp: " + temp);
                     switch(temp){ // switch using the temp check if it a m,t,w,th,f or it will create a timeSchelede obj
                         case "m":
                             preferredDays.add(Day.MONDAY);
@@ -80,11 +100,14 @@ public class TAFReader extends FileReader
                             break;
                     }
                 }
-                while(!info.equals("")) { // check that if falls we know we are at the end of the TAF.
+                while(!info.equals("") && scan.hasNextLine()) { // check that if falls we know we are at the end of the TAF.
                         info = scan.nextLine();
-                        if(!info.equals(""))
+                        if(!info.equals("")) {
                         preferredCourse.offerLast(info); // adds the preferred course using fifo
+                        //System.out.println("courses: " + info);
+                        }
                 }
+                //System.out.println(name);
                 theMap.put(name, new Instructor(new TAF(preferredDays,prefTimes,preferredCourse),name,number));//Instructor and Taf have no Constructor???
                 prefTimes.clear(); //clears arrays for new info
                 preferredCourse.clear();
@@ -92,6 +115,7 @@ public class TAFReader extends FileReader
             }
             
         }
+        //System.out.println("INSIDE THE MAP: " + theMap);
         return theMap;
     }
 }
