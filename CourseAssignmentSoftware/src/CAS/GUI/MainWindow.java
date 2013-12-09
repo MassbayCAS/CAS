@@ -13,7 +13,9 @@ public class MainWindow extends JFrame {
     private int round;
   
     private JPanel courseReportPanel;
+//    private CourseReportPanel courseReportPanel;
     private JPanel instructorReportPanel;
+//    private InstructorReportPanel instructorReportPanel;
     private JPanel coursePanel;
     //private CoursePanel coursePanel;
     private JPanel instructorPanel;
@@ -55,6 +57,7 @@ public class MainWindow extends JFrame {
     constraints.fill = GridBagConstraints.BOTH;
     
     courseReportPanel = new JPanel();
+//    courseReportPanel = new CourseReportPanel();
     courseReportPanel.setLayout(new BorderLayout());
     courseReportPanel.add(new JLabel("CourseReportPanel"), BorderLayout.NORTH);
     JTextArea courseReport = new JTextArea("Course : Instructor\nCourse : Instructor\nCourse : Instructor\n" +
@@ -66,6 +69,7 @@ public class MainWindow extends JFrame {
     courseReportPanel.setBackground(Color.GRAY);
                           
     instructorReportPanel = new JPanel();
+//    instructorReportPanel = new InstructorReportPanel();
     instructorReportPanel.setLayout(new BorderLayout());
     instructorReportPanel.add(new JLabel("InstructorReportPanel"), BorderLayout.NORTH);
     JTextArea instructorReport = new JTextArea("Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3\n" +
