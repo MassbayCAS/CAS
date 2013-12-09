@@ -57,8 +57,8 @@ public class CourseAssignment {
     }
     * */
     
-    public void loadCourses(File file) throws FileNotFoundException
-    { courses = CourseReader.loadCourses(file); }
+    public void loadCourses(File file, File workAreaFile) throws FileNotFoundException
+    { courses = CourseReader.loadCourses(file, workAreaFile); }
     
     public void loadInstructors(File file) throws FileNotFoundException
     { instructors = TAFReader.loadInstructors(file); }
@@ -79,7 +79,7 @@ public class CourseAssignment {
         {
             ArrayDeque<Course> preferredCourses = instructor.getPreferredCourses(getCourses());
             boolean assigned = false;
-            while(!assigned && !preferredCourses.isEmpty())
+            while(!assigned)
             {
                 Course preferredCourse = courses.get(preferredCourses.pop());
                 if(preferredCourse.getInstructor() == null)
@@ -87,11 +87,14 @@ public class CourseAssignment {
                     preferredCourse.setInstructor(instructor);
                     assigned = true;
                 }
-                else  if(preferredCourse.getInstructor().compareTo(instructor, preferredCourse) < 0)
+                else  if(preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse) < 0)
                 {
                     preferredCourse.getInstructor().getCourses().remove(preferredCourse);
                     preferredCourse.setInstructor(instructor);
                     assigned = true;
+                }
+                if (preferredCourses.isEmpty()) {
+                    break;
                 }
             }
         }

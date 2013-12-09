@@ -108,10 +108,10 @@ public class TAFReader
                         info = scan.nextLine();
                         if(!info.equals("")) {
                         preferredCourse.offerLast(info); // adds the preferred course using fifo
-                        System.out.println("courses: " + info);
+                        //System.out.println("courses: " + info);
                         }
                 }
-                System.out.println(preferredCourse);
+                //System.out.println(preferredCourse);
                 theMap.put(name, new Instructor(new TAF(preferredDays,prefTimes,preferredCourse),name,number));//Instructor and Taf have no Constructor???
                 /*
                 prefTimes.clear(); //clears arrays for new info
