@@ -330,9 +330,14 @@ public class MainWindow extends JFrame {
           }
           else if(round == 2) {
               courseAssignment.assignCourses();
+              assignButton.setText("Round 3");
+              round = 3;
+          }
+          else if(round == 3) {
+              courseAssignment.assignCourses();
               assignButton.setText("Done");
               assignButton.setEnabled(false);
-              round = 3;
+              round = 4;
           }
       }
     }
