@@ -9,11 +9,13 @@ public class TAF {
 	private ArrayList<Day> preferredDays;
 	private ArrayList<TimeSchedule> preferredTimes;
 	private ArrayDeque<String> preferredCourses;
+        private ArrayList<String> unfulfilledRequests;
         
         public TAF(ArrayList<Day> preferredDays,ArrayList<TimeSchedule> preferredTimes,ArrayDeque<String> preferredCourses){
             this.preferredDays = preferredDays;
             this.preferredTimes = preferredTimes;
             this.preferredCourses = preferredCourses;
+            unfulfilledRequests = new ArrayList<String>();
         }
 	
 	public Date getDateOfSubmission(){
