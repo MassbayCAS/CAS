@@ -11,6 +11,7 @@ import CAS.DataIO.SeniorityListReader;
 import CAS.DataIO.TAFReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayDeque;
 import java.util.HashMap;
 
 /**
@@ -76,10 +77,11 @@ public class CourseAssignment {
     {
         for(Instructor instructor : instructors.values())
         {
+            ArrayDeque<Course> preferredCourses = instructor.getPreferredCourses(getCourses());
             boolean assigned = false;
-            while(!assigned && !instructor.getPreferredCourses().isEmpty())
+            while(!assigned && !preferredCourses.isEmpty())
             {
-                Course preferredCourse =courses.get( instructor.getPreferredCourses().pop());
+                Course preferredCourse = courses.get(preferredCourses.pop());
                 if(preferredCourse.getInstructor() == null)
                 {
                     preferredCourse.setInstructor(instructor);
