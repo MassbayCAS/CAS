@@ -1,24 +1,28 @@
+package CAS.GUI;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import CAS.CourseAssignment;
+import CAS.Data.Course;
+
 
 /**
  *
  * @author Pat
  */
 public class CourseReportPanel extends JPanel {
-    private JList list;
+    private JList<String> list;
     private JLabel label1;
-    private DefaultListModel listModel;
+    private DefaultListModel<String> listModel;
     private JScrollPane listScroller;
+    private CourseAssignment courseAssignment;
     
-    public CourseReportPanel() {
+    public CourseReportPanel(CourseAssignment courseAssignment) {
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-
-        setBackground(Color.LIGHT_GRAY);
+        
+        this.courseAssignment = courseAssignment;
+        setBackground(Color.GRAY);
         
         label1 = new JLabel("CourseReportPanel");
         c.gridx = 0;
@@ -26,24 +30,28 @@ public class CourseReportPanel extends JPanel {
         c.weighty = 0.05;
         add(label1, c);
         
-        listModel = new DefaultListModel();
-        for ( int i = 0; i< 100; i ++) {
-            listModel.addElement("Course " + i + ": Instructor " + i);
+        listModel = new DefaultListModel<>();
+        
+        
+        for (Course co : courseAssignment.getCourses().values()) {
+            listModel.addElement(co.getWorkArea() + co.getNumber() + "-" + co.getSection() 
+                    + " : " + co.getInstructor());
         }
         
-        list = new JList(listModel);
+        list = new JList<>(listModel);
+        
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
 
         listScroller = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-
+        
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
         c.gridy = 1;
         c.weighty = 1;
-        c.weightx = 0.5;
+        c.weightx = 1;
         
         add(listScroller, c);
         setVisible(true);
