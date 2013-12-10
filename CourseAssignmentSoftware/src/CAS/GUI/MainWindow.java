@@ -3,19 +3,24 @@ package CAS.GUI;
 /* Richard Hayes */
 
 import CAS.CourseAssignment;
+import CAS.Data.Course;
+import CAS.Data.Instructor;
+import CAS.DataIO.IncorrectFormatException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class MainWindow extends JFrame {
     
     private CourseAssignment courseAssignment;
     private int round;
   
-    private JPanel courseReportPanel;
-//    private CourseReportPanel courseReportPanel;
-    private JPanel instructorReportPanel;
-//    private InstructorReportPanel instructorReportPanel;
+//    private JPanel courseReportPanel;
+    private CourseReportPanel courseReportPanel;
+//    private JPanel instructorReportPanel;
+    private InstructorReportPanel instructorReportPanel;
     private JPanel coursePanel;
     //private CoursePanel coursePanel;
     private JPanel instructorPanel;
@@ -35,6 +40,8 @@ public class MainWindow extends JFrame {
     private JButton toggleButton;
     private JButton reportButton;
     private JButton printButton;
+    
+    JTextArea details;
  
   public MainWindow(CourseAssignment courseAssignment)
   {
@@ -56,35 +63,35 @@ public class MainWindow extends JFrame {
     GridBagConstraints constraints = new GridBagConstraints();
     constraints.fill = GridBagConstraints.BOTH;
     
-    courseReportPanel = new JPanel();
-//    courseReportPanel = new CourseReportPanel();
-    courseReportPanel.setLayout(new BorderLayout());
-    courseReportPanel.add(new JLabel("CourseReportPanel"), BorderLayout.NORTH);
-    JTextArea courseReport = new JTextArea("Course : Instructor\nCourse : Instructor\nCourse : Instructor\n" +
-            "Course : Instructor\nCourse : Instructor\nCourse : Instructor\n");
-    courseReport.setEditable(false);
-    courseReport.setLineWrap(true);
-    courseReport.setWrapStyleWord(true);
-    courseReportPanel.add(courseReport, BorderLayout.CENTER);
-    courseReportPanel.setBackground(Color.GRAY);
+//    courseReportPanel = new JPanel();
+    courseReportPanel = new CourseReportPanel(courseAssignment);
+//    courseReportPanel.setLayout(new BorderLayout());
+//    courseReportPanel.add(new JLabel("CourseReportPanel"), BorderLayout.NORTH);
+//    JTextArea courseReport = new JTextArea("Course : Instructor\nCourse : Instructor\nCourse : Instructor\n" +
+//            "Course : Instructor\nCourse : Instructor\nCourse : Instructor\n");
+//    courseReport.setEditable(false);
+//    courseReport.setLineWrap(true);
+//    courseReport.setWrapStyleWord(true);
+//    courseReportPanel.add(courseReport, BorderLayout.CENTER);
+//    courseReportPanel.setBackground(Color.GRAY);
                           
-    instructorReportPanel = new JPanel();
-//    instructorReportPanel = new InstructorReportPanel();
-    instructorReportPanel.setLayout(new BorderLayout());
-    instructorReportPanel.add(new JLabel("InstructorReportPanel"), BorderLayout.NORTH);
-    JTextArea instructorReport = new JTextArea("Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3\n" +
-            "Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3");
-    instructorReport.setEditable(false);
-    instructorReport.setLineWrap(true);
-    instructorReport.setWrapStyleWord(true);
-    instructorReportPanel.add(instructorReport, BorderLayout.CENTER);
-    instructorReportPanel.setBackground(Color.GRAY);
+//    instructorReportPanel = new JPanel();
+    instructorReportPanel = new InstructorReportPanel(courseAssignment);
+//    instructorReportPanel.setLayout(new BorderLayout());
+//    instructorReportPanel.add(new JLabel("InstructorReportPanel"), BorderLayout.NORTH);
+//    JTextArea instructorReport = new JTextArea("Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3\n" +
+//            "Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3");
+//    instructorReport.setEditable(false);
+//    instructorReport.setLineWrap(true);
+//    instructorReport.setWrapStyleWord(true);
+//    instructorReportPanel.add(instructorReport, BorderLayout.CENTER);
+//    instructorReportPanel.setBackground(Color.GRAY);
                               
     coursePanel = new JPanel();
     //coursePanel = new CoursePanel();
     coursePanel.setLayout(new BorderLayout());
     coursePanel.add(new JLabel("Details Area"), BorderLayout.NORTH);
-    JTextArea details = new JTextArea("This is the area where all the details" +
+    details = new JTextArea("This is the area where all the details" +
             " of a selected instructor or course would be displayed once the" +
             " \"details\" button was pressed.");
     details.setEditable(false);
@@ -267,7 +274,8 @@ public class MainWindow extends JFrame {
   
   public static void main(String[] args)
   {
-    new MainWindow(new CourseAssignment());
+      CourseAssignment c = new CourseAssignment();
+      new MainWindow(c);
   }
   
    private class ButtonListener implements ActionListener
@@ -318,9 +326,21 @@ public class MainWindow extends JFrame {
           jf.setVisible(true);   
       }
       if (e.getSource() == detailsButton) {
-          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
-                  " details of the currently selected instructor or course to" +
-                  " the details box on the right.");
+//          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
+//                  " details of the currently selected instructor or course to" +
+//                  " the details box on the right.");
+          Object selected = instructorReportPanel.getSelected();
+          if(selected instanceof Instructor) {
+              Instructor i = (Instructor)selected;
+              details.setText(i.getName()); //Should be replaced with better info
+          }
+          else if(selected instanceof Course) {
+              Course c = (Course)selected;
+              details.setText(c.getTitle()); //Should be replaced with better info
+          }
+          else {
+              details.setText("");
+          }
       }
       if (e.getSource() == assignButton) {
           if(round == 1) {
