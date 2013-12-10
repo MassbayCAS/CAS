@@ -13,6 +13,7 @@ public class Course{
 	private Time end;
         private String workArea;
         private Instructor instructor;
+        private Course lab;
 
 	public Course(int id, String classCode, String section, String title,
                 String campus, ArrayList<Day> days, Time start, Time end, String workArea) {
@@ -26,6 +27,7 @@ public class Course{
                 this.end = end;
                 this.workArea = workArea;
                 instructor = null;
+                lab = null;
 	}
 
 	@Override
@@ -138,12 +140,24 @@ public class Course{
         public Instructor getInstructor() {
                 return instructor;
         }
+        
+        public void setLab(Course lab) {
+            this.lab = lab;
+        }
+        
+        public Course getLab() {
+            return lab;
+        }
 	
 	public String toString(){
-		return "nbr: " + getId() + " course: " + getClassCode() + "\n" + 
+            String temp = "nbr: " + getId() + " course: " + getClassCode() + "\n" + 
                         "section: " + getSection() + " title: " + getTitle() + "\n" +
                         "campus: " + getCampus() + " days: " + getDays() + "\n" +
                         "start: " + getStart() + " end: " + getEnd() + "\n" +
                         "work area: " + getWorkArea() + " instructor: " + getInstructor() + "\n";
+            if (lab != null) {
+                temp += "HAS A LAB\n";
+            }
+		return temp;
 	}
 }

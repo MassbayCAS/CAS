@@ -266,16 +266,24 @@ public class CourseReader {
             workArea = workAreas.get(subjectNumber[0] + subjectNumber[1]);
             
             //clean up section
+            /*
             if(section.charAt(section.length()-1) == 'L')
             {
-                section = section.substring(0, section.length()-2);
+                //section = section.substring(0, section.length()-2);
             }
+            * */
             
-            while(section.length() < 3)
+            int sectionLength;
+            if (section.contains("L")) {
+                sectionLength = 4;
+            }
+            else {
+                sectionLength = 3;
+            }
+            while(section.length() < sectionLength)
             {
                 section = "0" + section;
             }
-            
             
             Course course = new Course(id,subject + number, section, title, campus, days, start, end, workArea);
             String key = course.getClassCode() + "," + course.getSection();
@@ -283,7 +291,17 @@ public class CourseReader {
              Course course = new Course(id, workArea, days, start, end, subject,
              number, section, session, title, credits, campus, room);
              String key = course.getSubject() + course.getNumber() + course.getSection();*/
-            courseList.put(key, course);
+            //System.out.println("right before");
+            if (section.contains("L")) {
+                //System.out.println(section);
+                //Course tempCourse = courseList.get(key.substring(0, key.length() - 1));
+                courseList.get(key.substring(0, key.length() - 1)).setLab(course);
+                //System.out.println(tempCourse);
+            }
+            else {
+                courseList.put(key, course);
+                //System.out.println(course);
+            }
         }
         return courseList;
     }
