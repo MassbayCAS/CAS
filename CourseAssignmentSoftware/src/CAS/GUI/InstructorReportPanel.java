@@ -77,15 +77,20 @@ public class InstructorReportPanel extends JPanel {
      * in JList
      */
     public Object getSelected(){
-      String selected = ((String)list.getSelectedValue()).replace("\t", "");
-      Instructor i = instructors.get(selected);
-      Course c = courses.get(selected);
-      if(!i.equals(null)) {
-          return i;
-      }
-      else {
-          return c;
-      }
+        if(list.getSelectedValue() != null) {
+            String selected = ((String)list.getSelectedValue()).replace("\t", "");
+            Instructor i = instructors.get(selected);
+            Course c = courses.get(selected);
+            if(!i.equals(null)) {
+                return i;
+            }
+            else {
+                return c;
+            }
+        }
+        else {
+            return null;
+        }
     }
 
 }
