@@ -8,7 +8,7 @@ import java.util.*;
 import java.io.*;
 import CAS.Data.*;
 /**
- *
+ * Reads in teachers seniority from a file and parses it into usable data
  * @author Eric Sullivan
  */
 
@@ -32,13 +32,13 @@ public class SeniorityListReader
     * */
     
     public static HashMap<String,Instructor> loadSeniorityList(String filename, HashMap<String,Instructor> theMap)
-            throws FileNotFoundException
+            throws FileNotFoundException, IncorrectFormatException
     {
         return loadSeniorityList(new File(filename), theMap);
     }
-    
+    //intializes data from data file found by the fileSelector window.
     public static HashMap<String,Instructor> loadSeniorityList(File file, HashMap<String,Instructor> theMap)
-            throws FileNotFoundException
+           throws FileNotFoundException, IncorrectFormatException
     {
         
         Scanner scan = new Scanner(file);
@@ -56,34 +56,33 @@ public class SeniorityListReader
         
         StringBuilder snip;
         StringTokenizer st;
-        while(scan.hasNextLine()){
+        while(scan.hasNextLine()){  //loop that continue untill the end of the file
             input = scan.nextLine();
             //System.out.println("input: " + input);
-            if(!input.equals("")){
-            if(input.charAt(0)=='-'&&input.charAt(1)=='-'){
+            if(!input.equals("")){  // checks if line is empty if true the next line in a new work area field
+            if(input.charAt(0)=='-'&&input.charAt(1)=='-'){ // all work areas has -- in the beginning
                 snip = new StringBuilder(input);
-                workArea = snip.substring(2);
+                if(input.charAt(input.length()-1)==' '){
+                    throw new IncorrectFormatException("Space at the end of : "+input);
+                }
+                workArea = snip.substring(2); //cuts the -- of and adds it to the workarea string.
                 //System.out.println("work area: " + workArea);
                 
             }
             else{
-                st = new StringTokenizer(input,"\r\n\t\f");
-                name = st.nextToken();
+                st = new StringTokenizer(input,"\r\n\t\f"); //tokenizes string for parsing
+                name = st.nextToken(); //gets the next token and add it to the name field
+                if(name.charAt(name.length()-1)==' '){ // Check if there is a space at the end of the name if there is throws exception
+                    throw new IncorrectFormatException("Space at the end of "+input);
+                }
                 //System.out.println("name: " + name);
-                senior =Integer.parseInt(st.nextToken());
+                senior =Integer.parseInt(st.nextToken()); //gets the next token and addit to the senior field if there is a space throws a parse exception
                 //System.out.println("senior: " + senior);
-                //try {
+                try {
                 theMap.get(name).getSeniorities().put(workArea,senior);
-                //}
-                /*
-                catch (NullPointerException e) {
-                    System.out.println("get: " + theMap.get(name));
-                    System.out.println("null for: " + name + workArea + senior);
                 }
-                catch (NoSuchElementException e) {
-                    System.out.println("can't find info for: " + name);
-                }
-                * */
+                catch (NoSuchElementException e){}
+                
             }
             }
         }

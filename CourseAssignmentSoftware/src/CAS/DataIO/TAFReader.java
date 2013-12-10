@@ -7,7 +7,7 @@
 package CAS.DataIO;
 
 /**
- *
+ * TAFReader reads in a file and creates a taf and instructor and adds it to a hashmap
  * @author Eric Sullivan
  */
 import java.io.File;
@@ -42,12 +42,12 @@ public class TAFReader
     }
     * */
     
-    public static HashMap<String,Instructor> loadInstructors(String filename) throws FileNotFoundException {
+    public static HashMap<String,Instructor> loadInstructors(String filename) throws FileNotFoundException, IncorrectFormatException {
         return loadInstructors(new File(filename));
     }
     
     // Takes info from the file and parses it in a HashMap of <String,Instructor>
-    public static HashMap<String,Instructor> loadInstructors(File file) throws FileNotFoundException
+    public static HashMap<String,Instructor> loadInstructors(File file) throws FileNotFoundException, IncorrectFormatException
     {
         Scanner scan = new Scanner(file);
         String name;
@@ -66,7 +66,7 @@ public class TAFReader
             prefTimes = new ArrayList<TimeSchedule>();
             preferredCourse = new ArrayDeque<String>();
             preferredDays = new ArrayList<Day>();
-            scan.nextLine();
+            //scan.nextLine();
             info = scan.nextLine(); // gets first line which has a name followed by a phone number
             //System.out.println("info: " + info);
             if(!info.equals("")){ // check to see if the file is at a "" string
@@ -74,7 +74,31 @@ public class TAFReader
                 st = new StringTokenizer(info,"\t"); //tokenizes the first line into name and phone number
                 name = st.nextToken(); // saves name
                 //System.out.println("name: " + name);
+                if(!st.hasMoreTokens()){ // Check if there is a phone number if not throws format exception
+                    throw new IncorrectFormatException("There is no phone number after "+name);
+                }
                 number = st.nextToken(); // saves number
+                if(number.length()!=12){ //Checks if number is 012-345-6789 if not throws format exception
+                    throw new IncorrectFormatException("Incorrect format too short or long. Phone must be 012-345-6789: not "+number);
+                }
+                else if(number.charAt(10)==' '){ //Checks length of phone number
+                    throw new IncorrectFormatException("Incorrect format space after the token: "+number);
+                } 
+                for(int i =0;i<number.length();i++){ // checks the format of the number (maybe unneeded)
+                    if(i!=3&&i!=7){
+                        if(!Character.isDigit(number.charAt(i))){
+                            System.out.println(i);
+                            throw new IncorrectFormatException("Only numbers in a phone number. Incorrect Phone must be 012-345-6789: not "+number);
+                        }
+                        else if(i==3||i==7&&number.charAt(i)!='-'){
+                                System.out.println(i);
+                                throw new IncorrectFormatException("Incorrect Phone must be 012-345-6789: not "+number);
+                        }
+                    }
+                }
+                if(st.hasMoreTokens()){ // checks if there is too many tokens (maybe unneeded)
+                    throw new IncorrectFormatException("Too many tokens in line 1");
+                }
                 //System.out.println("number: " + number);
                 info = scan.nextLine(); // gets next line which has preferred day and times
                 st = new StringTokenizer(info,",\t "); // tokenizes using , and tab as delimiters
@@ -98,6 +122,11 @@ public class TAFReader
                         case "f":
                             preferredDays.add(Day.FRIDAY);
                             break;
+                        case "sa":
+                            preferredDays.add(Day.SATURDAY);
+                            break;
+                        case "su":
+                            preferredDays.add(Day.SUNDAY);
                         default:
                             StringTokenizer temp2 = new StringTokenizer(temp,"-");
                             prefTimes.add(new TimeSchedule(Integer.parseInt(temp2.nextToken()),Integer.parseInt(temp2.nextToken())));
@@ -106,10 +135,17 @@ public class TAFReader
                 }
                 while(!info.equals("") && scan.hasNextLine()) { // check that if falls we know we are at the end of the TAF.
                         info = scan.nextLine();
+                        //System.out.println(info);
                         if(!info.equals("")) {
+                            if(info.charAt(info.length()-1)==' '){
+                            throw new IncorrectFormatException("Space after token: "+info);
+                        }
                         preferredCourse.offerLast(info); // adds the preferred course using fifo
                         //System.out.println("courses: " + info);
                         }
+                }
+                if(preferredCourse.isEmpty()){
+                    throw new IncorrectFormatException("No Courses added");
                 }
                 //System.out.println(preferredCourse);
                 theMap.put(name, new Instructor(new TAF(preferredDays,prefTimes,preferredCourse),name,number));//Instructor and Taf have no Constructor???
