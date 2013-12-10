@@ -5,6 +5,7 @@ package CAS.GUI;
 import CAS.CourseAssignment;
 import CAS.Data.Course;
 import CAS.Data.Instructor;
+import CAS.DataIO.DataIO;
 import CAS.DataIO.IncorrectFormatException;
 import javax.swing.*;
 import java.awt.*;
@@ -302,41 +303,50 @@ public class MainWindow extends JFrame {
         }
       }
       if (e.getSource() == reportButton) {
+//          JFrame jf = new JFrame();
+//          jf.setLayout(null);
+//          jf.setSize(300,300);
+//          JButton p = new JButton("Print");
+//          p.setSize(100, 30);
+//          p.setLocation(185, 230);
+//          JButton s = new JButton("Save");
+//          s.setSize(100, 30);
+//          s.setLocation(0, 230);
+//          JTextArea t = new JTextArea("This is the area where the report" +
+//                  " would go, and the buttons below would allow you to save" +
+//                  " the report to a file or to print it.");
+//          t.setEditable(false);
+//          t.setLineWrap(true);
+//          t.setWrapStyleWord(true);
+//          t.setSize(225, 200);
+//          t.setLocation(25, 0);
+//          t.setBorder(BorderFactory.createLineBorder(Color.black));
+//          jf.add(p);
+//          jf.add(s);
+//          jf.add(t);
+//          jf.setVisible(true); 
           JFrame jf = new JFrame();
-          jf.setLayout(null);
-          jf.setSize(300,300);
-          JButton p = new JButton("Print");
-          p.setSize(100, 30);
-          p.setLocation(185, 230);
-          JButton s = new JButton("Save");
-          s.setSize(100, 30);
-          s.setLocation(0, 230);
-          JTextArea t = new JTextArea("This is the area where the report" +
-                  " would go, and the buttons below would allow you to save" +
-                  " the report to a file or to print it.");
-          t.setEditable(false);
-          t.setLineWrap(true);
-          t.setWrapStyleWord(true);
-          t.setSize(225, 200);
-          t.setLocation(25, 0);
-          t.setBorder(BorderFactory.createLineBorder(Color.black));
-          jf.add(p);
-          jf.add(s);
-          jf.add(t);
-          jf.setVisible(true);   
+          jf.setLayout(new BorderLayout());
+          jf.setVisible(true);
+          PrintWindow printWindow = new PrintWindow(DataIO.GetCourseReport(courseAssignment.getCourses(), true));
+          printWindow.setVisible(true);
+          jf.add(printWindow);
+          jf.pack();
       }
       if (e.getSource() == detailsButton) {
 //          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
 //                  " details of the currently selected instructor or course to" +
 //                  " the details box on the right.");
           Object selected = instructorReportPanel.getSelected();
-          if(selected instanceof Instructor) {
-              Instructor i = (Instructor)selected;
-              details.setText(i.getName()); //Should be replaced with better info
-          }
-          else if(selected instanceof Course) {
-              Course c = (Course)selected;
-              details.setText(c.getTitle()); //Should be replaced with better info
+          if(selected != null) {
+            if(selected instanceof Instructor) {
+                Instructor i = (Instructor)selected;
+                details.setText(i.getName()); //Should be replaced with better info
+            }
+            else if(selected instanceof Course) {
+                Course c = (Course)selected;
+                details.setText(c.getTitle()); //Should be replaced with better info
+            }
           }
           else {
               details.setText("");
