@@ -43,6 +43,7 @@ public class MainWindow extends JFrame {
     private JButton printButton;
     
     JTextArea details;
+    GridBagConstraints constraints;
  
   public MainWindow(CourseAssignment courseAssignment)
   {
@@ -61,7 +62,7 @@ public class MainWindow extends JFrame {
   }
   
   public void buildPanels() {
-    GridBagConstraints constraints = new GridBagConstraints();
+    constraints = new GridBagConstraints();
     constraints.fill = GridBagConstraints.BOTH;
     
 //    courseReportPanel = new JPanel();
@@ -178,15 +179,17 @@ public class MainWindow extends JFrame {
     middlePanel = new JPanel();
 //    middlePanel.setSize(640, 375);
 //    middlePanel.setLocation(0, 30);
-    middlePanel.setLayout(new GridBagLayout());
+    middlePanel.setLayout(new GridLayout(1,2));
     middlePanel.setBorder(BorderFactory.createLineBorder(Color.black));
-    constraints.weightx = 0.5;
-    constraints.weighty = 1;
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    middlePanel.add(middleLeftPanel, constraints);
-    constraints.gridx = 1;
-    middlePanel.add(middleRightPanel, constraints);
+//    constraints.fill = GridBagConstraints.BOTH;
+//    constraints.weightx = 0.5;
+//    constraints.weighty = 1;
+//    constraints.gridx = 0;
+//    constraints.gridy = 0;
+    middlePanel.add(middleLeftPanel);
+//    constraints.fill = GridBagConstraints.BOTH;
+//    constraints.gridx = 1;
+    middlePanel.add(middleRightPanel);
                  
     bottomPanel = new JPanel();
 //    bottomPanel.setSize(640, 40);
@@ -287,17 +290,32 @@ public class MainWindow extends JFrame {
       {
         if(reportPanel.equals(courseReportPanel)) {
           middleLeftPanel.remove(reportPanel);
+          middleRightPanel.remove(detailsPanel);
           reportPanel = instructorReportPanel;
           middleLeftPanel.add(reportPanel);
+          constraints.weightx = 0.4;
+          constraints.weighty = 0.6;
+          constraints.gridx = 1;
+          constraints.gridy = 0;
+          detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+          middleRightPanel.add(detailsPanel, constraints);
           middleLeftPanel.revalidate();
-          toggleButton.setText("Courses");
+          middleRightPanel.revalidate();
           repaint();
         }
         else {
           middleLeftPanel.remove(reportPanel);
+          middleRightPanel.remove(detailsPanel);
           reportPanel = courseReportPanel;
           middleLeftPanel.add(reportPanel);
+          constraints.weightx = 0.4;
+          constraints.weighty = 0.6;
+          constraints.gridx = 1;
+          constraints.gridy = 0;
+          detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+          middleRightPanel.add(detailsPanel, constraints);
           middleLeftPanel.revalidate();
+          middleRightPanel.revalidate();
           toggleButton.setText("Instructors");
           repaint();
         }
@@ -337,19 +355,30 @@ public class MainWindow extends JFrame {
 //          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
 //                  " details of the currently selected instructor or course to" +
 //                  " the details box on the right.");
-          Object selected = instructorReportPanel.getSelected();
-          if(selected != null) {
-            if(selected instanceof Instructor) {
-                Instructor i = (Instructor)selected;
-                details.setText(i.getName()); //Should be replaced with better info
-            }
-            else if(selected instanceof Course) {
-                Course c = (Course)selected;
-                details.setText(c.getTitle()); //Should be replaced with better info
-            }
+          if(reportPanel == instructorReportPanel) {
+              Object selected = instructorReportPanel.getSelected();
+              if(selected != null) {
+                  if(selected instanceof Instructor) {
+                      Instructor i = (Instructor)selected;
+                      details.setText(i.getName()); //Should be replaced with better info
+                  }
+                  else if(selected instanceof Course) {
+                      Course c = (Course)selected;
+                      details.setText(c.getTitle()); //Should be replaced with better info
+                  }
+              }
+              else {
+                  details.setText("");
+              }
           }
-          else {
-              details.setText("");
+          else if(reportPanel == courseReportPanel) {
+              Course selected = courseReportPanel.getCourse();
+              if(selected != null) {
+                  details.setText(selected.getTitle());
+              }
+              else {
+                  details.setText("");
+              }
           }
       }
       if (e.getSource() == assignButton) {
