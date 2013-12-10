@@ -40,10 +40,6 @@ public class MyTester {
         {
             e.printStackTrace();
         }
-        for(Instructor instructor : ca.getInstructors().values())
-        {
-            System.out.println(instructor);
-        }
         
         try
         {
@@ -58,7 +54,7 @@ public class MyTester {
         {
             System.out.println(instructor);
         }
-         
+         System.out.println(ca.getCourses().keySet());
          ca.assignCourses();
          
         for(Course course : ca.getCourses().values())

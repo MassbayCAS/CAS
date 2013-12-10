@@ -76,13 +76,18 @@ public class CourseAssignment {
       */    
     public void assignCourses()
     {
-        for(Instructor instructor : instructors.values())
+        ArrayDeque<Instructor> theQueue = new ArrayDeque<Instructor>(instructors.values());
+       while(!theQueue.isEmpty())
         {
-            ArrayDeque<Course> preferredCourses = instructor.getPreferredCourses(getCourses());
+            Instructor instructor = theQueue.poll();
             boolean assigned = false;
             while(!assigned)
             {
-                Course preferredCourse = courses.get(preferredCourses.pop());
+                String theKey = instructor.getTAF().poll();
+                if(theKey == null)
+                    break;
+                Course preferredCourse = courses.get(theKey);
+                System.out.println("Trying " + instructor.getName() + " with " + preferredCourse.getTitle());
                 if(preferredCourse.getInstructor() == null)
                 {
                     preferredCourse.setInstructor(instructor);
@@ -90,12 +95,12 @@ public class CourseAssignment {
                 }
                 else  if(preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse) < 0)
                 {
-                    preferredCourse.getInstructor().getCourses().remove(preferredCourse);
+                    Instructor instructor2 = preferredCourse.getInstructor();
+                    instructor2.getCourses().remove(preferredCourse);
                     preferredCourse.setInstructor(instructor);
+                    instructor.getCourses().add(preferredCourse);
+                    theQueue.offer(instructor2);
                     assigned = true;
-                }
-                if (preferredCourses.isEmpty()) {
-                    break;
                 }
             }
         }
