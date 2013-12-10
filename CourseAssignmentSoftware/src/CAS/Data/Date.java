@@ -1,32 +1,49 @@
 package CAS.Data;
 
 public class Date {
-	int day;
-	int month;
-	int year;
+	private int day;
+	private int month;
+	private int year;
 	
-	public Date(int day, int month, int year) throws DateException{
-		if(month>12 && month<1){
+	public Date(int day, int month, int year) throws DateException {
+		//check the date for none leap years
+		if(month>12 || month<1){
 			throw new DateException("incorrect month");
 		}
 		else
 			this.month=month;
-		// check feb for up to 28 days
-		if(month==2){
-			if(day>28 && day<1){
+		// check leap year febuary for up to 29 days
+		if(month==2 && year%4==0){
+			if(day>29 || day<1){
 				throw new DateException("Incorrect Day ");
 			}
 		}
-		else if(day>31 && day<1){
-			throw new DateException("Incorrect Day ");
+		//check nonleap year febuary days
+		else if(month==2 && year%4!=0){
+			if(day>28 || day<1){
+				throw new DateException("Incorrect Day ");
+			}
+		}
+		//check for day in a 31 day month
+		else if(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12){
+			if(day>31 || day<1){
+				throw new DateException("Incorrect Day ");
+			}
+		}
+		//check for day in a 30 day month
+		else if(month==4 || month==6 || month==9 || month==11){
+			if(day>30 || day<1){
+				throw new DateException("Incorrect Day ");
+			}
 		}
 		else
-			this.year=year;
+			this.day=day;
+		//make sure the input year is not negative
 		if(year<=0){
 			throw new DateException("incorrect year");
 		}
 		else
-			this.day=day;
+			this.year=year;
 	}
 	
 	public int getDay(){
@@ -54,5 +71,9 @@ public class Date {
                     return dayComparison;
                 }
             }
+        }
+        
+        public String toString() {
+            return "" + day + "/" + month + "/" + year;
         }
 }
