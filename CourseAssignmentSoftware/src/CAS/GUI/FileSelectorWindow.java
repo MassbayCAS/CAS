@@ -1,6 +1,7 @@
 package CAS.GUI;
 
 import CAS.CourseAssignment;
+import CAS.DataIO.IncorrectFormatException;
 import CAS.GUI.Login.LoginFrame;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,22 +19,17 @@ public class FileSelectorWindow {
     private final String COURSE_DIALOG_TITLE = "Select COURSE file...";
     private final String TAF_DIALOG_TITLE = "Select TAF file...";
     private final String SENIORITY_DIALOG_TITLE = "Select SENIORITY file...";
-    
     private final String WORK_EXTENSION = "wrk";
     private final String COURSE_EXTENSION = "crs";
     private final String TAF_EXTENSION = "taf";
     private final String SENIORITY_EXTENSION = "snr";
-    
     private final String DEFAULT_DIRECTORY = "user.dir";
     private final String INPUT_FOLDER = "\\input\\";
-    
     private final String WORK_LIST = "workAreas." + WORK_EXTENSION;
     private final String COURSE_LIST = "CourseSchedule." + COURSE_EXTENSION;
     private final String TAF_LIST = "TAF_simple." + TAF_EXTENSION;
     private final String SENIORITY_LIST = "FakeSeniority." + SENIORITY_EXTENSION;
-    
     private final int CANCEL = -1;
-    
     private CourseAssignment courseAssignment;
     private String directory;
 
@@ -41,7 +37,7 @@ public class FileSelectorWindow {
         courseAssignment = new CourseAssignment();
         boolean ready = false;
         int entryPoint = 0;
-        
+
         directory = System.getProperty(DEFAULT_DIRECTORY);
         System.out.println(directory + INPUT_FOLDER + WORK_LIST);
         File workAreasFile = new File(directory + INPUT_FOLDER + WORK_LIST);
@@ -61,6 +57,9 @@ public class FileSelectorWindow {
                         courseAssignment.loadCourses(new File(directory + INPUT_FOLDER + COURSE_LIST), workAreasFile);
                     } catch (FileNotFoundException e) {
                         entryPoint = chooseCourseFile(entryPoint, workAreasFile);
+                    } catch (IncorrectFormatException e) {
+                        entryPoint = -1;
+                        e.printStackTrace();
                     }
                     break;
 
@@ -102,6 +101,9 @@ public class FileSelectorWindow {
             try {
                 courseAssignment.loadCourses(file, workAreasFile);
             } catch (FileNotFoundException e) {
+            } catch (IncorrectFormatException e) {
+                e.printStackTrace();
+                return CANCEL;
             }
             return entryPoint;
         }

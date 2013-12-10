@@ -2,172 +2,145 @@ package CAS.Data;
 
 import java.util.ArrayList;
 
-public class Course
-{
- private int id;
- private String workArea;
- private Instructor instructor;
- private ArrayList<Day> days;
- private Time start;
- private Time end;
- private String subject;
- private String number;
- private String section;
- private int session;
- private String title;
- private int credits;
- private String campus;
- private String room;
+public class Course{
+	private int id;
+	private String classCode;
+	private String section;
+	private String title;
+	private String campus;
+	private ArrayList<Day> days;
+	private Time start;
+	private Time end;
+        private String workArea;
+        private Instructor instructor;
 
- public Course(int id, String workArea, ArrayList<Day> days, Time start, Time end,
-         String subject, String number, String section, int session, String title,
-         int credits, String campus, String room){
-     this.id = id;
-     this.workArea = workArea;
-     instructor = null;
-     days = new ArrayList<Day>();
-     this.subject = subject;
-     this.number = number;
-     this.section = section;
-     this.title = title;
-     this.credits = credits;
-     this.campus = campus;
-     this.room = room;
- }
+	public Course(int id, String classCode, String section, String title,
+                String campus, ArrayList<Day> days, Time start, Time end, String workArea) {
+		this.id = id;
+		this.classCode = classCode;
+		this.section = section;
+		this.title = title;
+		this.setCampus(campus);
+		this.days = days;
+                this.start = start;
+                this.end = end;
+                this.workArea = workArea;
+                instructor = null;
+	}
 
- @Override
- public int hashCode(){
-  String hash = subject + number;
-  return hash.hashCode();
- }
+	@Override
+	public int hashCode(){
+		String hash = classCode + section;
+		return hash.hashCode();
+		
+		/*String hash = id + section;
+		return hash.hashCode();*/
+	}
 
- @Override
- public boolean equals(Object object){
-     Course course = (Course)object;
-  if(number != course.getNumber())
-      return false;
-  if(!subject.equals(course.getSubject()))
-      return false;
-  if(!title.equals(course.getTitle()))
-      return false;
-  if(credits != course.getCredits())
-      return false;
-  return true;
- }
+	@Override
+	public boolean equals(Object object){
+                if (object == null)
+                        return false;
+                if (object == this)
+                        return true;
+		Course course = (Course)object;
+		if(!classCode.equals(course.getClassCode()))
+			return false;
+		if(!section.equals(course.getSection()))
+			return false;
+		return true;		
+		/*if(number != course.getNumber())
+			return false;
+		if(!subject.equals(course.getSubject()))
+			return false;
+		if(!title.equals(course.getTitle()))
+			return false;
+		if(credits != course.getCredits())
+			return false;
+		return true;*/
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setClassCode(String classCode) {
+		this.classCode = classCode;
+	}
+	
+	public String getClassCode() {
+		return classCode;
+	}
 
- public int getId() {
-  return id;
- }
+	public void setSection(String section) {
+		this.section = section;
+	}
+	
+	public String getSection() {
+		return section;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setCampus(String campus) {
+		this.campus = campus;
+	}
 
- public void setId(int id) {
-  this.id = id;
- }
+	public String getCampus() {
+		return campus;
+	}
 
- public String getWorkArea() {
-  return workArea;
- }
+	public void setDays(ArrayList<Day> days) {
+		this.days = days;
+	}
 
- public void setWorkarea(String workArea) {
-  this.workArea = workArea;
- }
+	public ArrayList<Day> getDays() {
+		return days;
+	}
 
- public Instructor getInstructor() {
-  return instructor;
- }
+	public void setStart(Time start) {
+		this.start = start;
+	}
 
- public void setInstructor(Instructor instructor) {
-  this.instructor = instructor;
- }
+	public Time getStart() {
+		return start;
+	}
 
- public ArrayList<Day> getDays() {
-  return days;
- }
+	public void setEnd(Time end) {
+		this.end = end;
+	}
 
- public void setDays(ArrayList<Day> days) {
-  this.days = days;
- }
- 
- public void addDay(Day day) {
-     days.add(day);
- }
-
- public Time getStart() {
-  return start;
- }
-
- public void setStart(Time start) {
-  this.start = start;
- }
-
- public Time getEnd() {
-  return end;
- }
-
- public void setEnd(Time end) {
-  this.end = end;
- }
-
- public String getSubject() {
-  return subject;
- }
-
- public void setSubject(String subject) {
-  this.subject = subject;
- }
-
- public String getSection() {
-  return section;
- }
-
- public void setSection(String section) {
-  this.section = section;
- }
-
- public int getSession() {
-  return session;
- }
-
- public void setSession(int session) {
-  this.session = session;
- }
-
- public int getCredits() {
-  return credits;
- }
-
- public void setCredits(int credits) {
-  this.credits = credits;
- }
-
- public String getTitle() {
-  return title;
- }
-
- public void setTitle(String title) {
-  this.title = title;
- }
-
- public String getCampus() {
-  return campus;
- }
-
- public void setCampus(String campus) {
-  this.campus = campus;
- }
-
- public String getRoom() {
-  return room;
- }
-
- public void setRoom(String room) {
-  this.room = room;
- }
- 
- public void setNumber(String number){
-  this.number = number;
- }
- 
- public String getNumber(){
-  return number;
- }
+	public Time getEnd() {
+		return end;
+	}
+        
+        public void setWorkArea(String workArea) {
+                this.workArea = workArea;
+        }
+        
+        public String getWorkArea() {
+                return workArea;
+        }
+        
+        public void setInstructor(Instructor instructor) {
+                this.instructor = instructor;
+        }
+        
+        public Instructor getInstructor() {
+                return instructor;
+        }
+	
+	public String toString(){
+		return getId() + getClassCode() + getSection() + getTitle() +
+                        getCampus() + getDays() + getStart() + getEnd() + getWorkArea() + getInstructor();
+	}
 }

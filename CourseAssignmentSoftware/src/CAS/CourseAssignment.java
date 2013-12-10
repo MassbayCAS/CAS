@@ -7,6 +7,7 @@ package CAS;
 import CAS.Data.Course;
 import CAS.Data.Instructor;
 import CAS.DataIO.CourseReader;
+import CAS.DataIO.IncorrectFormatException;
 import CAS.DataIO.SeniorityListReader;
 import CAS.DataIO.TAFReader;
 import java.io.File;
@@ -57,7 +58,7 @@ public class CourseAssignment {
     }
     * */
     
-    public void loadCourses(File file, File workAreaFile) throws FileNotFoundException
+    public void loadCourses(File file, File workAreaFile) throws FileNotFoundException, IncorrectFormatException
     { courses = CourseReader.loadCourses(file, workAreaFile); }
     
     public void loadInstructors(File file) throws FileNotFoundException
