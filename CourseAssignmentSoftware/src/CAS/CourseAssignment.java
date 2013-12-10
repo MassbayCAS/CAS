@@ -96,9 +96,9 @@ public class CourseAssignment {
                 else  if(preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse) < 0)
                 {
                     Instructor instructor2 = preferredCourse.getInstructor();
-                    instructor2.getCourses().remove(preferredCourse);
+                    //instructor2.getCourses().remove(preferredCourse);
                     preferredCourse.setInstructor(instructor);
-                    instructor.getCourses().add(preferredCourse);
+                    //instructor.getCourses().add(preferredCourse);
                     theQueue.offer(instructor2);
                     assigned = true;
                 }
