@@ -256,16 +256,29 @@ public class CourseReader {
             String subject = subjectNumber[0];
             String number = subjectNumber[1];
             String section = splitline[2];
+            
             int session = 0;
             String title = splitline[3];
             int credits = 0;
             String campus = splitline[4];
             String room = null;
-
+            
             workArea = workAreas.get(subjectNumber[0] + subjectNumber[1]);
-
-            Course course = new Course(id, number, section, title, campus, days, start, end, workArea);
-            String key = course.getClassCode() + course.getSection();
+            
+            //clean up section
+            if(section.charAt(section.length()-1) == 'L')
+            {
+                section = section.substring(0, section.length()-2);
+            }
+            
+            while(section.length() < 3)
+            {
+                section = "0" + section;
+            }
+            
+            
+            Course course = new Course(id,subject + number, section, title, campus, days, start, end, workArea);
+            String key = course.getClassCode() + "," + course.getSection();
             /*
              Course course = new Course(id, workArea, days, start, end, subject,
              number, section, session, title, credits, campus, room);
