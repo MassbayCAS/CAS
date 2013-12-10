@@ -101,10 +101,8 @@ public class CourseReader {
                 if (splitline[5].contains("Su")) {
                     days.add(Day.SUNDAY);
                 }
-                System.out.println(splitline[5]);
                 char[] string = splitline[5].toCharArray();
                 for (int i = 0; i < string.length; i++) {
-                    System.out.println(string[i]);
                     if (!(string[i] == 'M' || string[i] == 'T' || string[i] == 'W' ||
                         string[i] == 'R' || string[i] == 'F' || string[i] == 'S')) {
                         if (string[i] == 'a' || string[i] == 'u') {
@@ -144,7 +142,6 @@ public class CourseReader {
                         hour -= 12;
                     }
                 }
-                System.out.println(hour + " " + min);
                 start = new Time(hour, min);
                 if (!splitline[7].contains(":")) {
                     throw new IncorrectFormatException("Incorrect End Time Format");
@@ -166,7 +163,7 @@ public class CourseReader {
                 if (endMin[2] == 'p') {
                     hour += 12;
                     if (hour == 24) {
-                        hour -= 24;
+                        hour -= 12;
                     }
                 }
                 end = new Time(hour, min);

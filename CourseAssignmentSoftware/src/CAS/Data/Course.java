@@ -140,7 +140,10 @@ public class Course{
         }
 	
 	public String toString(){
-		return getId() + getClassCode() + getSection() + getTitle() +
-                        getCampus() + getDays() + getStart() + getEnd() + getWorkArea() + getInstructor();
+		return "nbr: " + getId() + " course: " + getClassCode() + "\n" + 
+                        "section: " + getSection() + " title: " + getTitle() + "\n" +
+                        "campus: " + getCampus() + " days: " + getDays() + "\n" +
+                        "start: " + getStart() + " end: " + getEnd() + "\n" +
+                        "work area: " + getWorkArea() + " instructor: " + getInstructor() + "\n";
 	}
 }
