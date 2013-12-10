@@ -103,4 +103,9 @@ public class Instructor {
         }
         return false;
     }
+    
+    @Override
+    public String toString(){
+		  return "name: "+name+"phoneNumber"+phoneNumber;
+    }
 }

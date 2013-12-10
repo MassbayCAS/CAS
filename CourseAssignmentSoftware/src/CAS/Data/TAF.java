@@ -9,13 +9,18 @@ public class TAF {
 	private ArrayList<Day> preferredDays;
 	private ArrayList<TimeSchedule> preferredTimes;
 	private ArrayDeque<String> preferredCourses;
-        private ArrayList<String> unfulfilledRequests;
+        private ArrayList<String> processedCourses;
         
         public TAF(ArrayList<Day> preferredDays,ArrayList<TimeSchedule> preferredTimes,ArrayDeque<String> preferredCourses){
+            try {
+                dateOfSubmission = new Date(1, 1, 2013);
+            }
+            catch (DateException e) {
+            }
             this.preferredDays = preferredDays;
             this.preferredTimes = preferredTimes;
             this.preferredCourses = preferredCourses;
-            unfulfilledRequests = new ArrayList<String>();
+            processedCourses = new ArrayList<String>();
         }
 	
 	public Date getDateOfSubmission(){
@@ -30,4 +35,23 @@ public class TAF {
 	public ArrayDeque<String> getPreferredCourses(){
 		return preferredCourses;
 	}
+        
+        public ArrayList<String> getProcessedCourses() {
+            return processedCourses;
+        }
+        
+        public String toString() {
+            return dateOfSubmission.toString();
+        }
+        
+        public String poll() {
+            String course = preferredCourses.poll();
+            if (course != null) {
+                processedCourses.add(course);
+                return course;
+            }
+            else {
+                return null;
+            }
+        }
 }
