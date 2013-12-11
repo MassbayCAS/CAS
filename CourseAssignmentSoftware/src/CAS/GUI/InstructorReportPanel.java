@@ -76,10 +76,11 @@ public class InstructorReportPanel extends JPanel {
 
     public Object getSelected() {
         if (list.getSelectedValue() != null) {
-            String selected = ((String) list.getSelectedValue()).replace("\t", "");
+            String selected = ((String) list.getSelectedValue()).trim();
+            System.out.println(selected);
             Instructor i = instructors.get(selected);
             Course c = courses.get(selected);
-            if (!i.equals(null)) {
+            if (i != null) {
                 return i;
             } else {
                 return c;
@@ -98,7 +99,7 @@ public class InstructorReportPanel extends JPanel {
             //Also If I add a new tab before courses, it will be harder to search for the course
             //because you will have to concatenate the course. Should I do that?
             for (Course course : instructor.getCourses())
-                listModel.addElement("          " + course.getClassCode() + course.getSection());
+                listModel.addElement("          " + course.getClassCode() + "," + course.getSection());
         }
     }
 }
