@@ -47,14 +47,7 @@ public class InstructorReportPanel extends JPanel {
         
         listModel = new DefaultListModel();
         //Adds instructors to the list
-          for (Instructor instructor : instructors.values()) {
-            listModel.addElement(instructor.getName());
-            //If there is a course under that instructor, it adds to the list also.
-            //Also If I add a new tab before courses, it will be harder to search for the course
-            //because you will have to concatenate the course. Should I do that?
-            for(Course course : instructor.getCourses())
-              listModel.addElement("\t" + course.getClassCode() + course.getSection());
-        }
+        updateList();
 
         
         list = new JList(listModel);
@@ -94,6 +87,22 @@ public class InstructorReportPanel extends JPanel {
         }
         else {
             return null;
+        }
+    }
+    
+    public void updateList() {
+        instructors = courseAssignment.getInstructors();
+        courses = courseAssignment.getCourses();
+        listModel = new DefaultListModel();
+        for (Instructor instructor : instructors.values()) {
+            listModel.addElement(instructor.getName());
+            System.out.println(instructor.getCourses());
+            //If there is a course under that instructor, it adds to the list also.
+            //Also If I add a new tab before courses, it will be harder to search for the course
+            //because you will have to concatenate the course. Should I do that?
+            for(Course course : instructor.getCourses())
+              listModel.addElement("\t" + course.getClassCode() + course.getSection());
+            repaint();
         }
     }
 
