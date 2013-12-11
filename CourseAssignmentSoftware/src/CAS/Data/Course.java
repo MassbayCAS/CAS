@@ -2,7 +2,7 @@ package CAS.Data;
 
 import java.util.ArrayList;
 
-public class Course{
+public class Course implements Comparable<Course> {
 	private int id;
 	private String classCode;
 	private String section;
@@ -148,18 +148,14 @@ public class Course{
         public Course getLab() {
             return lab;
         }
+        
+        @Override
+        public int compareTo(Course course) {
+            return 1;
+        }
 	
 	public String toString(){
             String instructorName = instructor == null ? "n/a " : instructor.getName();
-            /*
-            String courseList;
-            if (instructor == null) {
-                courseList = "no instruct -> no courses ";
-            }
-            else {
-                courseList = "" + instructor.getCourses().isEmpty();
-            }
-            System.out.println(courseList);*/
             String temp = getClassCode() + "," + getSection() + " : " + instructorName + "\n";
             /*
             String temp = "nbr: " + getId() + " course: " + getClassCode() + "\n" + 
