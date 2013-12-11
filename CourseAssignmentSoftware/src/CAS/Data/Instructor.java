@@ -108,6 +108,6 @@ public class Instructor {
     
     @Override
     public String toString(){
-		  return "name: "+name+"phoneNumber"+phoneNumber;
+		  return "name: "+name+"phoneNumber"+phoneNumber + courses;
     }
 }

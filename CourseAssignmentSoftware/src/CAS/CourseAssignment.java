@@ -91,7 +91,7 @@ public class CourseAssignment {
                 {
                     preferredCourse.setInstructor(instructor);
                     instructor.getCourses().add(preferredCourse);
-                    System.out.println(instructor.getCourses());   
+                    //System.out.println(instructor.getCourses());   
                     assigned = true;
                 }
                 else  if(preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse) < 0)
@@ -100,7 +100,7 @@ public class CourseAssignment {
                     //instructor2.getCourses().remove(preferredCourse);
                     preferredCourse.setInstructor(instructor);
                     instructor.getCourses().add(preferredCourse);
-                    System.out.println(instructor.getCourses());                    //instructor.getCourses().add(preferredCourse);
+                    //System.out.println(instructor.getCourses());                    //instructor.getCourses().add(preferredCourse);
                     instructor2.getCourses().remove(preferredCourse);
                     theQueue.offer(instructor2);
                     assigned = true;
