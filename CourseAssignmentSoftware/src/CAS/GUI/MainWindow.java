@@ -56,37 +56,33 @@ public class MainWindow extends JFrame {
     setLayout(new GridBagLayout());
     
     this.courseAssignment = courseAssignment;
-    mouseListener = new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+      mouseListener = new MouseAdapter() {
+          public void mouseClicked(MouseEvent e) {
+              if (e.getClickCount() == 2) {
 //                    course = list.getSelectedValue();
-                    if(reportPanel == instructorReportPanel) {
-              Object selected = instructorReportPanel.getSelected();
-              if(selected != null) {
-                  if(selected instanceof Instructor) {
-                      Instructor i = (Instructor)selected;
-                      details.setText(i.getName()); //Should be replaced with better info
+                  if (reportPanel == instructorReportPanel) {
+                      Object selected = instructorReportPanel.getSelected();
+                      if (selected != null) {
+                          if (selected instanceof Instructor) {
+                              Instructor i = (Instructor) selected;
+                              details.setText("" + i.getCourses()); //Should be replaced with better info
+                          } else if (selected instanceof Course) {
+                              Course c = (Course) selected;
+                              details.setText(c.getTitle()); //Should be replaced with better info
+                          }
+                      } else {
+                          details.setText("");
+                      }
+                  } else if (reportPanel == courseReportPanel) {
+                      Course selected = courseReportPanel.getList().getSelectedValue();
+                      if (selected != null) {
+                          details.setText(selected.getTitle());
+                      } else {
+                          details.setText("");
+                      }
                   }
-                  else if(selected instanceof Course) {
-                      Course c = (Course)selected;
-                      details.setText(c.getTitle()); //Should be replaced with better info
-                  }
-              }
-              else {
-                  details.setText("");
               }
           }
-          else if(reportPanel == courseReportPanel) {
-              Course selected = courseReportPanel.getList().getSelectedValue();
-              if(selected != null) {
-                  details.setText(selected.getTitle());
-              }
-              else {
-                  details.setText("");
-              }
-          }
-                }
-            }
         };
     round = 1;
     buildPanels();
@@ -417,16 +413,19 @@ public class MainWindow extends JFrame {
       if (e.getSource() == assignButton) {
           if(round == 1) {
               courseAssignment.assignCourses();
+              instructorReportPanel.updateList();
               assignButton.setText("Round 2");
               round = 2;
           }
           else if(round == 2) {
               courseAssignment.assignCourses();
+              instructorReportPanel.updateList();
               assignButton.setText("Round 3");
               round = 3;
           }
           else if(round == 3) {
               courseAssignment.assignCourses();
+              instructorReportPanel.updateList();
               assignButton.setText("Done");
               assignButton.setEnabled(false);
               round = 4;
