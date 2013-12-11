@@ -77,7 +77,9 @@ public class Instructor {
 
     public int compareSeniorities(Instructor instructor, Course course) {
         String workArea = course.getWorkArea();
-        int seniorityComparison = instructor.getSeniorities().get(workArea) - seniorities.get(workArea);
+        int thisSeniority = (seniorities.get(workArea) == null) ? 0 : seniorities.get(workArea);
+        int thatSeniority = (instructor.getSeniorities().get(workArea) == null) ? 0 : instructor.getSeniorities().get(workArea);
+        int seniorityComparison = thatSeniority - thisSeniority;
         if (seniorityComparison != 0) {
             return seniorityComparison;
         }
