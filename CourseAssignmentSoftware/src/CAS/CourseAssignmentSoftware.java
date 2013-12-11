@@ -1,9 +1,11 @@
 package CAS;
 
+import CAS.GUI.Login.LoginFrame;
+
 public class CourseAssignmentSoftware {
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        new LoginFrame();
     }
     
 }

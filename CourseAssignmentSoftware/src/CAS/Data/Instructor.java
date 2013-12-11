@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Instructor {
+public class Instructor implements Comparable<Instructor> {
 
     private String name;
     private String phoneNumber;
@@ -87,6 +87,11 @@ public class Instructor {
             int dateComparison = instructor.getTAF().getDateOfSubmission().compareTo(taf.getDateOfSubmission());
             return dateComparison;
         }
+    }
+    
+    @Override
+    public int compareTo(Instructor instructor) {
+        return 1;
     }
     
     @Override
