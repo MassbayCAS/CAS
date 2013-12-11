@@ -68,6 +68,9 @@ public class FileSelectorWindow {
                         courseAssignment.loadInstructors(new File(directory + INPUT_FOLDER + TAF_LIST));
                     } catch (FileNotFoundException e) {
                         entryPoint = chooseTAFFile(entryPoint);
+                    } catch (IncorrectFormatException e) {
+                        entryPoint = -1;
+                        e.printStackTrace();
                     }
                     break;
 
@@ -76,6 +79,9 @@ public class FileSelectorWindow {
                         courseAssignment.loadSeniorityList(new File(directory + INPUT_FOLDER + SENIORITY_LIST));
                     } catch (FileNotFoundException e) {
                         entryPoint = chooseSeniorityFile(entryPoint);
+                    } catch (IncorrectFormatException e) {
+                        entryPoint = -1;
+                        e.printStackTrace();
                     }
                     break;
                 case 4:
@@ -119,7 +125,10 @@ public class FileSelectorWindow {
             try {
                 courseAssignment.loadInstructors(file);
             } catch (FileNotFoundException e) {
-            }
+            } catch (IncorrectFormatException e) {
+                        entryPoint = -1;
+                        e.printStackTrace();
+                    }
             return entryPoint;
         }
     }
@@ -132,7 +141,10 @@ public class FileSelectorWindow {
             try {
                 courseAssignment.loadSeniorityList(file);
             } catch (FileNotFoundException e) {
-            }
+            } catch (IncorrectFormatException e) {
+                        entryPoint = -1;
+                        e.printStackTrace();
+                    }
             return entryPoint;
         }
     }

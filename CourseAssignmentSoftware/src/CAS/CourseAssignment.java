@@ -61,10 +61,10 @@ public class CourseAssignment {
     public void loadCourses(File file, File workAreaFile) throws FileNotFoundException, IncorrectFormatException
     { courses = CourseReader.loadCourses(file, workAreaFile); }
     
-    public void loadInstructors(File file) throws FileNotFoundException
+    public void loadInstructors(File file) throws FileNotFoundException, IncorrectFormatException
     { instructors = TAFReader.loadInstructors(file); }
     
-    public void loadSeniorityList(File file) throws FileNotFoundException
+    public void loadSeniorityList(File file) throws FileNotFoundException, IncorrectFormatException
     { SeniorityListReader.loadSeniorityList(file, instructors); }
     
     public void loadWorkAreas()
