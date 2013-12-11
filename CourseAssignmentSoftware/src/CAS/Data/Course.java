@@ -150,11 +150,23 @@ public class Course{
         }
 	
 	public String toString(){
+            String instructorName = instructor == null ? "n/a " : instructor.getName();
+            /*
+            String courseList;
+            if (instructor == null) {
+                courseList = "no instruct -> no courses ";
+            }
+            else {
+                courseList = "" + instructor.getCourses().isEmpty();
+            }
+            System.out.println(courseList);*/
+            String temp = getClassCode() + "," + getSection() + " : " + instructorName + "\n";
+            /*
             String temp = "nbr: " + getId() + " course: " + getClassCode() + "\n" + 
                         "section: " + getSection() + " title: " + getTitle() + "\n" +
                         "campus: " + getCampus() + " days: " + getDays() + "\n" +
                         "start: " + getStart() + " end: " + getEnd() + "\n" +
-                        "work area: " + getWorkArea() + " instructor: " + getInstructor() + "\n";
+                        "work area: " + getWorkArea() + " instructor: " + getInstructor().getName() + "\n";*/
             if (lab != null) {
                 temp += "HAS A LAB\n";
             }
