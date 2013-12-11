@@ -8,6 +8,7 @@ import CAS.CourseAssignment;
 import CAS.Data.Course;
 import CAS.Data.Instructor;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 import java.util.*;
 
@@ -23,9 +24,10 @@ public class InstructorReportPanel extends JPanel {
     private HashMap<String, Instructor> instructors;
     private HashMap<String, Course> courses;
     private CourseAssignment courseAssignment;
+    private MouseListener mouseListener;
 
     
-    public InstructorReportPanel(CourseAssignment courseAssignment) {
+    public InstructorReportPanel(CourseAssignment courseAssignment, MouseListener mouseListener) {
 
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -33,6 +35,7 @@ public class InstructorReportPanel extends JPanel {
         setBackground(Color.LIGHT_GRAY);
         
         this.courseAssignment = courseAssignment;
+        this.mouseListener = mouseListener;
         instructors = courseAssignment.getInstructors();
         courses = courseAssignment.getCourses();
         
@@ -57,6 +60,7 @@ public class InstructorReportPanel extends JPanel {
         list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
+        list.addMouseListener(mouseListener);
 
         listScroller = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

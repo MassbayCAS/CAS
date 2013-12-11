@@ -18,8 +18,9 @@ public class CourseReportPanel extends JPanel {
     private JScrollPane listScroller;
     private CourseAssignment courseAssignment;
     private Course course;
+    private MouseListener mouseListener;
 
-    public CourseReportPanel(CourseAssignment courseAssignment) {
+    public CourseReportPanel(CourseAssignment courseAssignment, MouseListener mouseListener) {
         this.courseAssignment = courseAssignment;
 
         setLayout(new GridBagLayout());
@@ -35,13 +36,14 @@ public class CourseReportPanel extends JPanel {
         listModel = new DefaultListModel<>();
         updateList();
         list = new JList<>(listModel);
-        MouseListener mouseListener = new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    course = list.getSelectedValue();
-                }
-            }
-        };
+        this.mouseListener = mouseListener;
+//        MouseListener mouseListener = new MouseAdapter() {
+//            public void mouseClicked(MouseEvent e) {
+//                if (e.getClickCount() == 2) {
+//                    course = list.getSelectedValue();
+//                }
+//            }
+//        };
         list.addMouseListener(mouseListener);
 
 
@@ -63,6 +65,10 @@ public class CourseReportPanel extends JPanel {
 
     public Course getCourse() {
         return course;
+    }
+    
+    public JList<Course> getList() {
+        return list;
     }
 
     public void updateList() {
