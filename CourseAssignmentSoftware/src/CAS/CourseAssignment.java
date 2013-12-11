@@ -87,10 +87,11 @@ public class CourseAssignment {
                 if(theKey == null)
                     break;
                 Course preferredCourse = courses.get(theKey);
-                System.out.println("Trying " + instructor.getName() + " with " + preferredCourse.getTitle());
                 if(preferredCourse.getInstructor() == null)
                 {
                     preferredCourse.setInstructor(instructor);
+                    instructor.getCourses().add(preferredCourse);
+                    System.out.println(instructor.getCourses());   
                     assigned = true;
                 }
                 else  if(preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse) < 0)
@@ -98,7 +99,9 @@ public class CourseAssignment {
                     Instructor instructor2 = preferredCourse.getInstructor();
                     //instructor2.getCourses().remove(preferredCourse);
                     preferredCourse.setInstructor(instructor);
-                    //instructor.getCourses().add(preferredCourse);
+                    instructor.getCourses().add(preferredCourse);
+                    System.out.println(instructor.getCourses());                    //instructor.getCourses().add(preferredCourse);
+                    instructor2.getCourses().remove(preferredCourse);
                     theQueue.offer(instructor2);
                     assigned = true;
                 }
