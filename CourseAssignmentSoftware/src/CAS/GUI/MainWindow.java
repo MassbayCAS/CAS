@@ -41,6 +41,7 @@ public class MainWindow extends JFrame {
     private JButton toggleButton;
     private JButton reportButton;
     private JButton printButton;
+    private MouseListener mouseListener;
     
     JTextArea details;
     GridBagConstraints constraints;
@@ -55,6 +56,38 @@ public class MainWindow extends JFrame {
     setLayout(new GridBagLayout());
     
     this.courseAssignment = courseAssignment;
+    mouseListener = new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+//                    course = list.getSelectedValue();
+                    if(reportPanel == instructorReportPanel) {
+              Object selected = instructorReportPanel.getSelected();
+              if(selected != null) {
+                  if(selected instanceof Instructor) {
+                      Instructor i = (Instructor)selected;
+                      details.setText(i.getName()); //Should be replaced with better info
+                  }
+                  else if(selected instanceof Course) {
+                      Course c = (Course)selected;
+                      details.setText(c.getTitle()); //Should be replaced with better info
+                  }
+              }
+              else {
+                  details.setText("");
+              }
+          }
+          else if(reportPanel == courseReportPanel) {
+              Course selected = courseReportPanel.getList().getSelectedValue();
+              if(selected != null) {
+                  details.setText(selected.getTitle());
+              }
+              else {
+                  details.setText("");
+              }
+          }
+                }
+            }
+        };
     round = 1;
     buildPanels();
 
@@ -66,7 +99,7 @@ public class MainWindow extends JFrame {
     constraints.fill = GridBagConstraints.BOTH;
     
 //    courseReportPanel = new JPanel();
-    courseReportPanel = new CourseReportPanel(courseAssignment);
+    courseReportPanel = new CourseReportPanel(courseAssignment, mouseListener);
 //    courseReportPanel.setLayout(new BorderLayout());
 //    courseReportPanel.add(new JLabel("CourseReportPanel"), BorderLayout.NORTH);
 //    JTextArea courseReport = new JTextArea("Course : Instructor\nCourse : Instructor\nCourse : Instructor\n" +
@@ -78,7 +111,7 @@ public class MainWindow extends JFrame {
 //    courseReportPanel.setBackground(Color.GRAY);
                           
 //    instructorReportPanel = new JPanel();
-    instructorReportPanel = new InstructorReportPanel(courseAssignment);
+    instructorReportPanel = new InstructorReportPanel(courseAssignment, mouseListener);
 //    instructorReportPanel.setLayout(new BorderLayout());
 //    instructorReportPanel.add(new JLabel("InstructorReportPanel"), BorderLayout.NORTH);
 //    JTextArea instructorReport = new JTextArea("Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3\n" +
@@ -119,14 +152,14 @@ public class MainWindow extends JFrame {
     constraints.gridx = 0;
     constraints.gridy = 0;
     topPanel.add(new JPanel(), constraints);
-    detailsButton = new JButton("Details");
-    detailsButton.setSize(100, 30);
-    detailsButton.addActionListener(new ButtonListener());
+//    detailsButton = new JButton("Details");
+//    detailsButton.setSize(100, 30);
+//    detailsButton.addActionListener(new ButtonListener());
     constraints.weightx = 0.2;
     constraints.weighty = 0.8;
     constraints.gridx = 1;
     constraints.gridy = 1;
-    topPanel.add(detailsButton, constraints);
+//    topPanel.add(detailsButton, constraints);
     constraints.weightx = 0.5;
     constraints.weighty = 1;
     constraints.gridx = 2;
