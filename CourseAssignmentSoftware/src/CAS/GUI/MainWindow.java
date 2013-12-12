@@ -409,13 +409,7 @@ public class MainWindow extends JFrame {
 //          jf.add(s);
 //          jf.add(t);
 //          jf.setVisible(true); 
-          JFrame jf = new JFrame();
-          jf.setLayout(new BorderLayout());
-          jf.setVisible(true);
-          PrintWindow printWindow = new PrintWindow(DataIO.GetCourseReport(courseAssignment.getCourses(), true));
-          printWindow.setVisible(true);
-          jf.add(printWindow);
-          jf.pack();
+          ReportSelectionWindow r = new ReportSelectionWindow(courseAssignment);
       }
 //      if (e.getSource() == detailsButton) {
 ////          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
