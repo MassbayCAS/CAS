@@ -1,9 +1,9 @@
 package CAS.GUI.Login;
-
 /*
-  Tauseef Pirzada
-  06122013
-*/
+ Tauseef Pirzada
+ 06122013
+ RegisterFrame will be instantiated when the user wants to create a new account
+ */
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -21,7 +21,12 @@ public class RegisterFrame extends JFrame
   
   private final int WIDTH = 400;
   private final int HEIGHT = 300;
-  
+  /*
+   * Constructor
+   * Instantiates RegisterPanel and fields through builtThatAwesomeRegisterFrame
+   * @argument JFrame instance to be used for restoring the LoginFrame
+   * @argument UserBase instance to be used for checking account existance and creating new accounts
+   * */
   public RegisterFrame(JFrame jLoginFrame,UserBase ub)
   {
     super("Register");
@@ -31,8 +36,14 @@ public class RegisterFrame extends JFrame
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setSize(WIDTH,HEIGHT);
     setVisible(true);
-    
   }
+  /*
+   * builtThatAwesomeRegisterFrame
+   * Adds ActionListener to Register button
+   * Adds ActionListener to Combo Question Box
+   * Adds ActionListenered to Cancel Button
+   * Adds Register panel to frame
+   * */
   private void builtThatAwesomeRegisterFrame()
   {
     OnAction onAction = new OnAction();
@@ -44,8 +55,32 @@ public class RegisterFrame extends JFrame
     
     add(jRegisterPanel);
   }
+  /*
+   * ActionListener implementation
+   * Will check three buttons
+   * Cancel, and Register
+   * */
   private class OnAction implements ActionListener
   {
+    /*
+     * actionPerformed implementation
+     * Will handle messages passed by Java's Message Loop
+     * Method will be called when an event occurs
+     * ae.getSource() == getCancelButton
+     *   LoginFrame visibity is set to true
+     *   RegisterFrame is destroyed
+     * ae.getSource() == getRegisterButton
+     *   checks if fields are not empty
+     *     If Account does not exist
+     *       Account is created
+     *       LoginFrame visibility is to true
+     *       RegisterFrame is destroyed
+     *     else
+     *       Account creation failed
+     *   else
+     *     Asks to completely fill out Registration fields
+     * @argument ActionEvent holds information about the event
+     * */
     public void actionPerformed(ActionEvent ae)
     {
       if(ae.getSource() == jRegisterPanel.getCancelButton())

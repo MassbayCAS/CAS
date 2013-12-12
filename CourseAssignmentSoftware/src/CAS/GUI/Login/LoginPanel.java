@@ -1,9 +1,11 @@
 package CAS.GUI.Login;
 
 /*
-  Tauseef Pirzada
-  06122013
-*/
+ Tauseef Pirzada
+ 06122013
+ LoginPanel class
+ Will be the main panel visible when the application launches
+ */
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -27,13 +29,24 @@ public class LoginPanel extends JPanel
   private JPasswordField jTextPasscode;
   
   private LoginButtonPanel lbPanel;
-  
+  /*
+   * LoginPanel Constructor
+   * Calls super with instance of GridBagLayout
+   * Calls buildThatAwesomeLoginPanelYo method to instantiate the fields
+   * */
   public LoginPanel()
   {
     super(new GridBagLayout());
     buildThatAwesomeLoginPanelYo();
     setVisible(true);
   }
+  /*
+   * buildThatAwesomeLoginPanelYo method
+   * Instantiates user fields
+   * Instantiates passcode fields
+   * Instantiates LoginButtonPanel for buttons
+   * Uses GridBagConstraints for alighnment
+   * */
   private void buildThatAwesomeLoginPanelYo()
   {
     jTextUsername = new JTextField(TEXT_LENGTH);
@@ -68,25 +81,53 @@ public class LoginPanel extends JPanel
     add(lbPanel,gbc);
     setBorder(new LineBorder(Color.GRAY));
   }
+  /*
+   * getPasscodeField
+   * Will be used by the frame when signing in
+   * @return String form of the text contained in the passcode field
+   * */
   public String getPasscodeField()
   {
     return String.
       valueOf(jTextPasscode.
                 getPassword());
   }
+  /*
+   * getUsernameField
+   * Will be used bz the frame when signing in
+   * @return String form of the text contained in the username field
+   * */
   public String getUsernameField()
   {
     return jTextUsername.
       getText();
   }
+  /*
+   * getLoginButton
+   * Retrieves the loginButton instance from LoginPanel
+   * Will be used by the frame when implementing ActionListener
+   * @return instance of loginButton from LoginPanel as final
+   * */
   public final JButton getLoginButton()
   {
     return lbPanel.getLoginButton();
   }
+  /*
+   * getRegisterButton
+   * Retrieves the registerButton instance from LoginPanel
+   * Will be used by the frame when implementing ActionListener
+   * @return instance of registerButton from LoginPanel as final
+   * */
   public final JButton getRegisterButton()
   {
     return lbPanel.getRegisterButton();
   }
+  /*
+   * getRecoveryButton
+   * Retrieves the recoveryButton instance from LoginPanel
+   * Will be used by the frame when implementing ActionListener
+   * @return instance of recoveryButton from LoginPanel as final
+   * */
   public final JButton getRecoveryButton()
   {
     return lbPanel.getRecoveryButton();

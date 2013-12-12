@@ -1,9 +1,9 @@
 package CAS.GUI.Login;
-
 /*
-  Tauseef Pirzada
-  06122013
-*/
+ Tauseef Pirzada
+ 06122013
+ RecoverPanel will be Instantiated from RecoverFrame
+ */
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -32,6 +32,11 @@ public class RecoverPanel extends JPanel
   private JComboBox<String> jComboQuestion;
   
   private final int TEXT_LENGTH = 20;
+  /*
+   * Constructor
+   * calls super with instance of GridBagLayout
+   * calls buildThatReallyCoolRegisterPanel to instantiate fields
+   * */
   public RecoverPanel()
   {
     super(new GridBagLayout());
@@ -39,6 +44,16 @@ public class RecoverPanel extends JPanel
     setVisible(true);
     
   }
+  /*
+   * buildThatReallyCoolRegisterPanel
+   * Creates a JComboBox of Strings for security question
+   * Adds a Cancel button
+   * Adds a Recover button
+   * Adds a username field
+   * Adds a passcode field
+   * Adds an email field
+   * Aligns the panel using GridBagConstraints
+   * */
   private void buildThatReallyCoolRegisterPanel()
   {
     String[] securityQuestions =
@@ -113,37 +128,72 @@ public class RecoverPanel extends JPanel
     
     setBorder(new LineBorder(Color.GRAY));
   }
+  /*
+   * getEmailField
+   * Will be called from RegisterFrame
+   * @return String form of jTextEmail
+   * */
   public String getEmailField()
   {
     return jTextEmail.
       getText();
   }
+  /*
+   * getUsernameField
+   * Will be called from RegisterFrame
+   * @return String form of jTextUsername
+   * */
   public String getUsernameField()
   {
     return jTextUsername.
       getText();
   }
+  /*
+   * getCancelButton
+   * Will be used to exit the RecoverFrame
+   * @return JButton instance of jbCancel as final
+   * */
   public final JButton getCancelButton()
   {
     return jbCancel;
   }
+  /*
+   * getSecurityAnswerField
+   * Will be called from RegisterFrame
+   * @return String form of text contained in jTextSecurityAnswer
+   * */
   public String getSecurityAnswerField()
   {
     return jTextSecurityAnswer.
       getText();
   }
+  /*
+   * getQuestionBox
+   * Contains an array of questions to ask the user for security recovery purpose
+   * Will be called from RegisterFrame to be added to an ActionListener class
+   * @return JComboBox as final
+   * */
   public final JComboBox getQuestionBox()
   {
     return jComboQuestion;
   }
+  /*
+   * getSecurityQuestionField
+   * Will be called from RegisterFrame
+   * @return String form of text contained in field chosen by user in JComboBox
+   * */
   public String getSecurityQuestionField()
   {
     return (String)jComboQuestion.
       getSelectedItem();
   }
+  /*
+   * getRecoveryButton
+   * Will be used to recover a lost account if all information is correct
+   * @return JButton instance of jbGetPasscode
+   * */
   public final JButton getRecoveryButton()
   {
     return jbGetPasscode;
   }
-  
 }

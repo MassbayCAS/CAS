@@ -1,9 +1,10 @@
 package CAS.GUI.Login;
 
 /*
-  Tauseef Pirzada
-  06122013
-*/
+ Tauseef Pirzada
+ 06122013
+ RegisterPanel
+ */
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -36,13 +37,30 @@ public class RegisterPanel extends JPanel
   private JComboBox<String> jComboQuestion;
   
   private final int TEXT_LENGTH = 20;
+  /*
+   * Constructor
+   * calls super with instance of GridBagLayout
+   * calls buildThatReallyCoolRegisterPanel method for instantiating fields
+   * sets visibility to true
+   * Will be called when the user hits Register from the main login frame
+   * */
   public RegisterPanel()
   {
     super(new GridBagLayout());
     buildThatReallyCoolRegisterPanel();
     setVisible(true);
-    
   }
+  /*
+   * buildThatReallyCoolRegisterPanel 
+   * private will be called from the constructor
+   * method will instantiate the fields
+   * Uses GridBagConstraints for alighment
+   * Contains username field
+   * Contains passcode field
+   * Contains email field
+   * Contains security question field (JComboBox of String array)
+   * Contains security answer field
+   * */
   private void buildThatReallyCoolRegisterPanel()
   {
     String[] securityQuestions =
@@ -125,43 +143,83 @@ public class RegisterPanel extends JPanel
     gbc.gridy = 5;
     gbc.gridwidth = 1;
     add(jbRegister, gbc);
-    
     setBorder(new LineBorder(Color.GRAY));
   }
+  /*
+   * getEmailField
+   * Will be called from RegisterFrame
+   * @return String form of jTextEmail
+   * */
   public String getEmailField()
   {
     return jTextEmail.
       getText();
   }
+  /*
+   * getUsernameField
+   * Will be called from RegisterFrame
+   * @return String form of jTextUsername
+   * */
   public String getUsernameField()
   {
     return jTextUsername.
       getText();
   }
+  /*
+   * getPasscodeField
+   * Will be called from RegisterFrame
+   * @return String representation of email field from jTextPasscode
+   * */
   public String getPasscodeField()
   {
     return String.
       valueOf(jTextPasscode.
                 getPassword());
   }
+  /*
+   * getCancelButton
+   * Will be called from RegisterFrame to be added to an ActionListener class
+   * @return JButton jbCancel as final
+   * */
   public final JButton getCancelButton()
   {
     return jbCancel;
   }
+  /*
+   * getSecurityAnswerField
+   * Will be called from RegisterFrame
+   * @return String form of text contained in jTextSecurityAnswer
+   * */
   public String getSecurityAnswerField()
   {
     return jTextSecurityAnswer.
       getText();
   }
+  /*
+   * getQuestionBox
+   * Contains an array of questions to ask the user for security recovery purpose
+   * Will be called from RegisterFrame to be added to an ActionListener class
+   * @return JComboBox as final
+   * */
   public final JComboBox getQuestionBox()
   {
     return jComboQuestion;
   }
+  /*
+   * getSecurityQuestionField
+   * Will be called from RegisterFrame
+   * @return String form of text contained in field chosen by user in JComboBox
+   * */
   public String getSecurityQuestionField()
   {
     return (String)jComboQuestion.
       getSelectedItem();
   }
+  /*
+   * getRegisterButton
+   * Will be called from RegisterFrame to be added to an ActionListener class
+   * @return JButton jbRegister as final
+   * */
   public final JButton getRegisterButton()
   {
     return jbRegister;

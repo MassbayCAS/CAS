@@ -1,9 +1,10 @@
 package CAS.GUI.Login;
 
 /*
-  Tauseef Pirzada
-  06122013
-*/
+ Tauseef Pirzada
+ 0612201
+ RecoverFrame will be instantiated when user wants to recover an account
+ */
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -21,7 +22,12 @@ public class RecoverFrame extends JFrame
   
   private final int WIDTH = 400;
   private final int HEIGHT = 300;
-  
+  /*
+   * Constructor
+   * Will instantiate fields through buildThatAwesomeRegisterFrame
+   * @argument JFrame instance to restore the main login frame once a user has hit register or cancel
+   * @argument UserBase instance for checking account existance, and matching information
+   * */
   public RecoverFrame(JFrame jLoginFrame,UserBase ub)
   {
     super("Recover Passcode");
@@ -31,8 +37,13 @@ public class RecoverFrame extends JFrame
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setSize(WIDTH,HEIGHT);
     setVisible(true);
-    
   }
+  /*
+   * buildThatAwesomeRegisterFrame
+   * Will Instantiate RecoverPanel
+   * Adds ActionListener to Register, Cancel
+   * adds RegisterPanel to frame
+   * */
   private void builtThatAwesomeRegisterFrame()
   {
     OnAction onAction = new OnAction();
@@ -44,8 +55,31 @@ public class RecoverFrame extends JFrame
     
     add(jRecoverPanel);
   }
+  /*
+   * ActionListener implementation
+   * Will check three buttons
+   * Cancel, and Register
+   * */
   private class OnAction implements ActionListener
   {
+    /*
+     * actionPerformed implementation
+     * Will handle messages passed by Java's Message Loop
+     * Method will be called when an event occurs
+     * ae.getSource() == getCancelButton
+     *   LoginFrame visibity is set to true
+     *   Recovery is destroyed
+     * ae.getSource() == getRecoveryButton
+     *   checks if fields are not empty
+     *     attempts to recover calling userbase instance recover method
+     *     Information given is accurate
+     *       account is recovered
+     *       LoginFrame is visible
+     *       RecoverFrame is destroyed
+     *     else
+     *       asked to verify fields
+     * @argument ActionEvent holds information about the event
+     * */
     public void actionPerformed(ActionEvent ae)
     {
       if(ae.getSource() == jRecoverPanel.getCancelButton())

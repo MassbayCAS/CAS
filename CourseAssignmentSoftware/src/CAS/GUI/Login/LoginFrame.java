@@ -2,9 +2,10 @@ package CAS.GUI.Login;
 import CAS.GUI.FileSelectorWindow;
 
 /*
-  Tauseef Pirzada
-  06122013
-*/
+ Tauseef Pirzada
+ 06122013
+ LoginFrame will be the first class to be instantiate when the application launches
+ */
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -22,7 +23,11 @@ public class LoginFrame extends JFrame
   
   private final int WIDTH = 400;
   private final int HEIGHT = 300;
-  
+  /*
+   * Constructor
+   * Instantiates UserBase class 
+   * Instantiates fields through buildThatNotAsAwesomeAsTheLoginPanelLoginFrameYo method
+   * */
   public LoginFrame()
   {
     super("User Login");
@@ -30,6 +35,12 @@ public class LoginFrame extends JFrame
     buildThatNotAsAwesomeAsTheLoginPanelLoginFrameYo();
     thisFrame = this;
   }
+  /*
+   * buildThatNotAsAwesomeAsTheLoginPanelLoginFrameYo
+   * Instantiates LoginPanel 
+   * Adds ActionListener to buttons retreived from LoginPanel
+   * Adds login panel to the frame
+   * */
   private void buildThatNotAsAwesomeAsTheLoginPanelLoginFrameYo()
   {
     loginPanel = new LoginPanel();
@@ -43,8 +54,30 @@ public class LoginFrame extends JFrame
     setVisible(true);
     setResizable(false);
   }
+  /*
+   * ActionListener class
+   * Will check three buttons
+   * Register, Login, Recover
+   * */
   private class OnAction implements ActionListener
   {
+    /*
+     * Implemented method from ActionListener
+     * Will handle messages passed by Java's Message Loop
+     * Method will be called when an event occurs
+     * ae.getSource() == loginButton
+     *   Checks if username and passcode fields are emptz
+     *   Authenticates username and passcode with UserBase class
+     *   On Success FileSelectorWindow is intantiated to begin the CourseAssignmentSoftware
+     *   On Failure Error is given
+     * ae.getSource() == register
+     *   Instantiates RegisterFrame to create new account
+     *   Hides itself
+     * ae.getSource() == recover
+     *   Instantiates RecoverFrame in case user has lost passcode
+     *   hides itself
+     * @argument ActionEvent holds information about the event
+     * */
     public void actionPerformed(ActionEvent ae)
     {
       if(ae.getSource() == loginPanel.getLoginButton())
@@ -69,7 +102,10 @@ public class LoginFrame extends JFrame
           }
           catch(IOException ioe)
           {
-            JOptionPane.showMessageDialog(null,ioe.getMessage());
+            //JOptionPane.showMessageDialog(null,ioe.getMessage());
+            JOptionPane.showMessageDialog(null,"Incorrect Username or Passcode.",
+                                          "Case Sensitive",
+                                          JOptionPane.ERROR_MESSAGE);
           }
         }
         else
