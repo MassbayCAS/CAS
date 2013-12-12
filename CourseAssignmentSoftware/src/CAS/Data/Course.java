@@ -150,8 +150,8 @@ public class Course implements Comparable<Course> {
         }
         
         @Override
-        public int compareTo(Course course) {
-            return 1;
+        public int compareTo(Course c) {
+            return getClassCode().compareTo(c.getClassCode());
         }
 	
 	public String toString(){

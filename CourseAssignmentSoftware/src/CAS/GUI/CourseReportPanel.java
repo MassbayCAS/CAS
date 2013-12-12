@@ -5,12 +5,14 @@ import javax.swing.*;
 import CAS.CourseAssignment;
 import CAS.Data.Course;
 import java.awt.event.*;
+import java.util.*;
 
 /**
  *
  * @author Pat
  */
 public class CourseReportPanel extends JPanel {
+    private ArrayList<Course> aList;
 
     private JList<Course> list;
     private JLabel label1;
@@ -32,18 +34,19 @@ public class CourseReportPanel extends JPanel {
         c.gridy = 0;
         c.weighty = 0.05;
         add(label1, c);
-
+        
+        aList = new ArrayList<>();
+        for (Course co : courseAssignment.getCourses().values()) {
+            aList.add(co);
+        }
+        Collections.sort(aList);
+        
         listModel = new DefaultListModel<>();
+        
         updateList();
         list = new JList<>(listModel);
+        
         this.mouseListener = mouseListener;
-//        MouseListener mouseListener = new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {
-//                if (e.getClickCount() == 2) {
-//                    course = list.getSelectedValue();
-//                }
-//            }
-//        };
         list.addMouseListener(mouseListener);
 
 
@@ -58,7 +61,7 @@ public class CourseReportPanel extends JPanel {
         c.gridy = 1;
         c.weighty = 1;
         c.weightx = 1;
-
+        
         add(listScroller, c);
         setVisible(true);
     }
@@ -73,7 +76,7 @@ public class CourseReportPanel extends JPanel {
 
     public void updateList() {
         listModel.clear();
-        for (Course co : courseAssignment.getCourses().values()) {
+        for (Course co : aList) {
             listModel.addElement(co);
         }
     }
