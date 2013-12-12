@@ -22,10 +22,10 @@ public class MainWindow extends JFrame {
     private CourseReportPanel courseReportPanel;
 //    private JPanel instructorReportPanel;
     private InstructorReportPanel instructorReportPanel;
-    private JPanel coursePanel;
-    //private CoursePanel coursePanel;
-    private JPanel instructorPanel;
-    //private InstructorPanel instructorPanel;
+//    private JPanel coursePanel;
+    private CoursePanel coursePanel;
+//    private JPanel instructorPanel;
+    private InstructorPanel instructorPanel;
   
     private JPanel reportPanel;
     private JPanel detailsPanel;
@@ -43,7 +43,7 @@ public class MainWindow extends JFrame {
     private JButton printButton;
     private MouseListener mouseListener;
     
-    JTextArea details;
+//    JTextArea details;
     GridBagConstraints constraints;
  
   public MainWindow(CourseAssignment courseAssignment)
@@ -65,20 +65,57 @@ public class MainWindow extends JFrame {
                       if (selected != null) {
                           if (selected instanceof Instructor) {
                               Instructor i = (Instructor) selected;
-                              details.setText("" + i.getCourses()); //Should be replaced with better info
+//                              details.setText("" + i.getCourses()); //Should be replaced with better info
+                              middleLeftPanel.remove(reportPanel);
+                              middleRightPanel.remove(detailsPanel);
+                              instructorPanel = new InstructorPanel(i);
+                              detailsPanel = instructorPanel;
+                              middleLeftPanel.add(reportPanel);
+                              constraints.weightx = 0.4;
+                              constraints.weighty = 0.6;
+                              constraints.gridx = 1;
+                              constraints.gridy = 0;
+                              detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                              middleRightPanel.add(detailsPanel, constraints);
+                              middleLeftPanel.revalidate();
+                              middleRightPanel.revalidate();
+                              repaint();
                           } else if (selected instanceof Course) {
                               Course c = (Course) selected;
-                              details.setText(c.getTitle()); //Should be replaced with better info
+//                              details.setText(c.getTitle()); //Should be replaced with better info
+                              middleLeftPanel.remove(reportPanel);
+                              middleRightPanel.remove(detailsPanel);
+                              coursePanel = new CoursePanel(c);
+                              detailsPanel = coursePanel;
+                              middleLeftPanel.add(reportPanel);
+                              constraints.weightx = 0.4;
+                              constraints.weighty = 0.6;
+                              constraints.gridx = 1;
+                              constraints.gridy = 0;
+                              detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                              middleRightPanel.add(detailsPanel, constraints);
+                              middleLeftPanel.revalidate();
+                              middleRightPanel.revalidate();
+                              repaint();
                           }
-                      } else {
-                          details.setText("");
                       }
                   } else if (reportPanel == courseReportPanel) {
                       Course selected = courseReportPanel.getList().getSelectedValue();
                       if (selected != null) {
-                          details.setText(selected.getTitle());
-                      } else {
-                          details.setText("");
+                          middleLeftPanel.remove(reportPanel);
+                          middleRightPanel.remove(detailsPanel);
+                          coursePanel = new CoursePanel(selected);
+                          detailsPanel = coursePanel;
+                          middleLeftPanel.add(reportPanel);
+                          constraints.weightx = 0.4;
+                          constraints.weighty = 0.6;
+                          constraints.gridx = 1;
+                          constraints.gridy = 0;
+                          detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                          middleRightPanel.add(detailsPanel, constraints);
+                          middleLeftPanel.revalidate();
+                          middleRightPanel.revalidate();
+                          repaint();
                       }
                   }
               }
@@ -118,23 +155,23 @@ public class MainWindow extends JFrame {
 //    instructorReportPanel.add(instructorReport, BorderLayout.CENTER);
 //    instructorReportPanel.setBackground(Color.GRAY);
                               
-    coursePanel = new JPanel();
+    coursePanel = new CoursePanel();
     //coursePanel = new CoursePanel();
-    coursePanel.setLayout(new BorderLayout());
-    coursePanel.add(new JLabel("Details Area"), BorderLayout.NORTH);
-    details = new JTextArea("This is the area where all the details" +
-            " of a selected instructor or course would be displayed once the" +
-            " \"details\" button was pressed.");
-    details.setEditable(false);
-    details.setLineWrap(true);
-    details.setWrapStyleWord(true);
-    coursePanel.add(details, BorderLayout.CENTER);
-    coursePanel.setBackground(Color.LIGHT_GRAY);
+//    coursePanel.setLayout(new BorderLayout());
+//    coursePanel.add(new JLabel("Details Area"), BorderLayout.NORTH);
+//    details = new JTextArea("This is the area where all the details" +
+//            " of a selected instructor or course would be displayed once the" +
+//            " \"details\" button was pressed.");
+//    details.setEditable(false);
+//    details.setLineWrap(true);
+//    details.setWrapStyleWord(true);
+//    coursePanel.add(details, BorderLayout.CENTER);
+//    coursePanel.setBackground(Color.LIGHT_GRAY);
                     
-    instructorPanel = new JPanel();
+    instructorPanel = new InstructorPanel();
     //instructorPanel = new InstructorPanel();
-    instructorPanel.add(new JLabel("InstructorPanel"));
-    instructorPanel.setBackground(Color.LIGHT_GRAY);
+//    instructorPanel.add(new JLabel("InstructorPanel"));
+//    instructorPanel.setBackground(Color.LIGHT_GRAY);
     
     reportPanel = courseReportPanel;
     detailsPanel = coursePanel;
@@ -380,36 +417,36 @@ public class MainWindow extends JFrame {
           jf.add(printWindow);
           jf.pack();
       }
-      if (e.getSource() == detailsButton) {
-//          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
-//                  " details of the currently selected instructor or course to" +
-//                  " the details box on the right.");
-          if(reportPanel == instructorReportPanel) {
-              Object selected = instructorReportPanel.getSelected();
-              if(selected != null) {
-                  if(selected instanceof Instructor) {
-                      Instructor i = (Instructor)selected;
-                      details.setText(i.getName()); //Should be replaced with better info
-                  }
-                  else if(selected instanceof Course) {
-                      Course c = (Course)selected;
-                      details.setText(c.getTitle()); //Should be replaced with better info
-                  }
-              }
-              else {
-                  details.setText("");
-              }
-          }
-          else if(reportPanel == courseReportPanel) {
-              Course selected = courseReportPanel.getCourse();
-              if(selected != null) {
-                  details.setText(selected.getTitle());
-              }
-              else {
-                  details.setText("");
-              }
-          }
-      }
+//      if (e.getSource() == detailsButton) {
+////          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
+////                  " details of the currently selected instructor or course to" +
+////                  " the details box on the right.");
+//          if(reportPanel == instructorReportPanel) {
+//              Object selected = instructorReportPanel.getSelected();
+//              if(selected != null) {
+//                  if(selected instanceof Instructor) {
+//                      Instructor i = (Instructor)selected;
+//                      details.setText(i.getName()); //Should be replaced with better info
+//                  }
+//                  else if(selected instanceof Course) {
+//                      Course c = (Course)selected;
+//                      details.setText(c.getTitle()); //Should be replaced with better info
+//                  }
+//              }
+//              else {
+//                  details.setText("");
+//              }
+//          }
+//          else if(reportPanel == courseReportPanel) {
+//              Course selected = courseReportPanel.getCourse();
+//              if(selected != null) {
+//                  details.setText(selected.getTitle());
+//              }
+//              else {
+//                  details.setText("");
+//              }
+//          }
+//      }
       if (e.getSource() == assignButton) {
           if(round == 1) {
               courseAssignment.assignCourses();
