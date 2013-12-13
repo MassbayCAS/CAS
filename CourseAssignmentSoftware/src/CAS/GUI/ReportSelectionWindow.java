@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -21,7 +22,15 @@ public class ReportSelectionWindow extends JFrame{
     JButton courseButton;
     CourseAssignment courseAssignment;
     
+    private final int WIDTH = 400;
+    private final int HEIGHT = 120;
+    
     public ReportSelectionWindow(CourseAssignment courseAssignment) {
+        super();
+        setSize(WIDTH,HEIGHT);
+        setMaximumSize(new Dimension(WIDTH, HEIGHT));
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        setResizable(false);
         setLayout(new GridLayout(2,1));
         this.courseAssignment = courseAssignment;
         buildPanels();
@@ -32,6 +41,7 @@ public class ReportSelectionWindow extends JFrame{
     public void buildPanels() {
         JPanel topPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
+        bottomPanel.setBorder(new EmptyBorder(0, 20, 10, 20));
         topPanel.setLayout(new GridLayout(3, 1));
         GridLayout bottomPanelLayout = new GridLayout(1, 0);
         bottomPanelLayout.setHgap(20);
