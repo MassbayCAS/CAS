@@ -13,14 +13,14 @@ import java.util.*;
  */
 public class CourseReportPanel extends JPanel {
 
-    private final ArrayList<Course> aList;
-    private final JList<String> list;
-    private final JLabel label1;
-    private final DefaultListModel<String> listModel;
-    private final JScrollPane listScroller;
-    private final CourseAssignment courseAssignment;
+    private ArrayList<Course> aList;
+    private JList<String> list;
+    private JLabel label1;
+    private DefaultListModel<String> listModel;
+    private JScrollPane listScroller;
+    private CourseAssignment courseAssignment;
     private Course course;
-    private final MouseListener mouseListener;
+    private MouseListener mouseListener;
 
     public CourseReportPanel(CourseAssignment courseAssignment, MouseListener mouseListener) {
         this.courseAssignment = courseAssignment;
@@ -77,7 +77,7 @@ public class CourseReportPanel extends JPanel {
 //        return list;
 //    }
     
-    public final void updateList() {
+    public void updateList() {
         listModel.clear();
         ArrayList<String> a = new ArrayList<>();
 //        int i = 1;
