@@ -1,8 +1,10 @@
+package CAS.GUI;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAS.GUI;
+
 
 import CAS.CourseAssignment;
 import CAS.Data.Course;
@@ -11,6 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseListener;
 import javax.swing.*;
 import java.util.*;
+import java.util.List;
 
 /**
  *
@@ -50,7 +53,7 @@ public class InstructorReportPanel extends JPanel {
         updateList();
 
 
-        list = new JList<>(listModel);
+        list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
         list.addMouseListener(mouseListener);
@@ -90,16 +93,35 @@ public class InstructorReportPanel extends JPanel {
         }
     }
 
-    public void updateList() {
+    @SuppressWarnings("unchecked")
+	public void updateList() {
         listModel.clear();
         instructors = courseAssignment.getInstructors();
-        for (Instructor instructor : instructors.values()) {
+        ArrayList<Instructor> values = new ArrayList(instructors.values());
+        
+       
+        //Sorts the List of keys
+        Collections.sort(values, new Comparator<Instructor>() {
+
+			@Override
+			public int compare(Instructor a, Instructor b) {
+				// TODO Auto-generated method stub
+				 return a.getName().compareTo(b.getName());
+			}
+        });
+        
+        
+        
+        for (Instructor instructor : values) {
             listModel.addElement(instructor.getName());
             //If there is a course under that instructor, it adds to the list also.
             //Also If I add a new tab before courses, it will be harder to search for the course
             //because you will have to concatenate the course. Should I do that?
-            for (Course course : instructor.getCourses())
+            for(Course course : instructor.getCourses())
                 listModel.addElement("          " + course.getClassCode() + "," + course.getSection());
         }
     }
+    
+    
+    
 }
