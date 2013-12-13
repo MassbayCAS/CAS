@@ -45,15 +45,18 @@ public class MainWindow extends JFrame {
     private JButton printButton;
     private MouseListener mouseListener;
     
+    private final int WIDTH = 800;
+    private final int HEIGHT = 600;
+    
 //    JTextArea details;
     GridBagConstraints constraints;
  
   public MainWindow(CourseAssignment courseAssignment)
   {
     super();
-    setSize(640,480);
-    setMaximumSize(new Dimension(640, 480));
-    setMinimumSize(new Dimension(640, 480));
+    setSize(WIDTH,HEIGHT);
+    setMaximumSize(new Dimension(WIDTH, HEIGHT));
+    setMinimumSize(new Dimension(WIDTH, HEIGHT));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(new BorderLayout());
     
@@ -215,7 +218,7 @@ public class MainWindow extends JFrame {
 //    middleRightPanel.setSize(220, 300);
 //    middleRightPanel.setLocation(370, 0);
     BorderLayout middleRightLayout = new BorderLayout();
-    middleRightLayout.setHgap(50);
+    middleRightLayout.setHgap(30);
     middleRightLayout.setVgap(50);
     middleRightPanel.setLayout(middleRightLayout);
 //    constraints.weightx = 0.3;

@@ -61,9 +61,11 @@ public class CoursePanel extends JPanel
        instructor = new JLabel("Instructor: N/A");
    
    dayList = "Days: ";
+   if(thisCourse.getDays() != null) {
    for (Day d:thisCourse.getDays())
    {
      dayList.concat("" + d.toString());
+   }
    }
    
    day =  new JLabel("Day: " + dayList);
