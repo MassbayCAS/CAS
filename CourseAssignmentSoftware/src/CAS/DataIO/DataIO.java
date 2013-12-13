@@ -77,12 +77,9 @@ public class DataIO {
 
         // the following can be modified to retreieve whatever course fields
         // are desireable for the report
-        sb.append("Work Area\t");
-        sb.append("ID\t");
-        sb.append("Section\t");
-        sb.append("Course Name\t");
-        sb.append("Instructor\n");
-        sb.append("------------------------------------------------------------------------------------------\n");
+        AppendLine(sb, "Work Area", "ID", "Section", "Course Name", "Instructor");
+        sb.append("--------------------------------------------------------------------------------------------"
+                + "--------------------------------------------------------------------------------------------\n");
         while (!coursePQ.isEmpty() && coursePQ.peek() != null) {
             Course c = coursePQ.poll();
             String profName = "";
@@ -90,19 +87,13 @@ public class DataIO {
             if (c.getInstructor() != null) {
                 profName = c.getInstructor().getName();
             }
-
-            sb.append(c.getWorkArea());
-            sb.append("\t");
-            sb.append(c.getId());
-            sb.append("\t");
-            sb.append(c.getSection());
-            sb.append("\t");
-            sb.append(c.getTitle());
-            sb.append("\t");
-            sb.append(profName);
-            sb.append("\n");
+            AppendLine(sb, c.getWorkArea(), String.valueOf(c.getId()), c.getSection(), c.getTitle(), profName);
         }
         return sb.toString();
+    }
+
+    private static void AppendLine(StringBuilder sb, String s1, String s2, String s3, String s4, String s5) {
+        sb.append(String.format("%1$-50s %2$-30s %3$-30s %4$-80s %5$-50s%n", s1, s2, s3, s4, s5));
     }
 
     /**
@@ -136,62 +127,32 @@ public class DataIO {
      */
     public static String GetUnfulfilledRequestReport(HashMap<String, Course> courses, HashMap<String, Instructor> instructors) {
         StringBuilder sb = new StringBuilder();
-        PriorityQueue<Course> coursePQ = GetSortedUnfulfilledCourses(courses);
-        
-        ArrayList<Instructor> sortedInstructors = new ArrayList<> (instructors.values());
+        ArrayList<Course> unassignedCourses = new ArrayList();
+        ArrayList<Instructor> sortedInstructors = new ArrayList<>(instructors.values());
         Collections.sort(sortedInstructors);
-
-        sb.append("Work Area\t");
-        sb.append("Course Name\t");
-        sb.append("Instructor\t");
-        sb.append("Unfulfilled Requests\n");
-        sb.append("------------------------------------------------------------------------------------------\n");
-
-        // iterate through sorted courses, adding data to report as needed
-        while (!coursePQ.isEmpty() && coursePQ.peek() != null) {
-            Course course = coursePQ.poll();
-
-            // iterate through instructors preferred courses.
-            // we can't get instructor info from unassigned courses
-            // because that field will be null.
-            for (Instructor instructor : instructors.values()) {
-                StringBuilder sb2 = new StringBuilder();
-                // iterate through the instructor's unfulfilled requests to add them to the report
-                for (Course c : instructor.getUnfulfilledCourseRequests(courses)) {
-                    sb2.append(c.getTitle());
-                    sb2.append (",");
-                    if (course.equals(c)) {
-                        sb.append(course.getWorkArea());
-                        sb.append("\t");
-                        sb.append(c.getTitle());
-                        sb.append("\t");
-                        sb.append(instructor.getName());
-                        sb.append("\t");
-                    }
-                }
-                sb.append (sb2.toString());
-                sb.append("\n");
+        
+        // iterate through sorted instructors preferred courses.
+        // we can't get instructor info from unassigned courses
+        // because that field will be null.
+        for (Instructor instructor : sortedInstructors) {
+            for (Course c : instructor.getUnfulfilledCourseRequests(courses)) {
+                Course temp = c;
+                temp.setInstructor(instructor);
+                unassignedCourses.add(temp);
             }
-
         }
+
+        AppendLine(sb, "Work Area", "Instructor", "Course Name", "", "");
+        sb.append("--------------------------------------------------------------------"
+                + "--------------------------------------------------------------------\n");
+
+        Collections.sort(unassignedCourses, new UnfulfilledComparator());
+
+        for (Course c : unassignedCourses) {
+            AppendLine(sb, c.getWorkArea(), c.getInstructor().getName(), c.getTitle(), "", "");
+        }
+
         return sb.toString();
-    }
-
-    /**
-     * Gets a sorted queue of courses, sorting is based on reporting needs.
-     * @param courses - The map of courses.
-     * @return Returns
-     */
-    public static PriorityQueue<Course> GetSortedUnfulfilledCourses(HashMap<String, Course> courses) {
-        PriorityQueue<Course> coursePQ = new PriorityQueue(20, new UnfulfilledComparator());
-
-        // sort courses by desired reporting qualities
-        for (Course c : courses.values()) {
-            if (c.getInstructor() == null) {
-                coursePQ.offer(c);
-            }
-        }
-        return coursePQ;
     }
 
     static class CourseComparator implements Comparator<Course> {

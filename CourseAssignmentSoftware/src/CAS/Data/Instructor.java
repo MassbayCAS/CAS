@@ -49,7 +49,7 @@ public class Instructor implements Comparable<Instructor> {
     }
 
     public ArrayList<Course> getUnfulfilledCourseRequests (HashMap<String, Course> cs) {
-        ArrayDeque<String> prefCourseNames = taf.GetPreferredCourseNames();
+        ArrayDeque<String> prefCourseNames = taf.GetPreferredCourseKeys();
         ArrayList<Course> prefCourses = new ArrayList();            
             
         // add equivalent course objects to preferredList
@@ -57,6 +57,8 @@ public class Instructor implements Comparable<Instructor> {
             prefCourses.add (cs.get(prefCourseNames.poll()));
         }
         
+        // if the course already exists in the instructors courses (assigned)
+        // list, we remove it from our ArrayLists
         for (Course c1 : prefCourses) {
             for (Course c2 : courses) {
                 if (c1.equals(c2)) {
