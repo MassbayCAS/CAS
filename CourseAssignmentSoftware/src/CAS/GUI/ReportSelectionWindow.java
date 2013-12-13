@@ -16,15 +16,31 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Richard Hayes
  */
+
+/*
+ * This class offers the user a choice between a number of reports they would
+ * like to view, and opens a PrintWindow with the appropriate data. This acts
+ * as a connection between the MainWindow and the PrintWindow.
+ */
 public class ReportSelectionWindow extends JFrame{
     
+    //A button to click for the Unfulfilled Request Report
     JButton unfulfilledRequestButton;
+    //A button to click for the Course Report
     JButton courseButton;
+    //An instance of courseAssignment to allow access to the data from courses and instructors
     CourseAssignment courseAssignment;
     
+    //A final int for the window's width
     private final int WIDTH = 400;
+    //A final int for the window's height
     private final int HEIGHT = 120;
     
+    /*
+     * The constructor for the ReportSelectionWindow that accepts a courseAssignment
+     * object as a parameter, initializes the variables and calls the buildPanels
+     * method.
+     */
     public ReportSelectionWindow(CourseAssignment courseAssignment) {
         super();
         setSize(WIDTH,HEIGHT);
@@ -38,6 +54,10 @@ public class ReportSelectionWindow extends JFrame{
         setVisible(true);
     }
     
+    /*
+     * This method builds the panels by initializing them, setting layouts,
+     * adding content and placing them in the proper locations within the Frame.
+     */
     public void buildPanels() {
         JPanel topPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
@@ -66,6 +86,10 @@ public class ReportSelectionWindow extends JFrame{
         add(bottomPanel);
     }
     
+    /*
+     * This class is the button listener for the various report buttons. It opens
+     * a PrintWindow with the appropriate data for the user's selection.
+     */
     private class ButtonListener implements ActionListener
   {
     public void actionPerformed(ActionEvent e)

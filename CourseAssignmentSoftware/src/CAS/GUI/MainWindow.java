@@ -13,44 +13,69 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/*
+ * This class is the frame that contains the selectable lists of
+ * courses and instructors as well as access to the reports and
+ * course assignment functions through the press of buttons.
+ * This serves as the Main Window for the program.
+ */
 public class MainWindow extends JFrame {
     
+    //An instance of CourseAssignment for access to data on the courses and instructors
     private CourseAssignment courseAssignment;
+    //An int to keep track of the current round for course assignment
     private int round;
   
-//    private JPanel courseReportPanel;
+    //The panel that displays a list of selectable courses
     private CourseReportPanel courseReportPanel;
-//    private JPanel instructorReportPanel;
+    //The panel that displays a list of selectable instructors
     private InstructorReportPanel instructorReportPanel;
-//    private JPanel coursePanel;
+    //The panel to display the information of a selected course
     private CoursePanel coursePanel;
-//    private JPanel instructorPanel;
+    //The panel to display the information of a selected instructor
     private InstructorPanel instructorPanel;
   
+    //The panel that holds either CourseReportPanel or InstructorReportPanel based on what is toggled
     private JPanel reportPanel;
+    //The panel that holds either CoursePanel or InstructorPanel based on what is selected
     private JPanel detailsPanel;
   
+    //The top panel for the Frame organization
     private JPanel topPanel;
+    //The middle panel for the Frame organization
     private JPanel middlePanel;
+    //The panel in the left side of the middle panel that holds the reportPanel
     private JPanel middleLeftPanel;
+    //The panel in the right side of the middle panel that holds the detailsPanel
     private JPanel middleRightPanel;
+    //The bottom panel for the Frame organization
     private JPanel bottomPanel;
     
+    //A panel of buttons that is held in the bottomPanel
     private JPanel buttonPanel;
   
-    private JButton detailsButton;
+    //The button to run the next round of course assignment, if possible
     private JButton assignButton;
+    //The button to toggle between instructor and course view
     private JButton toggleButton;
+    //The button to show reports
     private JButton reportButton;
-    private JButton printButton;
+    //The mouseListener to listen for double-clicking
     private MouseListener mouseListener;
     
+    //A final int for the window's width
     private final int WIDTH = 800;
+    //A final int for the window's height
     private final int HEIGHT = 600;
     
-//    JTextArea details;
+    //The constraints for GridBagLayout
     GridBagConstraints constraints;
  
+    /*
+     * The constructor for the MainWindow that accepts a CourseAssignment object
+     * as a parameter, initializes all of the variables and calls the buildPanels
+     * method.
+     */
   public MainWindow(CourseAssignment courseAssignment)
   {
     super();
@@ -61,234 +86,68 @@ public class MainWindow extends JFrame {
     setLayout(new BorderLayout());
     
     this.courseAssignment = courseAssignment;
-      mouseListener = new MouseAdapter() {
-          public void mouseClicked(MouseEvent e) {
-              if (e.getClickCount() == 2) {
-//                    course = list.getSelectedValue();
-                  if (reportPanel == instructorReportPanel) {
-                      Object selected = instructorReportPanel.getSelected();
-                      if (selected != null) {
-                          if (selected instanceof Instructor) {
-                              Instructor i = (Instructor) selected;
-//                              details.setText("" + i.getCourses()); //Should be replaced with better info
-                              middleLeftPanel.remove(reportPanel);
-                              middleRightPanel.remove(detailsPanel);
-                              instructorPanel = new InstructorPanel(i);
-                              detailsPanel = instructorPanel;
-                              middleLeftPanel.add(reportPanel);
-                              constraints.weightx = 0.4;
-                              constraints.weighty = 0.6;
-                              constraints.gridx = 1;
-                              constraints.gridy = 0;
-                              detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-                              middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
-                              middleLeftPanel.revalidate();
-                              middleRightPanel.revalidate();
-                              repaint();
-                          } else if (selected instanceof Course) {
-                              Course c = (Course) selected;
-//                              details.setText(c.getTitle()); //Should be replaced with better info
-                              middleLeftPanel.remove(reportPanel);
-                              middleRightPanel.remove(detailsPanel);
-                              coursePanel = new CoursePanel(c);
-                              detailsPanel = coursePanel;
-                              middleLeftPanel.add(reportPanel);
-                              constraints.weightx = 0.4;
-                              constraints.weighty = 0.6;
-                              constraints.gridx = 1;
-                              constraints.gridy = 0;
-                              detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-                              middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
-                              middleLeftPanel.revalidate();
-                              middleRightPanel.revalidate();
-                              repaint();
-                          }
-                      }
-                  } else if (reportPanel == courseReportPanel) {
-                      Course selected = courseReportPanel.getList().getSelectedValue();
-                      if (selected != null) {
-                          middleLeftPanel.remove(reportPanel);
-                          middleRightPanel.remove(detailsPanel);
-                          coursePanel = new CoursePanel(selected);
-                          detailsPanel = coursePanel;
-                          middleLeftPanel.add(reportPanel);
-                          constraints.weightx = 0.4;
-                          constraints.weighty = 0.6;
-                          constraints.gridx = 1;
-                          constraints.gridy = 0;
-                          detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-                          middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
-                          middleLeftPanel.revalidate();
-                          middleRightPanel.revalidate();
-                          repaint();
-                      }
-                  }
-              }
-          }
-        };
+    mouseListener = new MouseClickListener();
     round = 1;
     buildPanels();
 
     setVisible(true);
   }
   
+  /*
+   * This method builds all the panels by initializing them, assigning layouts,
+   * adding content and borders, and placing them in the proper locations in the
+   * Frame.
+   */
   public void buildPanels() {
     constraints = new GridBagConstraints();
     constraints.fill = GridBagConstraints.BOTH;
     
-//    courseReportPanel = new JPanel();
     courseReportPanel = new CourseReportPanel(courseAssignment, mouseListener);
-//    courseReportPanel.setLayout(new BorderLayout());
-//    courseReportPanel.add(new JLabel("CourseReportPanel"), BorderLayout.NORTH);
-//    JTextArea courseReport = new JTextArea("Course : Instructor\nCourse : Instructor\nCourse : Instructor\n" +
-//            "Course : Instructor\nCourse : Instructor\nCourse : Instructor\n");
-//    courseReport.setEditable(false);
-//    courseReport.setLineWrap(true);
-//    courseReport.setWrapStyleWord(true);
-//    courseReportPanel.add(courseReport, BorderLayout.CENTER);
-//    courseReportPanel.setBackground(Color.GRAY);
-                          
-//    instructorReportPanel = new JPanel();
+    
     instructorReportPanel = new InstructorReportPanel(courseAssignment, mouseListener);
-//    instructorReportPanel.setLayout(new BorderLayout());
-//    instructorReportPanel.add(new JLabel("InstructorReportPanel"), BorderLayout.NORTH);
-//    JTextArea instructorReport = new JTextArea("Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3\n" +
-//            "Instructor:\n\tCourse 1\n\tCourse 2\n\tCourse 3");
-//    instructorReport.setEditable(false);
-//    instructorReport.setLineWrap(true);
-//    instructorReport.setWrapStyleWord(true);
-//    instructorReportPanel.add(instructorReport, BorderLayout.CENTER);
-//    instructorReportPanel.setBackground(Color.GRAY);
                               
     coursePanel = new CoursePanel();
-    //coursePanel = new CoursePanel();
-//    coursePanel.setLayout(new BorderLayout());
-//    coursePanel.add(new JLabel("Details Area"), BorderLayout.NORTH);
-//    details = new JTextArea("This is the area where all the details" +
-//            " of a selected instructor or course would be displayed once the" +
-//            " \"details\" button was pressed.");
-//    details.setEditable(false);
-//    details.setLineWrap(true);
-//    details.setWrapStyleWord(true);
-//    coursePanel.add(details, BorderLayout.CENTER);
-//    coursePanel.setBackground(Color.LIGHT_GRAY);
                     
     instructorPanel = new InstructorPanel();
-    //instructorPanel = new InstructorPanel();
-//    instructorPanel.add(new JLabel("InstructorPanel"));
-//    instructorPanel.setBackground(Color.LIGHT_GRAY);
     
     reportPanel = courseReportPanel;
     detailsPanel = coursePanel;
     
     topPanel = new JPanel();
-//    topPanel.setSize(640, 30);
-//    topPanel.setLocation(0, 0);
-    topPanel.setLayout(new GridBagLayout());
-    constraints.weightx = 0.3;
-    constraints.weighty = 1;
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    topPanel.add(new JPanel(), constraints);
-//    detailsButton = new JButton("Details");
-//    detailsButton.setSize(100, 30);
-//    detailsButton.addActionListener(new ButtonListener());
-    constraints.weightx = 0.2;
-    constraints.weighty = 0.8;
-    constraints.gridx = 1;
-    constraints.gridy = 1;
-//    topPanel.add(detailsButton, constraints);
-    constraints.weightx = 0.5;
-    constraints.weighty = 1;
-    constraints.gridx = 2;
-    constraints.gridy = 0;
-    topPanel.add(new JPanel(), constraints);
-    constraints.weightx = 0.3;
-    constraints.weighty = 0.1;
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    topPanel.add(new JPanel(), constraints);
-    constraints.weightx = 0.3;
-    constraints.weighty = 0.1;
-    constraints.gridx = 0;
-    constraints.gridy = 2;
-    topPanel.add(new JPanel(), constraints);
+    topPanel.setLayout(new GridLayout(1,0));
+    topPanel.add(new JLabel(" "));
     
     middleRightPanel = new JPanel();
-//    middleRightPanel.setSize(220, 300);
-//    middleRightPanel.setLocation(370, 0);
     BorderLayout middleRightLayout = new BorderLayout();
     middleRightLayout.setHgap(30);
     middleRightLayout.setVgap(50);
     middleRightPanel.setLayout(middleRightLayout);
-//    constraints.weightx = 0.3;
-//    constraints.weighty = 1;
-//    constraints.gridx = 0;
-//    constraints.gridy = 0;
-//    middleRightPanel.add(new JPanel(), constraints);
-//    constraints.weightx = 0.4;
-//    constraints.weighty = 0.6;
-//    constraints.gridx = 1;
-//    constraints.gridy = 0;
     detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
     middleRightPanel.add(new JLabel(" "), BorderLayout.SOUTH);
     middleRightPanel.add(new JLabel(" "), BorderLayout.WEST);
     middleRightPanel.add(new JLabel(" "), BorderLayout.EAST);
-//    constraints.weightx = 0.3;
-//    constraints.weighty = 1;
-//    constraints.gridx = 2;
-//    constraints.gridy = 0;
-//    middleRightPanel.add(new JPanel(), constraints);
-//    constraints.weightx = 1;
-//    constraints.weighty = 0.4;
-//    constraints.gridx = 1;
-//    constraints.gridy = 1;
-//    middleRightPanel.add(new JPanel(), constraints);
     
     middleLeftPanel = new JPanel();
-//    middleLeftPanel.setSize(300, 350);
-//    middleLeftPanel.setLocation(20, 0);
     middleLeftPanel.setLayout(new BorderLayout());
     middleLeftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     middleLeftPanel.add(reportPanel);
     
     middlePanel = new JPanel();
-//    middlePanel.setSize(640, 375);
-//    middlePanel.setLocation(0, 30);
     middlePanel.setLayout(new GridLayout(1,2));
     middlePanel.setBorder(BorderFactory.createLineBorder(Color.black));
-//    constraints.fill = GridBagConstraints.BOTH;
-//    constraints.weightx = 0.5;
-//    constraints.weighty = 1;
-//    constraints.gridx = 0;
-//    constraints.gridy = 0;
     middlePanel.add(middleLeftPanel);
-//    constraints.fill = GridBagConstraints.BOTH;
-//    constraints.gridx = 1;
     middlePanel.add(middleRightPanel);
                  
     buttonPanel = new JPanel();
     bottomPanel = new JPanel();
-//    buttonPanel.setSize(640, 40);
-//    buttonPanel.setLocation(0, 405);
     buttonPanel.setLayout(new GridBagLayout());
     assignButton = new JButton("Round 1");
-//    assignButton.setSize(100, 30);
-//    assignButton.setLocation(85, 5);
     toggleButton = new JButton("Instructors");
-//    toggleButton.setSize(100, 30);
-//    toggleButton.setLocation(270, 5);
     reportButton = new JButton("Report");
-//    reportButton.setSize(100, 30);
-//    reportButton.setLocation(455, 5);
-//    printButton = new JButton("Print");
-//    printButton.setSize(100, 30);
-//    printButton.setLocation(540, 20);
     assignButton.addActionListener(new ButtonListener());
     toggleButton.addActionListener(new ButtonListener());
     reportButton.addActionListener(new ButtonListener());
-//    printButton.addActionListener(new ButtonListener());
     constraints.weightx = 0.1;
     constraints.weighty = 0.2;
     constraints.gridx = 0;
@@ -334,7 +193,6 @@ public class MainWindow extends JFrame {
     constraints.gridx = 0;
     constraints.gridy = 2;
     buttonPanel.add(new JPanel(), constraints);
-//    buttonPanel.add(printButton);
     bottomPanel.add(buttonPanel);
     
     constraints.gridx = 0;
@@ -355,12 +213,10 @@ public class MainWindow extends JFrame {
     add(bottomPanel, BorderLayout.SOUTH);
   }
   
-  public static void main(String[] args)
-  {
-      CourseAssignment c = new CourseAssignment();
-      new MainWindow(c);
-  }
-  
+  /*
+   * This class is the ButtonListener for the MainWindow. This is used for the
+   * toggle button, report button and assign button.
+   */
    private class ButtonListener implements ActionListener
   {
     public void actionPerformed(ActionEvent e)
@@ -400,60 +256,8 @@ public class MainWindow extends JFrame {
         }
       }
       if (e.getSource() == reportButton) {
-//          JFrame jf = new JFrame();
-//          jf.setLayout(null);
-//          jf.setSize(300,300);
-//          JButton p = new JButton("Print");
-//          p.setSize(100, 30);
-//          p.setLocation(185, 230);
-//          JButton s = new JButton("Save");
-//          s.setSize(100, 30);
-//          s.setLocation(0, 230);
-//          JTextArea t = new JTextArea("This is the area where the report" +
-//                  " would go, and the buttons below would allow you to save" +
-//                  " the report to a file or to print it.");
-//          t.setEditable(false);
-//          t.setLineWrap(true);
-//          t.setWrapStyleWord(true);
-//          t.setSize(225, 200);
-//          t.setLocation(25, 0);
-//          t.setBorder(BorderFactory.createLineBorder(Color.black));
-//          jf.add(p);
-//          jf.add(s);
-//          jf.add(t);
-//          jf.setVisible(true); 
           ReportSelectionWindow r = new ReportSelectionWindow(courseAssignment);
       }
-//      if (e.getSource() == detailsButton) {
-////          JOptionPane.showMessageDialog(null, "Clicking this would send the" +
-////                  " details of the currently selected instructor or course to" +
-////                  " the details box on the right.");
-//          if(reportPanel == instructorReportPanel) {
-//              Object selected = instructorReportPanel.getSelected();
-//              if(selected != null) {
-//                  if(selected instanceof Instructor) {
-//                      Instructor i = (Instructor)selected;
-//                      details.setText(i.getName()); //Should be replaced with better info
-//                  }
-//                  else if(selected instanceof Course) {
-//                      Course c = (Course)selected;
-//                      details.setText(c.getTitle()); //Should be replaced with better info
-//                  }
-//              }
-//              else {
-//                  details.setText("");
-//              }
-//          }
-//          else if(reportPanel == courseReportPanel) {
-//              Course selected = courseReportPanel.getCourse();
-//              if(selected != null) {
-//                  details.setText(selected.getTitle());
-//              }
-//              else {
-//                  details.setText("");
-//              }
-//          }
-//      }
       if (e.getSource() == assignButton) {
           if(round == 1) {
               courseAssignment.assignCourses();
@@ -477,4 +281,73 @@ public class MainWindow extends JFrame {
       }
     }
   }
+   
+   /*
+    * This class is the MouseListener for the MainWindow, listening for a user
+    * double-clicking on a course or an instructor so the details can be sent to
+    * the appropriate panel for displaying.
+    */
+    private class MouseClickListener extends MouseAdapter {
+
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                if (reportPanel == instructorReportPanel) {
+                    Object selected = instructorReportPanel.getSelected();
+                    if (selected != null) {
+                        if (selected instanceof Instructor) {
+                            Instructor i = (Instructor) selected;
+                            middleLeftPanel.remove(reportPanel);
+                            middleRightPanel.remove(detailsPanel);
+                            instructorPanel = new InstructorPanel(i);
+                            detailsPanel = instructorPanel;
+                            middleLeftPanel.add(reportPanel);
+                            constraints.weightx = 0.4;
+                            constraints.weighty = 0.6;
+                            constraints.gridx = 1;
+                            constraints.gridy = 0;
+                            detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                            middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
+                            middleLeftPanel.revalidate();
+                            middleRightPanel.revalidate();
+                            repaint();
+                        } else if (selected instanceof Course) {
+                            Course c = (Course) selected;
+                            middleLeftPanel.remove(reportPanel);
+                            middleRightPanel.remove(detailsPanel);
+                            coursePanel = new CoursePanel(c);
+                            detailsPanel = coursePanel;
+                            middleLeftPanel.add(reportPanel);
+                            constraints.weightx = 0.4;
+                            constraints.weighty = 0.6;
+                            constraints.gridx = 1;
+                            constraints.gridy = 0;
+                            detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                            middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
+                            middleLeftPanel.revalidate();
+                            middleRightPanel.revalidate();
+                            repaint();
+                        }
+                    }
+                } else if (reportPanel == courseReportPanel) {
+                    Course selected = courseReportPanel.getList().getSelectedValue();
+                    if (selected != null) {
+                        middleLeftPanel.remove(reportPanel);
+                        middleRightPanel.remove(detailsPanel);
+                        coursePanel = new CoursePanel(selected);
+                        detailsPanel = coursePanel;
+                        middleLeftPanel.add(reportPanel);
+                        constraints.weightx = 0.4;
+                        constraints.weighty = 0.6;
+                        constraints.gridx = 1;
+                        constraints.gridy = 0;
+                        detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                        middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
+                        middleLeftPanel.revalidate();
+                        middleRightPanel.revalidate();
+                        repaint();
+                    }
+                }
+            }
+        }
+    }
 }
