@@ -47,7 +47,8 @@ public class TAF {
         }
         
         public String toString() {
-            return dateOfSubmission.toString();
+            return "" + dateOfSubmission + "\n" + preferredDays + "\n" +
+                    preferredTimes + "\n" + preferredCourses;
         }
         
         public String poll() {

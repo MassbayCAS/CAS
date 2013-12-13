@@ -14,6 +14,7 @@ import java.util.HashMap;
 import CAS.Data.Course;
 import CAS.Data.Day;
 import CAS.Data.Time;
+import CAS.Data.TimeSchedule;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -168,9 +169,13 @@ public class CourseReader {
                 }
                 end = new Time(hour, min);
             } else {
-                days = null;
-                start = null;
-                end = null;
+                days = new ArrayList<Day>();
+                days.add(Day.ANY);
+                start = new Time(0, 0);
+                end = new Time(0, 0);
+                //days = null;
+                //start = null;
+                //end = null;
             }
 
             //System.out.println(workAreas);
@@ -285,7 +290,7 @@ public class CourseReader {
                 section = "0" + section;
             }
             
-            Course course = new Course(id,subject + number, section, title, campus, days, start, end, workArea);
+            Course course = new Course(id,subject + number, section, title, campus, days, new TimeSchedule(start, end), workArea);
             String key = course.getClassCode() + "," + course.getSection();
             /*
              Course course = new Course(id, workArea, days, start, end, subject,

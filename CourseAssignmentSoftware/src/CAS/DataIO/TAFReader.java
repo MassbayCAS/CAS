@@ -147,7 +147,7 @@ public class TAFReader
                 if(preferredCourse.isEmpty()){
                     throw new IncorrectFormatException("No Courses added");
                 }
-                //System.out.println(preferredCourse);
+                //System.out.println("testing: " + preferredDays);
                 theMap.put(name, new Instructor(new TAF(preferredDays,prefTimes,preferredCourse),name,number));//Instructor and Taf have no Constructor???
                 /*
                 prefTimes.clear(); //clears arrays for new info

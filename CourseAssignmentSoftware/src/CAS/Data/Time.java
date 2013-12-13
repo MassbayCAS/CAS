@@ -15,6 +15,10 @@ public class Time{
 	public int getHour() {
 		return hour;
 	}
+        
+        public int getMin() {
+            return min;
+        }
 
 	// convert to String in universal-time format (HH:MM)
 	public String toUniversalString(){
@@ -22,7 +26,26 @@ public class Time{
 	}
 
 	// convert to String in standard-time format (H:MM AM PM)
-	public String toString(){ 
+        @Override
+	public String toString(){
+            if (hour == 0 && min == 0) {
+                return " ";
+            }
+            else {
 		return String.format( "%d:%02d",(( hour == 0 || hour == 12) ? 12 : hour % 12),min,(hour< 12?"AM":"PM"));
+            }
 	}
+        
+        @Override
+        public boolean equals(Object object) {
+            if (object == null) {                return false;            }
+            if (object == this) {                return true;            }
+            if (object instanceof Time) {
+                Time time = (Time)object;
+                return (this.hour == time.getHour() && this.min == time.getMin());
+            }
+            else {
+                return false;
+            }
+        }
 }
