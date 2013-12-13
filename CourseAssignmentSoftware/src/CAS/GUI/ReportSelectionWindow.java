@@ -96,27 +96,15 @@ public class ReportSelectionWindow extends JFrame{
     {
       if (e.getSource() == unfulfilledRequestButton)
       {
-          JFrame jf = new JFrame();
-          jf.setLayout(new BorderLayout());
-          jf.setVisible(true);
           String unfulfilledData = DataIO.GetUnfulfilledRequestReport(courseAssignment.getCourses(), courseAssignment.getInstructors());
-          System.out.println (unfulfilledData);
           PrintWindow printWindow = new PrintWindow(unfulfilledData);
           printWindow.setVisible(true);
-          jf.add(printWindow);
-          jf.pack();
       }
       else if (e.getSource() == courseButton)
       {
-          JFrame jf = new JFrame();
-          jf.setLayout(new BorderLayout());
-          jf.setVisible(true);
           String courseData = DataIO.GetCourseReport(courseAssignment.getCourses(), true);
-          System.out.println (courseData);
           PrintWindow printWindow = new PrintWindow(courseData);
           printWindow.setVisible(true);
-          jf.add(printWindow);
-          jf.pack();
       }
     }
     }
