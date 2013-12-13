@@ -13,14 +13,14 @@ import java.util.*;
  */
 public class CourseReportPanel extends JPanel {
 
-    private ArrayList<Course> aList;
-    private JList<String> list;
-    private JLabel label1;
-    private DefaultListModel<String> listModel;
-    private JScrollPane listScroller;
-    private CourseAssignment courseAssignment;
+    private final ArrayList<Course> aList;
+    private final JList<String> list;
+    private final JLabel label1;
+    private final DefaultListModel<String> listModel;
+    private final JScrollPane listScroller;
+    private final CourseAssignment courseAssignment;
     private Course course;
-    private MouseListener mouseListener;
+    private final MouseListener mouseListener;
 
     public CourseReportPanel(CourseAssignment courseAssignment, MouseListener mouseListener) {
         this.courseAssignment = courseAssignment;
@@ -77,29 +77,38 @@ public class CourseReportPanel extends JPanel {
 //        return list;
 //    }
     
-    public void updateList() {
+    public final void updateList() {
         listModel.clear();
-        int i = 1;
+        ArrayList<String> a = new ArrayList<>();
+//        int i = 1;
         for (Course co : aList) {
             if (co.getInstructor() == null && co.getLab() == null) {
                 listModel.addElement(co.getClassCode() + "," + co.getSection() + " : " + "n/a");
             } else if (co.getInstructor() != null && co.getLab() != null) {
-                if(listModel.firstElement().compareTo(co.getClassCode()) < 0) {
-                    listModel.add(i, co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName() + " (Lab)");
-                    i++;
-                } else {
-                     listModel.add(0, co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName() + " (Lab)");
-                }
+                a.add(co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName() + " (Lab)");
+//                if(listModel.getElementAt(i).compareTo(co.getClassCode()) < 0) {
+//                    listModel.add(i, co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName() + " (Lab)");
+//                    i++;
+//                } else {
+//                     listModel.add(0, co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName() + " (Lab)");
+//                }
             } else if (co.getInstructor() != null && co.getLab() == null) {
-                if (listModel.firstElement().compareTo(co.getClassCode()) < 0) {
-                    listModel.add(i, co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName());
-                    i++;
-                } else {
-                    listModel.add(0, co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName());
-                }
+                a.add(co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName());
+//                if (listModel.getElementAt(i).compareTo(co.getClassCode()) < 0) {
+//                    listModel.add(i, co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName());
+//                    i++;
+//                } else {
+//                    listModel.add(0, co.getClassCode() + "," + co.getSection() + " : " + co.getInstructor().getName());
+//                }
             } else {
                 listModel.addElement(co.getClassCode() + "," + co.getSection() + " : " + "n/a" + " (Lab)");
             }
+        }
+        int i = 0;
+        Collections.sort(a);
+        for (String s : a) {
+            listModel.add(i, s);
+            i++;
         }
     }
 }
