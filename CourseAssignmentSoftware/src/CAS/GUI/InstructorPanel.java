@@ -4,13 +4,14 @@
  */
 package CAS.GUI;
 
+import CAS.Data.TimeSchedule;
 import CAS.Data.Instructor;
 import CAS.Data.Day;
 import CAS.Data.Course;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,8 +22,9 @@ public class InstructorPanel extends JPanel
     
  private JPanel northPanel;
  private JLabel name, phoneNumber, dateOfSubmission, preferredDays, preferredCoursesLabel,preferredTimes,  courses ; 
- private String dayList;
+ private String dayList,preferredTimesList;
  private ArrayDeque<Course> preferredCoursesArray;
+ private ArrayList<TimeSchedule> preferredTimesArray;
  private Instructor thisInstructor;
  
   public InstructorPanel()
@@ -57,26 +59,38 @@ public class InstructorPanel extends JPanel
    dateOfSubmission = new JLabel("Submitted: " + thisInstructor.getDateOfSubmission());
    preferredDays = new JLabel("Preferred Days: " + thisInstructor.getPreferredDays());
    courses = new JLabel("Courses: "+ thisInstructor.getCourses());
-   preferredTimes = new JLabel("Preferred Time: " + thisInstructor.getPreferredTimes()); 
+ 
    preferredCoursesLabel = new JLabel("Preferred Courses: ");
-   
-   
+
+   preferredTimesList = "Preferred Times: ";
+   preferredTimesArray = new ArrayList<TimeSchedule>();
+   for(TimeSchedule t:preferredTimesArray)
+   {
+   preferredTimesList.concat("Start: " + t.getStartTime().toString() + " End: " + t.getEndTime().toString()+ "\n");    
+   }
+   preferredTimes = new JLabel(preferredTimesList);
   }
   private void buildPanel()
   {
+    setBackground(Color.WHITE);
+    setBorder(BorderFactory.createTitledBorder("Intructor Information"));
+    setLayout(new FlowLayout());
     
-    setLayout(new BorderLayout());
+    name.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+    phoneNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+    dateOfSubmission.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+    preferredDays.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+    preferredTimes.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+    courses.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
     
-    northPanel = new JPanel();
+    add(name);
+    add(phoneNumber);
+    add(dateOfSubmission);
+    add(preferredDays);
+    add(preferredTimes);
+    add(courses);
     
-    northPanel.add(name);
-    northPanel.add(phoneNumber);
-    northPanel.add(dateOfSubmission);
-    northPanel.add(preferredDays);
-    northPanel.add(preferredTimes);
-    northPanel.add(courses);
     
-    add(northPanel, BorderLayout.CENTER);// BorderLayout.NORTH));
     
   }
 }
