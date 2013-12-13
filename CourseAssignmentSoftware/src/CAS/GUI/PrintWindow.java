@@ -14,7 +14,7 @@ import java.awt.Color;
 
 public class PrintWindow extends JFrame
 {
-    private JPanel panelText;
+    private JScrollPane panelText;
     private JPanel panelButton;
     private JButton saveFile;
     private JButton printFile;
@@ -68,10 +68,7 @@ public class PrintWindow extends JFrame
         
         panelButton.setLayout(new GridLayout(1,3));
         
-        panelText = new JPanel();
-        panelText.setLayout(new BorderLayout());
-        textArea.setBorder(BorderFactory.createLineBorder(Color.white));
-        panelText.add(textArea, BorderLayout.CENTER);
+        panelText = new JScrollPane(textArea);
         
     }
     
