@@ -26,8 +26,10 @@ public class ReportSelectionWindow extends JFrame{
     
     //A button to click for the Unfulfilled Request Report
     JButton unfulfilledRequestButton;
-    //A button to click for the Course Report
-    JButton courseButton;
+    //A button to click for the Assigned Course Report
+    JButton assignedCourseButton;
+    //A button to click for the Unassigned Course Report
+    JButton unassignedCourseButton;
     //An instance of courseAssignment to allow access to the data from courses and instructors
     CourseAssignment courseAssignment;
     
@@ -76,11 +78,14 @@ public class ReportSelectionWindow extends JFrame{
         
         unfulfilledRequestButton = new JButton("Unfulfilled Request Report");
         unfulfilledRequestButton.addActionListener(new ButtonListener());
-        courseButton = new JButton("Course Report");
-        courseButton.addActionListener(new ButtonListener());
+        assignedCourseButton = new JButton("Assigned Course Report");
+        assignedCourseButton.addActionListener(new ButtonListener());
+        unassignedCourseButton = new JButton("Unassigned Course Report");
+        unassignedCourseButton.addActionListener(new ButtonListener());
         
         bottomPanel.add(unfulfilledRequestButton);
-        bottomPanel.add(courseButton);
+        bottomPanel.add(assignedCourseButton);
+        bottomPanel.add(unassignedCourseButton);
         
         add(topPanel);
         add(bottomPanel);
@@ -99,12 +104,21 @@ public class ReportSelectionWindow extends JFrame{
           String unfulfilledData = DataIO.GetUnfulfilledRequestReport(courseAssignment.getCourses(), courseAssignment.getInstructors());
           PrintWindow printWindow = new PrintWindow(unfulfilledData);
           printWindow.setVisible(true);
+          ReportSelectionWindow.this.dispose();
       }
-      else if (e.getSource() == courseButton)
+      else if (e.getSource() == assignedCourseButton)
       {
           String courseData = DataIO.GetCourseReport(courseAssignment.getCourses(), true);
           PrintWindow printWindow = new PrintWindow(courseData);
           printWindow.setVisible(true);
+          ReportSelectionWindow.this.dispose();
+      }
+      else if (e.getSource() == unassignedCourseButton)
+      {
+          String courseData = DataIO.GetCourseReport(courseAssignment.getCourses(), false);
+          PrintWindow printWindow = new PrintWindow(courseData);
+          printWindow.setVisible(true);
+          ReportSelectionWindow.this.dispose();
       }
     }
     }
