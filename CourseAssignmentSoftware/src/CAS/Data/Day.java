@@ -1,7 +1,7 @@
 package CAS.Data;
 
-public enum Day {SUNDAY,   MONDAY, TUESDAY, WEDNESDAY,
-	THURSDAY, FRIDAY, SATURDAY;
+public enum Day {SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+	THURSDAY, FRIDAY, SATURDAY, ANY;
 
 	@Override
 	public String toString() {
@@ -13,6 +13,7 @@ public enum Day {SUNDAY,   MONDAY, TUESDAY, WEDNESDAY,
 		case THURSDAY: return "R";
 		case FRIDAY: return "F";
 		case SATURDAY: return "Sa";
+                case ANY: return " ";
 		default: throw new IllegalArgumentException();
 		}
 	}

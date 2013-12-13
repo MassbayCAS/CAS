@@ -12,8 +12,24 @@ public class TimeSchedule {
     private Time startTime, endTime;
     
     public TimeSchedule(int startHour, int endHour) {
-        startTime = new Time(startHour, 0);
-        endTime = new Time(endHour, 0);
+        this(startHour, 0, endHour, 0);
+    }
+    
+    public TimeSchedule(int startHour, int startMinute, int endHour, int endMinute) {
+        this(new Time(startHour, startMinute), new Time(endHour, endMinute));        
+    }
+    
+    public TimeSchedule(Time startTime, Time endTime) {
+        setStartTime(startTime);
+        setEndTime(endTime);
+    }
+    
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+    
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
     }
     
     public Time getStartTime() {
@@ -31,5 +47,14 @@ public class TimeSchedule {
     public boolean withinRange(int startHour, int endHour) {
         return (startHour >= startTime.getHour() && startHour < endTime.getHour()) &&
                 (endHour > startTime.getHour() && endHour <= endTime.getHour());
+    }
+    
+    public String toString() {
+        if (startTime.equals(endTime)) {
+            return " ";
+        }
+        else {
+            return startTime + " - " + endTime;
+        }
     }
 }

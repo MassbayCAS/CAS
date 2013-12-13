@@ -9,22 +9,24 @@ public class Course implements Comparable<Course> {
 	private String title;
 	private String campus;
 	private ArrayList<Day> days;
-	private Time start;
-	private Time end;
+        private TimeSchedule startEnd;
+	//private Time start;
+	//private Time end;
         private String workArea;
         private Instructor instructor;
         private Course lab;
 
 	public Course(int id, String classCode, String section, String title,
-                String campus, ArrayList<Day> days, Time start, Time end, String workArea) {
+                String campus, ArrayList<Day> days, TimeSchedule startEnd, String workArea) {
 		this.id = id;
 		this.classCode = classCode;
 		this.section = section;
 		this.title = title;
 		this.setCampus(campus);
 		this.days = days;
-                this.start = start;
-                this.end = end;
+                this.startEnd = startEnd;
+                //this.start = start;
+                //this.end = end;
                 this.workArea = workArea;
                 instructor = null;
                 lab = null;
@@ -110,20 +112,30 @@ public class Course implements Comparable<Course> {
 	}
 
 	public void setStart(Time start) {
-		this.start = start;
+            startEnd.setStartTime(start);
+		//this.start = start;
 	}
 
 	public Time getStart() {
-		return start;
+		return startEnd.getStartTime();
 	}
 
 	public void setEnd(Time end) {
-		this.end = end;
+            startEnd.setEndTime(end);
+		//this.end = end;
 	}
 
 	public Time getEnd() {
-		return end;
+		return startEnd.getEndTime();
 	}
+        
+        public void setStartEnd(TimeSchedule startEnd) {
+            this.startEnd = startEnd;
+        }
+        
+        public TimeSchedule getStartEnd() {
+            return startEnd;
+        }
         
         public void setWorkArea(String workArea) {
                 this.workArea = workArea;
@@ -164,7 +176,7 @@ public class Course implements Comparable<Course> {
                         "start: " + getStart() + " end: " + getEnd() + "\n" +
                         "work area: " + getWorkArea() + " instructor: " + getInstructor().getName() + "\n";*/
             if (lab != null) {
-                temp += "HAS A LAB\n";
+                temp += " HAS A LAB\n";
             }
 		return temp;
 	}

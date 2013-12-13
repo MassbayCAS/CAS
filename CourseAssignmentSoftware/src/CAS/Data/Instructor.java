@@ -88,7 +88,7 @@ public class Instructor implements Comparable<Instructor> {
     
     @Override
     public int compareTo(Instructor instructor) {
-        return 1;
+        return name.compareTo(instructor.getName());
     }
     
     @Override
@@ -110,6 +110,10 @@ public class Instructor implements Comparable<Instructor> {
     
     @Override
     public String toString(){
-		  return "name: "+name+"phoneNumber"+phoneNumber + courses;
+        String temp = "name: "+name+"\nphone number: "+phoneNumber;
+        for (Course course : courses) {
+            temp += "\n" + course.getClassCode() + "," + course.getSection();
+        }
+	return  temp;
     }
 }
