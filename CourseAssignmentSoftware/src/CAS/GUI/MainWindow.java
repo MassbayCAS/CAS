@@ -262,18 +262,21 @@ public class MainWindow extends JFrame {
           if(round == 1) {
               courseAssignment.assignCourses();
               instructorReportPanel.updateList();
+              courseReportPanel.updateList();
               assignButton.setText("Round 2");
               round = 2;
           }
           else if(round == 2) {
               courseAssignment.assignCourses();
               instructorReportPanel.updateList();
+              courseReportPanel.updateList();
               assignButton.setText("Round 3");
               round = 3;
           }
           else if(round == 3) {
               courseAssignment.assignCourses();
               instructorReportPanel.updateList();
+              courseReportPanel.updateList();
               assignButton.setText("Done");
               assignButton.setEnabled(false);
               round = 4;
@@ -329,7 +332,7 @@ public class MainWindow extends JFrame {
                         }
                     }
                 } else if (reportPanel == courseReportPanel) {
-                    Course selected = courseReportPanel.getList().getSelectedValue();
+                    Course selected = courseReportPanel.getCourse();
                     if (selected != null) {
                         middleLeftPanel.remove(reportPanel);
                         middleRightPanel.remove(detailsPanel);
