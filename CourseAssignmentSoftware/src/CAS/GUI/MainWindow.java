@@ -35,6 +35,8 @@ public class MainWindow extends JFrame {
     private JPanel middleLeftPanel;
     private JPanel middleRightPanel;
     private JPanel bottomPanel;
+    
+    private JPanel buttonPanel;
   
     private JButton detailsButton;
     private JButton assignButton;
@@ -53,7 +55,7 @@ public class MainWindow extends JFrame {
     setMaximumSize(new Dimension(640, 480));
     setMinimumSize(new Dimension(640, 480));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLayout(new GridBagLayout());
+    setLayout(new BorderLayout());
     
     this.courseAssignment = courseAssignment;
       mouseListener = new MouseAdapter() {
@@ -76,7 +78,7 @@ public class MainWindow extends JFrame {
                               constraints.gridx = 1;
                               constraints.gridy = 0;
                               detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-                              middleRightPanel.add(detailsPanel, constraints);
+                              middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
                               middleLeftPanel.revalidate();
                               middleRightPanel.revalidate();
                               repaint();
@@ -93,7 +95,7 @@ public class MainWindow extends JFrame {
                               constraints.gridx = 1;
                               constraints.gridy = 0;
                               detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-                              middleRightPanel.add(detailsPanel, constraints);
+                              middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
                               middleLeftPanel.revalidate();
                               middleRightPanel.revalidate();
                               repaint();
@@ -112,7 +114,7 @@ public class MainWindow extends JFrame {
                           constraints.gridx = 1;
                           constraints.gridy = 0;
                           detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-                          middleRightPanel.add(detailsPanel, constraints);
+                          middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
                           middleLeftPanel.revalidate();
                           middleRightPanel.revalidate();
                           repaint();
@@ -212,28 +214,34 @@ public class MainWindow extends JFrame {
     middleRightPanel = new JPanel();
 //    middleRightPanel.setSize(220, 300);
 //    middleRightPanel.setLocation(370, 0);
-    middleRightPanel.setLayout(new GridBagLayout());
-    constraints.weightx = 0.3;
-    constraints.weighty = 1;
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    middleRightPanel.add(new JPanel(), constraints);
-    constraints.weightx = 0.4;
-    constraints.weighty = 0.6;
-    constraints.gridx = 1;
-    constraints.gridy = 0;
+    BorderLayout middleRightLayout = new BorderLayout();
+    middleRightLayout.setHgap(50);
+    middleRightLayout.setVgap(50);
+    middleRightPanel.setLayout(middleRightLayout);
+//    constraints.weightx = 0.3;
+//    constraints.weighty = 1;
+//    constraints.gridx = 0;
+//    constraints.gridy = 0;
+//    middleRightPanel.add(new JPanel(), constraints);
+//    constraints.weightx = 0.4;
+//    constraints.weighty = 0.6;
+//    constraints.gridx = 1;
+//    constraints.gridy = 0;
     detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-    middleRightPanel.add(detailsPanel, constraints);
-    constraints.weightx = 0.3;
-    constraints.weighty = 1;
-    constraints.gridx = 2;
-    constraints.gridy = 0;
-    middleRightPanel.add(new JPanel(), constraints);
-    constraints.weightx = 1;
-    constraints.weighty = 0.4;
-    constraints.gridx = 1;
-    constraints.gridy = 1;
-    middleRightPanel.add(new JPanel(), constraints);
+    middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
+    middleRightPanel.add(new JLabel(" "), BorderLayout.SOUTH);
+    middleRightPanel.add(new JLabel(" "), BorderLayout.WEST);
+    middleRightPanel.add(new JLabel(" "), BorderLayout.EAST);
+//    constraints.weightx = 0.3;
+//    constraints.weighty = 1;
+//    constraints.gridx = 2;
+//    constraints.gridy = 0;
+//    middleRightPanel.add(new JPanel(), constraints);
+//    constraints.weightx = 1;
+//    constraints.weighty = 0.4;
+//    constraints.gridx = 1;
+//    constraints.gridy = 1;
+//    middleRightPanel.add(new JPanel(), constraints);
     
     middleLeftPanel = new JPanel();
 //    middleLeftPanel.setSize(300, 350);
@@ -257,10 +265,11 @@ public class MainWindow extends JFrame {
 //    constraints.gridx = 1;
     middlePanel.add(middleRightPanel);
                  
+    buttonPanel = new JPanel();
     bottomPanel = new JPanel();
-//    bottomPanel.setSize(640, 40);
-//    bottomPanel.setLocation(0, 405);
-    bottomPanel.setLayout(new GridBagLayout());
+//    buttonPanel.setSize(640, 40);
+//    buttonPanel.setLocation(0, 405);
+    buttonPanel.setLayout(new GridBagLayout());
     assignButton = new JButton("Round 1");
 //    assignButton.setSize(100, 30);
 //    assignButton.setLocation(85, 5);
@@ -281,65 +290,66 @@ public class MainWindow extends JFrame {
     constraints.weighty = 0.2;
     constraints.gridx = 0;
     constraints.gridy = 0;
-    bottomPanel.add(new JPanel(), constraints);
+    buttonPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.1;
     constraints.weighty = 0.6;
     constraints.gridx = 0;
     constraints.gridy = 1;
-    bottomPanel.add(new JPanel(), constraints);
+    buttonPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.2;
     constraints.weighty = 0.6;
     constraints.gridx = 1;
     constraints.gridy = 1;
-    bottomPanel.add(assignButton, constraints);
+    buttonPanel.add(assignButton, constraints);
     constraints.weightx = 0.1;
     constraints.weighty = 0.6;
     constraints.gridx = 2;
     constraints.gridy = 1;
-    bottomPanel.add(new JPanel(), constraints);
+    buttonPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.2;
     constraints.weighty = 0.6;
     constraints.gridx = 3;
     constraints.gridy = 1;
-    bottomPanel.add(toggleButton, constraints);
+    buttonPanel.add(toggleButton, constraints);
     constraints.weightx = 0.1;
     constraints.weighty = 0.6;
     constraints.gridx = 4;
     constraints.gridy = 1;
-    bottomPanel.add(new JPanel(), constraints);
+    buttonPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.2;
     constraints.weighty = 0.6;
     constraints.gridx = 5;
     constraints.gridy = 1;
-    bottomPanel.add(reportButton, constraints);
+    buttonPanel.add(reportButton, constraints);
     constraints.weightx = 0.1;
     constraints.weighty = 0.6;
     constraints.gridx = 6;
     constraints.gridy = 1;
-    bottomPanel.add(new JPanel(), constraints);
+    buttonPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.1;
     constraints.weighty = 0.2;
     constraints.gridx = 0;
     constraints.gridy = 2;
-    bottomPanel.add(new JPanel(), constraints);
-//    bottomPanel.add(printButton);
+    buttonPanel.add(new JPanel(), constraints);
+//    buttonPanel.add(printButton);
+    bottomPanel.add(buttonPanel);
     
     constraints.gridx = 0;
     constraints.gridy = 0;
     constraints.weightx = 1;
     constraints.weighty = 0.1;
     
-    add(topPanel, constraints);
+    add(topPanel, BorderLayout.NORTH);
     
     constraints.gridy = 1;
     constraints.weighty = 0.7;
     
-    add(middlePanel, constraints);
+    add(middlePanel, BorderLayout.CENTER);
     
     constraints.gridy = 2;
     constraints.weighty = 0.2;
     
-    add(bottomPanel, constraints);
+    add(bottomPanel, BorderLayout.SOUTH);
   }
   
   public static void main(String[] args)
@@ -364,7 +374,7 @@ public class MainWindow extends JFrame {
           constraints.gridx = 1;
           constraints.gridy = 0;
           detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-          middleRightPanel.add(detailsPanel, constraints);
+          middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
           middleLeftPanel.revalidate();
           middleRightPanel.revalidate();
           repaint();
@@ -379,7 +389,7 @@ public class MainWindow extends JFrame {
           constraints.gridx = 1;
           constraints.gridy = 0;
           detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-          middleRightPanel.add(detailsPanel, constraints);
+          middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
           middleLeftPanel.revalidate();
           middleRightPanel.revalidate();
           toggleButton.setText("Instructors");
