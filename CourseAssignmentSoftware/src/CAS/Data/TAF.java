@@ -10,6 +10,7 @@ public class TAF {
 	private ArrayList<TimeSchedule> preferredTimes;
 	private ArrayDeque<String> preferredCourses;
         private ArrayList<String> processedCourses;
+        private ArrayDeque<String> preferredCourseNames;
         
         public TAF(ArrayList<Day> preferredDays,ArrayList<TimeSchedule> preferredTimes,ArrayDeque<String> preferredCourses){
             try {
@@ -20,6 +21,7 @@ public class TAF {
             this.preferredDays = preferredDays;
             this.preferredTimes = preferredTimes;
             this.preferredCourses = preferredCourses;
+            preferredCourseNames = preferredCourses;
             processedCourses = new ArrayList<String>();
         }
 	
@@ -35,6 +37,10 @@ public class TAF {
 	public ArrayDeque<String> getPreferredCourses(){
 		return preferredCourses;
 	}
+        
+        public ArrayDeque<String> GetPreferredCourseNames() {
+            return preferredCourseNames;
+        }
         
         public ArrayList<String> getProcessedCourses() {
             return processedCourses;

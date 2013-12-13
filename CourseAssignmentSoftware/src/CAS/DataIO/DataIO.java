@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -136,6 +137,9 @@ public class DataIO {
     public static String GetUnfulfilledRequestReport(HashMap<String, Course> courses, HashMap<String, Instructor> instructors) {
         StringBuilder sb = new StringBuilder();
         PriorityQueue<Course> coursePQ = GetSortedUnfulfilledCourses(courses);
+        
+        ArrayList<Instructor> sortedInstructors = new ArrayList<> (instructors.values());
+        Collections.sort(sortedInstructors);
 
         sb.append("Work Area\t");
         sb.append("Course Name\t");
@@ -153,10 +157,10 @@ public class DataIO {
             for (Instructor instructor : instructors.values()) {
                 StringBuilder sb2 = new StringBuilder();
                 // iterate through the instructor's unfulfilled requests to add them to the report
-                for (Course c : GetUnfulfilledCourses (instructor, courses)) {
+                for (Course c : instructor.getUnfulfilledCourseRequests(courses)) {
                     sb2.append(c.getTitle());
                     sb2.append (",");
-                    if (c.equals(course)) {
+                    if (course.equals(c)) {
                         sb.append(course.getWorkArea());
                         sb.append("\t");
                         sb.append(c.getTitle());
@@ -166,15 +170,15 @@ public class DataIO {
                     }
                 }
                 sb.append (sb2.toString());
+                sb.append("\n");
             }
-            sb.append("\n");
+
         }
         return sb.toString();
     }
 
     /**
      * Gets a sorted queue of courses, sorting is based on reporting needs.
-     *
      * @param courses - The map of courses.
      * @return Returns
      */
@@ -188,17 +192,6 @@ public class DataIO {
             }
         }
         return coursePQ;
-    }
-
-    public static ArrayList<Course> GetUnfulfilledCourses(Instructor instructor, HashMap<String, Course> courses) {
-        ArrayList<Course> unfulfilledRequests = new ArrayList();
-        for (Course c : (Course[]) instructor.getPreferredCourses(courses).toArray()) {
-            if (c.getInstructor() == null) {
-                unfulfilledRequests.add(c);
-            }
-        }
-
-        return unfulfilledRequests;
     }
 
     static class CourseComparator implements Comparator<Course> {
@@ -217,14 +210,7 @@ public class DataIO {
 
         @Override
         public int compare(Course c1, Course c2) {
-            String c1ProfName = c1.getInstructor().getName();
-            String c2ProfName = c2.getInstructor().getName();
-
-            // Sort courses alphabetically by work area first,
-            // and then by instructor name
-            return (c1.getWorkArea().equals(c2.getWorkArea())
-                    ? c1ProfName.compareTo(c2ProfName)
-                    : c1.getWorkArea().compareTo(c2.getWorkArea()));
+            return (c1.getWorkArea().compareTo(c2.getWorkArea()));
         }
     }
 }

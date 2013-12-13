@@ -48,22 +48,19 @@ public class Instructor implements Comparable<Instructor> {
         return taf.getPreferredTimes();
     }
 
-    // this method previously only returned a collection of strings,
-    // we want the course objects!
-    public ArrayDeque<Course> getPreferredCourses(HashMap<String, Course> courses) {
-        ArrayDeque<String> prefCourseNames = taf.getPreferredCourses();
-        ArrayDeque<Course> prefCourses = new ArrayDeque();
-        
-        // create a new ArrayDeque of type 'Course'
-        while (!prefCourseNames.isEmpty() && prefCourseNames.peek() != null) {
-            String courseName = prefCourseNames.pop();
+    public ArrayList<Course> getUnfulfilledCourseRequests (HashMap<String, Course> cs) {
+        ArrayDeque<String> prefCourseNames = taf.GetPreferredCourseNames();
+        ArrayList<Course> prefCourses = new ArrayList();            
             
-            // add equivalent course objects to preferredList
-            for (Course c : courses.values()) {
-                if (c.getTitle().equals(courseName)) {
-                    // this is the same addition logic being used in TAFReader,
-                    // this ensures we keep the prefered course order the same.
-                    prefCourses.offerLast(c); // adds the preferred course using fifo
+        // add equivalent course objects to preferredList
+        while(!prefCourseNames.isEmpty() && prefCourseNames.peek() != null) {
+            prefCourses.add (cs.get(prefCourseNames.poll()));
+        }
+        
+        for (Course c1 : prefCourses) {
+            for (Course c2 : courses) {
+                if (c1.equals(c2)) {
+                    prefCourses.remove(c2);
                 }
             }
         }
