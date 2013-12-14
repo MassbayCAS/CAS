@@ -62,12 +62,12 @@ public class CoursePanel extends JPanel
        instructor = new JLabel("Instructor: N/A");
    
    dayList = "";
-   if(thisCourse.getDays() != null) {
+//   if(thisCourse.getDays() != null) {
    for (Day d:thisCourse.getDays())
    {
-     dayList.concat("" + d.toString());
+     dayList += d.toString() + " ";
    }
-   }
+//   }
    
    id = new JLabel("ID: " + thisCourse.getId());
    workArea =  new JLabel("Workarea: " + thisCourse.getWorkArea());
@@ -95,7 +95,7 @@ public class CoursePanel extends JPanel
    if(lab.getDays() != null) {
    for (Day d:lab.getDays())
    {
-     dayListLab.concat("" + d.toString());
+     dayListLab += d.toString() + " ";
    }
    }
    else 
