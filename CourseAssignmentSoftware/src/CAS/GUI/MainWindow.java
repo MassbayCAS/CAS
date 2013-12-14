@@ -236,6 +236,7 @@ public class MainWindow extends JFrame {
           middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
           middleLeftPanel.revalidate();
           middleRightPanel.revalidate();
+          toggleButton.setText("Courses");
           repaint();
         }
         else {

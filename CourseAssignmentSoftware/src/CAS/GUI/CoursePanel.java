@@ -108,7 +108,7 @@ public class CoursePanel extends JPanel
     panel = new JPanel();
     panel.setBorder(BorderFactory.createTitledBorder("Course Info"));
     setLayout(new GridLayout(2,1));
-    panel.setLayout(new FlowLayout());
+    panel.setLayout(new GridLayout(0,1));
     
     setBackground(Color.WHITE);
     panel.setBackground(Color.WHITE);
@@ -136,7 +136,7 @@ public class CoursePanel extends JPanel
     if(lab != null);
     {
     labPanel = new JPanel();
-    labPanel.setLayout(new FlowLayout());
+    labPanel.setLayout(new GridLayout(0,1));
     labPanel.setBackground(Color.WHITE);
     labPanel.setBorder(BorderFactory.createTitledBorder("Lab Info"));
 
