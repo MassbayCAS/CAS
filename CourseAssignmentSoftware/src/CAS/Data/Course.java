@@ -173,7 +173,51 @@ public class Course implements Comparable<Course> {
         if (comparedWorkArea != 0) {
             return comparedWorkArea;
         } else {
-            return id > c.id ? +1 : id < c.id ? -1 : 0;
+            String thisCode = "";
+            String thatCode = "";
+            for (int i = 0; i < classCode.length(); i++) {
+                char tempChar = classCode.charAt(i);
+                if (Character.isDigit(tempChar)) {
+                    thisCode += tempChar;
+                }
+            }
+
+            String thatClassCode = c.getClassCode();
+            for (int i = 0; i < thatClassCode.length(); i++) {
+                char tempChar = thatClassCode.charAt(i);
+                if (Character.isDigit(tempChar)) {
+                    thatCode += tempChar;
+                }
+            }
+
+            int thisNumber = Integer.parseInt(thisCode);
+            int thatNumber = Integer.parseInt(thatCode);
+            int numberDiff = thisNumber - thatNumber;
+            if (numberDiff != 0) {
+                return numberDiff;
+            } else {
+                thisCode = "";
+                thatCode = "";
+                for (int i = 0; i < section.length(); i++) {
+                    char tempChar = section.charAt(i);
+                    if (Character.isDigit(tempChar)) {
+                        thisCode += tempChar;
+                    }
+                }
+
+                thatClassCode = c.getSection();
+                for (int i = 0; i < thatClassCode.length(); i++) {
+                    char tempChar = thatClassCode.charAt(i);
+                    if (Character.isDigit(tempChar)) {
+                        thatCode += tempChar;
+                    }
+                }
+
+                thisNumber = Integer.parseInt(thisCode);
+                thatNumber = Integer.parseInt(thatCode);
+                numberDiff = thisNumber - thatNumber;
+                return numberDiff;
+            }
         }
     }
 
