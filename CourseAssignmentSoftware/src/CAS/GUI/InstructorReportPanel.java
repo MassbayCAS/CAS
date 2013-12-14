@@ -42,7 +42,7 @@ public class InstructorReportPanel extends JPanel {
         instructors = courseAssignment.getInstructors();
         courses = courseAssignment.getCourses();
 
-        label1 = new JLabel("InstructorPanel");
+        label1 = new JLabel("Instructors");
         c.gridx = 0;
         c.gridy = 0;
         c.weighty = 0.05;
