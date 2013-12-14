@@ -300,6 +300,7 @@ public class MainWindow extends JFrame {
                     if (selected != null) {
                         if (selected instanceof Instructor) {
                             Instructor i = (Instructor) selected;
+                            System.out.println(i);
                             middleLeftPanel.remove(reportPanel);
                             middleRightPanel.remove(detailsPanel);
                             instructorPanel = new InstructorPanel(i);
@@ -316,6 +317,7 @@ public class MainWindow extends JFrame {
                             repaint();
                         } else if (selected instanceof Course) {
                             Course c = (Course) selected;
+                            System.out.println(c);
                             middleLeftPanel.remove(reportPanel);
                             middleRightPanel.remove(detailsPanel);
                             coursePanel = new CoursePanel(c);
@@ -334,6 +336,7 @@ public class MainWindow extends JFrame {
                     }
                 } else if (reportPanel == courseReportPanel) {
                     Course selected = courseReportPanel.getCourse();
+                    System.out.println(selected);
                     if (selected != null) {
                         middleLeftPanel.remove(reportPanel);
                         middleRightPanel.remove(detailsPanel);
