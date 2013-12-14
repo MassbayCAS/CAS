@@ -28,12 +28,7 @@ public class Time{
 	// convert to String in standard-time format (H:MM AM PM)
         @Override
 	public String toString(){
-            if (hour == 0 && min == 0) {
-                return " ";
-            }
-            else {
 		return String.format( "%d:%02d",(( hour == 0 || hour == 12) ? 12 : hour % 12),min,(hour< 12?"AM":"PM"));
-            }
 	}
         
         @Override
