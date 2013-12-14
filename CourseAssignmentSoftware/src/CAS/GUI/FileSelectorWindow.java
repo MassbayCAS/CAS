@@ -39,7 +39,6 @@ public class FileSelectorWindow {
         int entryPoint = 0;
 
         directory = System.getProperty(DEFAULT_DIRECTORY);
-        System.out.println(directory + INPUT_FOLDER + WORK_LIST);
         File workAreasFile = new File(directory + INPUT_FOLDER + WORK_LIST);
         while (!ready) {
             switch (entryPoint++) {

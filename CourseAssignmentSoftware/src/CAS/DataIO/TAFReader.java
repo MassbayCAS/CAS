@@ -87,11 +87,11 @@ public class TAFReader
                 for(int i =0;i<number.length();i++){ // checks the format of the number (maybe unneeded)
                     if(i!=3&&i!=7){
                         if(!Character.isDigit(number.charAt(i))){
-                            System.out.println(i);
+                            //System.out.println(i);
                             throw new IncorrectFormatException("Only numbers in a phone number. Incorrect Phone must be 012-345-6789: not "+number);
                         }
                         else if(i==3||i==7&&number.charAt(i)!='-'){
-                                System.out.println(i);
+                                //System.out.println(i);
                                 throw new IncorrectFormatException("Incorrect Phone must be 012-345-6789: not "+number);
                         }
                     }

@@ -87,7 +87,7 @@ public class DataIO {
             if (c.getInstructor() != null) {
                 profName = c.getInstructor().getName();
             }
-            AppendLine(sb, c.getWorkArea(), String.valueOf(c.getId()), c.getSection(), c.getTitle(), profName);
+            AppendLine(sb, c.getWorkArea(), c.getClassCode(), c.getSection(), c.getTitle(), profName);
         }
         return sb.toString();
     }
@@ -126,33 +126,51 @@ public class DataIO {
      * @return Returns a formatted unfulfilled assignment report.
      */
     public static String GetUnfulfilledRequestReport(HashMap<String, Course> courses, HashMap<String, Instructor> instructors) {
-        StringBuilder sb = new StringBuilder();
-        ArrayList<Course> unassignedCourses = new ArrayList();
-        ArrayList<Instructor> sortedInstructors = new ArrayList<>(instructors.values());
-        Collections.sort(sortedInstructors);
+        /*
+         StringBuilder sb = new StringBuilder();
+         ArrayList<Course> unassignedCourses = new ArrayList();
+         ArrayList<Instructor> sortedInstructors = new ArrayList<>(instructors.values());
+         Collections.sort(sortedInstructors);
         
-        // iterate through sorted instructors preferred courses.
-        // we can't get instructor info from unassigned courses
-        // because that field will be null.
+         // iterate through sorted instructors preferred courses.
+         // we can't get instructor info from unassigned courses
+         // because that field will be null.
+        
+         for (Instructor instructor : sortedInstructors) {
+         for (Course c : instructor.getUnfulfilledCourseRequests(courses)) {
+         Course temp = c;
+         temp.setInstructor(instructor);
+         unassignedCourses.add(temp);
+         }
+         }
+
+         AppendLine(sb, "Work Area", "Instructor", "Course Name", "", "");
+         sb.append("--------------------------------------------------------------------"
+         + "--------------------------------------------------------------------\n");
+
+         Collections.sort(unassignedCourses, new UnfulfilledComparator());
+
+         for (Course c : unassignedCourses) {
+         AppendLine(sb, c.getWorkArea(), c.getInstructor().getName(), c.getTitle(), "", "");
+         }        
+         return sb.toString();*/
+
+        String report = "";
+        report += "Unfulfilled Requests\n";
+        report += "--------------------\n";
+        ArrayList<Instructor> sortedInstructors = new ArrayList<Instructor>(instructors.values());
+        Collections.sort(sortedInstructors);
+
         for (Instructor instructor : sortedInstructors) {
-            for (Course c : instructor.getUnfulfilledCourseRequests(courses)) {
-                Course temp = c;
-                temp.setInstructor(instructor);
-                unassignedCourses.add(temp);
+            ArrayList<Course> unfulfilled = instructor.getUnfulfilledCourseRequests(courses);
+            if (!unfulfilled.isEmpty()) {
+                report += instructor.getName() + " :\n";
+                for (Course course : unfulfilled) {
+                    report += "\t" + course.getClassCode() + "," + course.getSection() + "\n";
+                }
             }
         }
-
-        AppendLine(sb, "Work Area", "Instructor", "Course Name", "", "");
-        sb.append("--------------------------------------------------------------------"
-                + "--------------------------------------------------------------------\n");
-
-        Collections.sort(unassignedCourses, new UnfulfilledComparator());
-
-        for (Course c : unassignedCourses) {
-            AppendLine(sb, c.getWorkArea(), c.getInstructor().getName(), c.getTitle(), "", "");
-        }
-
-        return sb.toString();
+        return report;
     }
 
     static class CourseComparator implements Comparator<Course> {

@@ -48,28 +48,47 @@ public class Instructor implements Comparable<Instructor> {
         return taf.getPreferredTimes();
     }
 
-    public ArrayList<Course> getUnfulfilledCourseRequests (HashMap<String, Course> cs) {
-        ArrayDeque<String> prefCourseNames = taf.GetPreferredCourseKeys();
-        ArrayList<Course> prefCourses = new ArrayList();            
-            
-        // add equivalent course objects to preferredList
-        while(!prefCourseNames.isEmpty() && prefCourseNames.peek() != null) {
-            prefCourses.add (cs.get(prefCourseNames.poll()));
-        }
-        
-        // if the course already exists in the instructors courses (assigned)
-        // list, we remove it from our ArrayLists
-        for (Course c1 : prefCourses) {
-            for (Course c2 : courses) {
-                if (c1.equals(c2)) {
-                    prefCourses.remove(c2);
+    public ArrayList<Course> getUnfulfilledCourseRequests(HashMap<String, Course> cs) {
+
+
+        ArrayList<Course> unfulfilledRequests = new ArrayList<Course>();
+        for (String courseKey : taf.getProcessedCourses()) {
+            boolean unfulfilled = true;
+            Course course = cs.get(courseKey);
+            for (Course assigned : courses) {
+                if (course.equals(assigned)) {
+                    unfulfilled = false;
                 }
             }
+            if (unfulfilled) {
+                unfulfilledRequests.add(course);
+            }
         }
+        return unfulfilledRequests;
+
+        /*
+         ArrayDeque<String> prefCourseNames = taf.GetPreferredCourseKeys();
+         ArrayList<Course> prefCourses = new ArrayList();            
+            
+         // add equivalent course objects to preferredList
+         while(!prefCourseNames.isEmpty() && prefCourseNames.peek() != null) {
+         prefCourses.add (cs.get(prefCourseNames.poll()));
+         }
         
-        return prefCourses;
+         // if the course already exists in the instructors courses (assigned)
+         // list, we remove it from our ArrayLists
+         for (Course c1 : prefCourses) {
+         for (Course c2 : courses) {
+         if (c1.equals(c2)) {
+         prefCourses.remove(c2);
+         }
+         }
+         }
+        
+         return prefCourses;
+         * */
     }
-    
+
     public TAF getTAF() {
         return taf;
     }
@@ -81,41 +100,44 @@ public class Instructor implements Comparable<Instructor> {
         int seniorityComparison = thatSeniority - thisSeniority;
         if (seniorityComparison != 0) {
             return seniorityComparison;
-        }
-        else {
+        } else {
             int dateComparison = instructor.getTAF().getDateOfSubmission().compareTo(taf.getDateOfSubmission());
             return dateComparison;
         }
     }
-    
+
     @Override
     public int compareTo(Instructor instructor) {
         return name.compareTo(instructor.getName());
     }
-    
+
     @Override
     public int hashCode() {
         String hash = name;
         return hash.hashCode();
     }
-    
+
     @Override
     public boolean equals(Object object) {
-        if (object == null) {            return false;        }
-        if (object == this) {            return true;        }
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (object instanceof Instructor) {
-            Instructor other = (Instructor)object;
+            Instructor other = (Instructor) object;
             return name.equals(other.getName()) && phoneNumber.equals(other.getPhoneNumber());
         }
         return false;
     }
-    
+
     @Override
-    public String toString(){
-        String temp = "name: "+name+"\nphone number: "+phoneNumber;
+    public String toString() {
+        String temp = "name: " + name + "\nphone number: " + phoneNumber;
         for (Course course : courses) {
             temp += "\n" + course.getClassCode() + "," + course.getSection();
         }
-	return  temp;
+        return temp;
     }
 }
