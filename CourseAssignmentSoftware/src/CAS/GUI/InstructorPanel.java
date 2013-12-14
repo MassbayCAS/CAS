@@ -74,7 +74,7 @@ public class InstructorPanel extends JPanel
   {
     setBackground(Color.WHITE);
     setBorder(BorderFactory.createTitledBorder("Intructor Information"));
-    setLayout(new FlowLayout());
+    setLayout(new GridLayout(0,1));
     
     name.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
     phoneNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
