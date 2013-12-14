@@ -133,7 +133,7 @@ public class CoursePanel extends JPanel
     
     add(panel);
     
-    if(lab != null);
+    if(lab != null)
     {
     labPanel = new JPanel();
     labPanel.setLayout(new GridLayout(0,1));
