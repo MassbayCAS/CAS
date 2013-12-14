@@ -21,7 +21,8 @@ public class InstructorPanel extends JPanel
 {
     
  private JPanel northPanel;
- private JLabel name, phoneNumber, dateOfSubmission, preferredDays, preferredCoursesLabel,preferredTimes,  courses ; 
+ private JLabel name, phoneNumber, dateOfSubmission, preferredDays, preferredCoursesLabel,preferredTimes;
+ private JTextArea courses;
  private String dayList,preferredTimesList;
  private ArrayDeque<Course> preferredCoursesArray;
  private ArrayList<TimeSchedule> preferredTimesArray;
@@ -58,7 +59,14 @@ public class InstructorPanel extends JPanel
    phoneNumber = new JLabel("Phone: " + thisInstructor.getPhoneNumber());
    dateOfSubmission = new JLabel("Submitted: " + thisInstructor.getDateOfSubmission());
    preferredDays = new JLabel("Preferred Days: " + thisInstructor.getPreferredDays());
-   courses = new JLabel("Courses: "+ thisInstructor.getCourses());
+   String coursesString = "";
+   for(Course course : thisInstructor.getCourses()) {
+       coursesString += "\t" + course.getTitle() + "\n";
+   }
+   courses = new JTextArea("\nCourses: "+ coursesString);
+   courses.setWrapStyleWord(true);
+   courses.setEditable(false);
+   courses.setFont(new Font(courses.getText(), Font.BOLD, 12));
  
    preferredCoursesLabel = new JLabel("Preferred Courses: ");
 
@@ -66,7 +74,7 @@ public class InstructorPanel extends JPanel
    preferredTimesArray = new ArrayList<TimeSchedule>();
    for(TimeSchedule t:preferredTimesArray)
    {
-   preferredTimesList.concat("Start: " + t.getStartTime().toString() + " End: " + t.getEndTime().toString()+ "\n");    
+   preferredTimesList += "Start: " + t.getStartTime().toString() + " End: " + t.getEndTime().toString()+ "\n";    
    }
    preferredTimes = new JLabel(preferredTimesList);
   }

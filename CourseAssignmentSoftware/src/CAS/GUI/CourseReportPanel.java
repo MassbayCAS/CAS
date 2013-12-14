@@ -26,9 +26,9 @@ public class CourseReportPanel extends JPanel {
         this.courseAssignment = courseAssignment;
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        setBackground(Color.GRAY);
+        setBackground(Color.LIGHT_GRAY);
 
-        label1 = new JLabel("CourseReportPanel");
+        label1 = new JLabel("Courses");
         c.gridx = 0;
         c.gridy = 0;
         c.weighty = 0.05;

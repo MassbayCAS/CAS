@@ -52,7 +52,7 @@ public class PrintWindow extends JFrame
     private void buildPanel()
     {
         saveFile = new JButton("Save File");
-        printFile = new JButton("Printing file ");
+        printFile = new JButton("Print File");
         add(textArea);
         
         saveFile.addActionListener(new ButtonListener());
