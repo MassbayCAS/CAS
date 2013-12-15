@@ -80,7 +80,6 @@ public class InstructorReportPanel extends JPanel {
     public Object getSelected() {
         if (list.getSelectedValue() != null) {
             String selected = ((String) list.getSelectedValue()).trim();
-            System.out.println(selected);
             Instructor i = instructors.get(selected);
             Course c = courses.get(selected);
             if (i != null) {

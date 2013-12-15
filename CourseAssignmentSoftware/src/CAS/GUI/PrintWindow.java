@@ -97,7 +97,6 @@ public class PrintWindow extends JFrame
             }
             if (e.getSource() == printFile) {
                 try {
-                    System.out.println("trying to print: " + textArea);
                     textArea.print();
                 } catch (PrinterException x) {
                     // Print job did not complete.
