@@ -23,12 +23,6 @@ import java.util.Scanner;
  * Course objects
  */
 public class CourseReader {
-    /*
-     public CourseReader(String filename) throws FileNotFoundException
-     {
-     super(filename);
-     }
-     */
 
     /**
      * Wrapper method for loadCourses method to generate a HashMap of Course
@@ -57,10 +51,6 @@ public class CourseReader {
         Scanner scan = new Scanner(file);
         HashMap<String, Course> courseList = new HashMap<String, Course>();
 
-        /*
-         final String DEFAULT_DIRECTORY = "user.dir";
-         String directory = System.getProperty(DEFAULT_DIRECTORY);
-         * */
         HashMap<String, String> workAreas = loadWorkAreas(workAreaFile);
 
         scan.nextLine();
@@ -173,91 +163,13 @@ public class CourseReader {
                 days.add(Day.ANY);
                 start = new Time(24, 0);
                 end = new Time(24, 0);
-                //days = null;
-                //start = null;
-                //end = null;
             }
 
-            //System.out.println(workAreas);
             if (splitline[1].contains("\\s")) {
                 throw new IncorrectFormatException("Incorrect Subject format");
             }
             String[] subjectNumber = splitline[1].split("\\s");
-            //System.out.println(subjectNumber[0] + subjectNumber[1]);
-            // System.out.println(workAreas.get(subjectNumber[0] + subjectNumber[1]));
-            /*
-             switch (subjectNumber[0]) {
-             case "BI":
-             if (subjectNumber[1].equals("113")
-             || subjectNumber[1].equals("115")
-             || subjectNumber[1].equals("116")) {
-             workArea = "Anatomy & Physiology";
-             }
-             if (subjectNumber[1].equals("101")
-             || subjectNumber[1].equals("102")
-             || subjectNumber[1].equals("110")
-             || subjectNumber[1].equals("120")
-             || subjectNumber[1].equals("210")) {
-             workArea = "Biology";
-             }
-             if (subjectNumber[1].equals("118")
-             || subjectNumber[1].equals("123")
-             || subjectNumber[1].equals("220")
-             || subjectNumber[1].equals("240")) {
-             workArea = "Microbiology";
-             }
-             break;
-             case "BT":
-             workArea = "Biotechnology";
-             break;
-             case "CH":
-             workArea = "Chemistry";
-             break;
-             case "CS":
-             if (subjectNumber[1].equals("100")) {
-             workArea = "Computer Literacy";
-             } else {
-             workArea = "Computer Science";
-             }
-             break;
-             case "EE":
-             workArea = "Engineering";
-             break;
-             case "EV":
-             workArea = "Environmental Science";
-             break;
-             case "MA":
-             if (subjectNumber[1].equals("105")) {
-             workArea = "Statistics";
-             } else {
-             workArea = "Mathematics";
-             }
-             break;
-             case "MAC":
-             workArea = "Mathematics";
-             break;
-             case "MN":
-             if (subjectNumber[1].equals("121")
-             || subjectNumber[1].equals("130")
-             || subjectNumber[1].equals("135")
-             || subjectNumber[1].equals("140")
-             || subjectNumber[1].equals("141")
-             || subjectNumber[1].equals("241")
-             || subjectNumber[1].equals("261")
-             || subjectNumber[1].equals("271")) {
-             workArea = "Mechanical CAD";
-             }
-             break;
-             case "PY":
-             workArea = "Physics";
-             break;
-             case "SC":
-             workArea = "Science";
-             break;
-             default:
-             workArea = null;
-             break;
-             }*/
+
             String subject = subjectNumber[0];
             String number = subjectNumber[1];
             String section = splitline[2];
@@ -269,14 +181,6 @@ public class CourseReader {
             String room = null;
             
             workArea = workAreas.get(subjectNumber[0] + subjectNumber[1]);
-            
-            //clean up section
-            /*
-            if(section.charAt(section.length()-1) == 'L')
-            {
-                //section = section.substring(0, section.length()-2);
-            }
-            * */
             
             int sectionLength;
             if (section.contains("L")) {
@@ -292,20 +196,11 @@ public class CourseReader {
             
             Course course = new Course(id,subject + number, section, title, campus, days, new TimeSchedule(start, end), workArea);
             String key = course.getClassCode() + "," + course.getSection();
-            /*
-             Course course = new Course(id, workArea, days, start, end, subject,
-             number, section, session, title, credits, campus, room);
-             String key = course.getSubject() + course.getNumber() + course.getSection();*/
-            //System.out.println("right before");
             if (section.contains("L")) {
-                //System.out.println(section);
-                //Course tempCourse = courseList.get(key.substring(0, key.length() - 1));
                 courseList.get(key.substring(0, key.length() - 1)).setLab(course);
-                //System.out.println(tempCourse);
             }
             else {
                 courseList.put(key, course);
-                //System.out.println(course);
             }
         }
         return courseList;
