@@ -27,44 +27,49 @@ public class MyTester {
         {
             e.printStackTrace();
         }
-        for(Course course : ca.getCourses().values())
-        {
-            System.out.println(course);
-        }
+        System.out.println("Courses loaded. Count = " + ca.getCourses().size());
         
         try
         {
-            ca.loadInstructors(new File(directory + "/input/TAF_simple.taf"));
+            ca.loadInstructors(new File(directory + "/input/TAF.taf"));
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+        System.out.println("Instructors loaded. Count = " + ca.getInstructors().size());
         
         try
         {
-            ca.loadSeniorityList(new File(directory + "/input/FakeSeniority.snr"));
+            ca.loadSeniorityList(new File(directory + "/input/Seniority.snr"));
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+        System.out.println("Seniority List loaded.");
         
+        for(Instructor instructor : ca.getInstructors().values())
+        {
+            System.out.println(instructor);
+        }
+        System.out.println("***************");
+        System.out.println("****ROUND1*****");
+        System.out.println("***************");
+        
+        ca.assignCourses();  
          for(Instructor instructor : ca.getInstructors().values())
         {
             System.out.println(instructor);
         }
-         System.out.println(ca.getCourses().keySet());
-         ca.assignCourses();
-         
-        for(Course course : ca.getCourses().values())
-        {
-            System.out.println(course);
-        }         
+        System.out.println("***************");
+        System.out.println("****ROUND2*****");
+        System.out.println("***************");
+                  ca.assignCourses();  
          for(Instructor instructor : ca.getInstructors().values())
         {
             System.out.println(instructor);
-        }        
+        }    
     }
     
 }

@@ -21,7 +21,7 @@ import java.util.HashMap;
  */
 public class CourseAssignment {
     
-    
+    public static int round = 1;
     private HashMap<String, Instructor> instructors;
    /**
     * @return Returns the instructor map..
@@ -87,26 +87,41 @@ public class CourseAssignment {
                 if(theKey == null)
                     break;
                 Course preferredCourse = courses.get(theKey);
+                System.out.println("Trying " + instructor.getName() + " with " + preferredCourse.getTitle());
                 if(preferredCourse.getInstructor() == null)
                 {
                     preferredCourse.setInstructor(instructor);
                     instructor.getCourses().add(preferredCourse);
-                    //System.out.println(instructor.getCourses());   
+                    System.out.println("No current.  Assigned " + preferredCourse.getTitle() + " to " + instructor.getName());   
                     assigned = true;
                 }
                 else  if(preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse) < 0)
                 {
                     Instructor instructor2 = preferredCourse.getInstructor();
+                    System.out.println("Current = " + instructor2.getName() + ". Seniority comparison = " + 
+                                instructor2.compareSeniorities(instructor, preferredCourse) + " Assigned to "
+                                + instructor.getName());
+                    
+                    
                     //instructor2.getCourses().remove(preferredCourse);
                     preferredCourse.setInstructor(instructor);
                     instructor.getCourses().add(preferredCourse);
                     //System.out.println(instructor.getCourses());                    //instructor.getCourses().add(preferredCourse);
                     instructor2.getCourses().remove(preferredCourse);
+                    
                     theQueue.offer(instructor2);
                     assigned = true;
                 }
+                else
+                {
+                    System.out.println("Could not assign " + preferredCourse.getTitle() + " to " + instructor.getName() 
+                            + " Seniority Comparison(" + preferredCourse.getInstructor().getName()+") = " + 
+                            preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse));
+            
+                }
             }
         }
+       round++;
     }
   
    /**  Writes reports based on the current state of the

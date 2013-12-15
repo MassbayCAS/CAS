@@ -1,5 +1,6 @@
 package CAS.Data;
 
+import CAS.CourseAssignment;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,6 +95,22 @@ public class Instructor implements Comparable<Instructor> {
     }
 
     public int compareSeniorities(Instructor instructor, Course course) {
+        //Never give up our first assigned course
+        if(courses.size() == 1 && CourseAssignment.round != 1) 
+            return 1;
+        
+        //If we're getting a third before they get a second
+        if( (courses.size() + 1 - instructor.getCourses().size()) >= 2 )
+        {
+            return -1;
+        }
+        
+        //If they're getting a third before we're get a second
+        if(instructor.getCourses().size() + 1 - courses.size() >= 2)
+        {
+            return 1;
+        }
+        
         String workArea = course.getWorkArea();
         int thisSeniority = (seniorities.get(workArea) == null) ? 0 : seniorities.get(workArea);
         int thatSeniority = (instructor.getSeniorities().get(workArea) == null) ? 0 : instructor.getSeniorities().get(workArea);
