@@ -171,8 +171,8 @@ public class CourseReader {
             } else {
                 days = new ArrayList<Day>();
                 days.add(Day.ANY);
-                start = new Time(0, 0);
-                end = new Time(0, 0);
+                start = new Time(24, 0);
+                end = new Time(24, 0);
                 //days = null;
                 //start = null;
                 //end = null;

@@ -6,7 +6,13 @@ public class Time{
 
 	public Time(int hour, int min) {
 		if(hour < 0 || hour > 23 || min < 0 || min > 59) {
+                    if (hour == 24 && min == 0) {
+                        this.hour = hour;
+                        this.min = min;
+                    }
+                    else {
 			throw new IllegalArgumentException();
+                    }
 		}
 		this.hour = hour;
 		this.min = min;
@@ -28,6 +34,9 @@ public class Time{
 	// convert to String in standard-time format (H:MM AM PM)
         @Override
 	public String toString(){
+            if (hour == 24 && min == 0) {
+                return " ";
+            }
 		return String.format( "%d:%02d",(( hour == 0 || hour == 12) ? 12 : hour % 12),min,(hour< 12?"AM":"PM"));
 	}
         
