@@ -103,9 +103,9 @@ public class TAFReader
                 info = scan.nextLine(); // gets next line which has preferred day and times
                 st = new StringTokenizer(info,",\t "); // tokenizes using , and tab as delimiters
                 //System.out.println("st: " + info);
+                temp = "";
                 while(st.hasMoreTokens()){ // check to see if there is more on the line
                     temp = st.nextToken();  //temp gets the token for checking
-                    //System.out.println("temp: " + temp);
                     switch(temp){ // switch using the temp check if it a m,t,w,th,f or it will create a timeSchelede obj
                         case "m":
                             preferredDays.add(Day.MONDAY);
@@ -127,8 +127,11 @@ public class TAFReader
                             break;
                         case "su":
                             preferredDays.add(Day.SUNDAY);
+                            break;
                         default:
-                            StringTokenizer temp2 = new StringTokenizer(temp,"-");
+                            //System.out.println("temp: " + temp);
+                            StringTokenizer temp2 = new StringTokenizer(temp,"- ");
+                            //System.out.println("" + Integer.parseInt(temp2.nextToken() + Integer.parseInt(temp2.nextToken())));
                             prefTimes.add(new TimeSchedule(Integer.parseInt(temp2.nextToken()),Integer.parseInt(temp2.nextToken())));
                             break;
                     }

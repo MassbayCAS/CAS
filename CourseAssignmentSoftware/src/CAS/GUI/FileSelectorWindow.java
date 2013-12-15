@@ -25,10 +25,12 @@ public class FileSelectorWindow {
     private final String SENIORITY_EXTENSION = "snr";
     private final String DEFAULT_DIRECTORY = "user.dir";
     private final String INPUT_FOLDER = "\\input\\";
-    private final String WORK_LIST = "workAreas." + WORK_EXTENSION;
+    private final String WORK_LIST = "WorkAreas." + WORK_EXTENSION;
     private final String COURSE_LIST = "CourseSchedule." + COURSE_EXTENSION;
-    private final String TAF_LIST = "TAF_simple." + TAF_EXTENSION;
-    private final String SENIORITY_LIST = "FakeSeniority." + SENIORITY_EXTENSION;
+    private final String TAF_LIST = "TAF." + TAF_EXTENSION;
+    //private final String TAF_LIST = "TAF_simple." + TAF_EXTENSION;
+    private final String SENIORITY_LIST = "Seniority." + SENIORITY_EXTENSION;
+    //private final String SENIORITY_LIST = "FakeSeniority." + SENIORITY_EXTENSION;
     private final int CANCEL = -1;
     private CourseAssignment courseAssignment;
     private String directory;
