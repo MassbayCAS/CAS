@@ -77,9 +77,13 @@ public class DataIO {
 
         // the following can be modified to retreieve whatever course fields
         // are desireable for the report
-        AppendLine(sb, "Work Area", "ID", "Section", "Course Name", "Instructor");
-        sb.append("--------------------------------------------------------------------------------------------"
-                + "--------------------------------------------------------------------------------------------\n");
+        sb.append(AddBuffer("Work Area", 65));
+        sb.append(AddBuffer("ID", 20));
+        sb.append(AddBuffer("Section", 25));
+        sb.append(AddBuffer("Course Name", 85));
+        sb.append("Instructor\n");
+        sb.append("--------------------------------------------------------------------------------------"
+                + "------------------------------------------------------------------------------------\n");
         while (!coursePQ.isEmpty() && coursePQ.peek() != null) {
             Course c = coursePQ.poll();
             String profName = "";
@@ -87,13 +91,14 @@ public class DataIO {
             if (c.getInstructor() != null) {
                 profName = c.getInstructor().getName();
             }
-            AppendLine(sb, c.getWorkArea(), c.getClassCode(), c.getSection(), c.getTitle(), profName);
+            sb.append(AddBuffer(c.getWorkArea(), 65));
+            sb.append(AddBuffer(c.getClassCode(), 20));
+            sb.append(AddBuffer(c.getSection(), 15));
+            sb.append(AddBuffer(c.getTitle(), 85));
+            sb.append(profName);
+            sb.append("\n");
         }
         return sb.toString();
-    }
-
-    private static void AppendLine(StringBuilder sb, String s1, String s2, String s3, String s4, String s5) {
-        sb.append(String.format("%1$-50s %2$-30s %3$-30s %4$-80s %5$-50s%n", s1, s2, s3, s4, s5));
     }
 
     /**
@@ -126,51 +131,38 @@ public class DataIO {
      * @return Returns a formatted unfulfilled assignment report.
      */
     public static String GetUnfulfilledRequestReport(HashMap<String, Course> courses, HashMap<String, Instructor> instructors) {
-        /*
-         StringBuilder sb = new StringBuilder();
-         ArrayList<Course> unassignedCourses = new ArrayList();
-         ArrayList<Instructor> sortedInstructors = new ArrayList<>(instructors.values());
-         Collections.sort(sortedInstructors);
-        
-         // iterate through sorted instructors preferred courses.
-         // we can't get instructor info from unassigned courses
-         // because that field will be null.
-        
-         for (Instructor instructor : sortedInstructors) {
-         for (Course c : instructor.getUnfulfilledCourseRequests(courses)) {
-         Course temp = c;
-         temp.setInstructor(instructor);
-         unassignedCourses.add(temp);
-         }
-         }
-
-         AppendLine(sb, "Work Area", "Instructor", "Course Name", "", "");
-         sb.append("--------------------------------------------------------------------"
-         + "--------------------------------------------------------------------\n");
-
-         Collections.sort(unassignedCourses, new UnfulfilledComparator());
-
-         for (Course c : unassignedCourses) {
-         AppendLine(sb, c.getWorkArea(), c.getInstructor().getName(), c.getTitle(), "", "");
-         }        
-         return sb.toString();*/
-
-        String report = "";
-        report += "Unfulfilled Requests\n";
-        report += "--------------------\n";
-        ArrayList<Instructor> sortedInstructors = new ArrayList<Instructor>(instructors.values());
+        StringBuilder sb = new StringBuilder();
+        sb.append(AddBuffer("Instructor", 50));
+        sb.append(AddBuffer("Code", 20));
+        sb.append(AddBuffer("Section", 15));
+        sb.append("Course Name\n");
+        sb.append("--------------------------------------------------------------------"
+                + "--------------------------------------------------------------------\n");
+        ArrayList<Instructor> sortedInstructors = new ArrayList(instructors.values());
         Collections.sort(sortedInstructors);
 
         for (Instructor instructor : sortedInstructors) {
             ArrayList<Course> unfulfilled = instructor.getUnfulfilledCourseRequests(courses);
             if (!unfulfilled.isEmpty()) {
-                report += instructor.getName() + " :\n";
+                sb.append(AddBuffer(instructor.getName(), 50));
                 for (Course course : unfulfilled) {
-                    report += "\t" + course.getClassCode() + "," + course.getSection() + "\n";
+                    sb.append(AddBuffer(course.getClassCode(), 20));
+                    sb.append(AddBuffer(course.getSection(), 15));
+                    sb.append(course.getTitle());
+                    sb.append("\n");
                 }
             }
         }
-        return report;
+        return sb.toString();
+    }
+
+    private static String AddBuffer(String s, int buffSize) {
+        String temp = s;
+        for (int i = s.length(); i <= (buffSize - s.length()); i++) {
+            temp += " ";
+        }
+
+        return temp;
     }
 
     static class CourseComparator implements Comparator<Course> {
@@ -182,14 +174,6 @@ public class DataIO {
             return (c1.getWorkArea().equals(c2.getWorkArea())
                     ? c1.getId() - c2.getId()
                     : c1.getWorkArea().compareTo(c2.getWorkArea()));
-        }
-    }
-
-    static class UnfulfilledComparator implements Comparator<Course> {
-
-        @Override
-        public int compare(Course c1, Course c2) {
-            return (c1.getWorkArea().compareTo(c2.getWorkArea()));
         }
     }
 }
