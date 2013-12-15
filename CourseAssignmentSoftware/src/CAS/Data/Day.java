@@ -1,15 +1,19 @@
 package CAS.Data;
 
-
 /**
+ * Day is an enum where we set a letter to each day of the week.
+ * The days are constants and are set to one letter in the toString. 
+ * 
  * @author Sarah Ben-Kiki
  *
  */
 public enum Day {SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
 	THURSDAY, FRIDAY, SATURDAY, ANY;
 
-/** (non-Javadoc)
- * @see java.lang.Enum#toString()
+/**
+ * This is the toSting that assigns the constant 
+ * with its letter value. If it is assigned something
+ * false it will through out an exception.
  */
 @Override
 public String toString() {

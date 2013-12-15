@@ -255,6 +255,7 @@ public class Course implements Comparable<Course> {
 	}
 
 	/**
+         * Sets the instructor of the course
 	 * @param instructor
 	 */
 	public void setInstructor(Instructor instructor) {
@@ -262,13 +263,16 @@ public class Course implements Comparable<Course> {
 	}
 
 	/**
-	 * @return
+         * Returns the instructor of the course
+	 * @return instructor
 	 */
 	public Instructor getInstructor() {
 		return instructor;
 	}
 
 	/**
+         * Sets the lab of the course if there
+         * is a lab
 	 * @param lab
 	 */
 	public void setLab(Course lab) {
@@ -276,7 +280,9 @@ public class Course implements Comparable<Course> {
 	}
 
 	/**
-	 * @return
+         * Returns the lab of the course if there
+         * is a lab.
+	 * @return lab of course
 	 */
 	public Course getLab() {
 		return lab;

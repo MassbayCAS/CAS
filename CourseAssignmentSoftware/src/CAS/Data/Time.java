@@ -1,13 +1,21 @@
 package CAS.Data;
 
 /**
+ * 
  * @author Sarah Ben-Kiki
- *
  */
 public class Time{
 	private int hour;
 	private int min;
 
+        /**
+         * The Time class takes in the hour and minutes
+         * and confirms that the hour is equal to 24 and 
+         * the minutes are equal to 59 or else it throws 
+         * an exception. Then it sets them.
+         * @param hour
+         * @param min 
+         */
 	public Time(int hour, int min) {
 		if(hour < 0 || hour > 23 || min < 0 || min > 59) {
 			if (hour == 24 && min == 0) {
@@ -23,14 +31,16 @@ public class Time{
 	}
 
 	/**
-	 * @return
+         * Returns the hour of the time
+	 * @return hour
 	 */
 	 public int getHour() {
 		return hour;
 	}
 
 	/**
-	 * @return
+         * Returns the minutes of the time
+	 * @return minutes
 	 */
 	 public int getMin() {
 		 return min;
@@ -56,8 +66,11 @@ public class Time{
 		 return String.format( "%d:%02d",(( hour == 0 || hour == 12) ? 12 : hour % 12),min,(hour< 12?"AM":"PM"));
 	 }
 
-	 /** (non-Javadoc)
-	  * @see java.lang.Object#equals(java.lang.Object)
+	 /**
+          * Determines whether the hour and the minutes
+          * match the hour and minutes of the course. 
+          * @param object
+	  * @return either true or false
 	  */
 	 @Override
 	 public boolean equals(Object object) {
