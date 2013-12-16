@@ -13,8 +13,8 @@ import javax.swing.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-/**
- *
+/** InstructorPanel.java
+ * A class to display information about a specific Instructor object
  * @author Dan
  */
 public class InstructorPanel extends JPanel
@@ -28,6 +28,9 @@ public class InstructorPanel extends JPanel
  private ArrayList<TimeSchedule> preferredTimesArray;
  private Instructor thisInstructor;
  
+ /*
+ Default constructor, not intended for actual use.
+ */
   public InstructorPanel()
   {
    name = new JLabel("Name: ");
@@ -37,9 +40,10 @@ public class InstructorPanel extends JPanel
    preferredCoursesLabel = new JLabel("Preferred Courses: ");
   }
    
-   
-   
-  
+  /*
+  Constructor. Takes an Instructor object and creates the panel.
+  @param Instructor in
+  */
   public InstructorPanel(Instructor in)
   { 
     thisInstructor = in;
@@ -47,11 +51,17 @@ public class InstructorPanel extends JPanel
     buildPanel();
     
   }
+  /*
+  Public method to alter the instructor
+  */
   public void setInstructor(Instructor in)
   {
    thisInstructor = in;
    setFields();
   }
+  /*
+  Private method used to setup the class variables.
+  */
   private void setFields()
   {
       
@@ -78,6 +88,9 @@ public class InstructorPanel extends JPanel
    }
    preferredTimes = new JLabel(preferredTimesList);
   }
+  /*
+  Private class that takes the variables set by setFields, and forms the panel.
+  */
   private void buildPanel()
   {
     setBackground(Color.WHITE);

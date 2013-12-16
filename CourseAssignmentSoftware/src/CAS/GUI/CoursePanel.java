@@ -14,6 +14,9 @@ import java.awt.*;
 import CAS.Data.Course;
 import CAS.Data.Day;
 
+ /*
+ Default Constructor. not intended for use.
+ */
 public class CoursePanel extends JPanel
 {
  private JPanel panel,labPanel;
@@ -21,26 +24,28 @@ public class CoursePanel extends JPanel
  private JLabel idLab, dayLab, startLab, endLab, sectionLab;
  private String dayList, dayListLab;
  private Course thisCourse, lab;
- //private JButton id, workArea, instructor, day, start, end, subject, number, section, session, title, credits, campus, room; 
  
- 
+ /*
+ Default Constructor. not intended for use.
+ */
   public CoursePanel()
-  {/*
+  {
    id = new JLabel("ID: ");
    workArea = new JLabel("Work Area: ");
    instructor = new JLabel("Instructor: ");
-   day = new JButton("Days: ");
+   day = new JLabel("Days: ");
    start =  new JLabel("Start: ");
    end =  new JLabel("End: ");
-   subject =  new JLabel("Subject: ");
    number =  new JLabel("Number: ");
    section =  new JLabel("Section: " );
-  // session =  new JLabel("Session: ");
    title =  new JLabel("Title: ");
-   //credits =  new JLabel("Credits: ");        
    campus =  new JLabel("Campus: ");
-   */
   }
+  
+    /*
+  Main Constructor. Takes a Course object and creates the Panel
+  @param Course c
+  */
   public CoursePanel(Course c)
   { 
     thisCourse = c;
@@ -48,10 +53,16 @@ public class CoursePanel extends JPanel
     buildPanel();
     
   }
+  /*
+  public class to change the Course object. Not intended for use.
+  */
   public void setCourse(Course c)
   {
    thisCourse = c;
   }
+  /*
+  Private method to initialize all of the variables.
+  */
   private void setFields()
   {
       
@@ -103,6 +114,9 @@ public class CoursePanel extends JPanel
    }
    dayLab = new JLabel("Days: " + dayListLab);
   }
+  /*
+  Private inner class to build the GUI panel.
+  */
   private void buildPanel()
   {
     panel = new JPanel();
