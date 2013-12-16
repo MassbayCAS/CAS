@@ -21,12 +21,16 @@ public class PrintWindow extends JFrame
     private JTextArea textArea;
     private JFileChooser fileChooser; 
     
+    private String directory;
+    private final String DEFAULT_DIRECTORY = "user.dir";
+    private final String OUTPUT_FOLDER = "\\output\\";
+
     public PrintWindow(String nf)
     {
         super();
-        
         setSize(480,240);
-        fileChooser = new JFileChooser();
+        directory = System.getProperty(DEFAULT_DIRECTORY);
+        fileChooser = new JFileChooser(new File(directory + OUTPUT_FOLDER));
         textArea = new JTextArea(nf);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
