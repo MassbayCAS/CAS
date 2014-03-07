@@ -1,7 +1,7 @@
 package CAS.GUI.Login;
 
 /*
- Tauseef Pirzada aka Waldo
+ Tauseef Pirzada aka Waldo aka Jcakes
  06122013
  Xor class containing three static methods
  Handling Encryption, hex padding, and decryption
