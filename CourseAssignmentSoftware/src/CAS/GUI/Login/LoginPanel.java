@@ -64,7 +64,7 @@ public class LoginPanel extends JPanel
     gbc.gridwidth = 2;
     add(jTextUsername, gbc);
     
-    jLabelPass = new JLabel("Passcode: ");
+    jLabelPass = new JLabel("Password: ");
     gbc.gridx = 0;
     gbc.gridy = 1;
     gbc.gridwidth = 1;
