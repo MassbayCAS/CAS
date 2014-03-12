@@ -91,6 +91,8 @@ public class TAFReader
         String number = null;
         String info;
         String[] tok;
+        if(scan.hasNextLine())
+            scan.nextLine();//Discard the first line (Last name, First name, number, etc..)
         while(scan.hasNextLine())
         {
             info = scan.nextLine();
@@ -100,7 +102,7 @@ public class TAFReader
                 theMap.put(name, new Instructor(new TAF(preferredDays,prefTimes,preferredCourse),name,number));
             else
             {
-                tok = info.split(",");
+                tok = info.split(",");//Split the line into an array with "," as delimeter
                 if(!tok[0].equals(""))//check if the line contains full instructor information
                 {
                     //tok[0] = lastname
