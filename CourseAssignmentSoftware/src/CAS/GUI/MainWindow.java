@@ -78,7 +78,7 @@ public class MainWindow extends JFrame {
      */
   public MainWindow(CourseAssignment courseAssignment)
   {
-    super();
+    super("Course Assignment Software");
     setSize(WIDTH,HEIGHT);
     setMaximumSize(new Dimension(WIDTH, HEIGHT));
     setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -90,6 +90,7 @@ public class MainWindow extends JFrame {
     round = 1;
     buildPanels();
 
+    setLocationRelativeTo(null);
     setVisible(true);
   }
   
@@ -119,8 +120,8 @@ public class MainWindow extends JFrame {
     
     middleRightPanel = new JPanel();
     BorderLayout middleRightLayout = new BorderLayout();
-    middleRightLayout.setHgap(30);
-    middleRightLayout.setVgap(50);
+    middleRightLayout.setHgap(20);
+    middleRightLayout.setVgap(10);
     middleRightPanel.setLayout(middleRightLayout);
     detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     middleRightPanel.add(detailsPanel, BorderLayout.CENTER);

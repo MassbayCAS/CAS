@@ -50,9 +50,12 @@ public class ReportSelectionWindow extends JFrame{
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setResizable(false);
         setLayout(new GridLayout(2,1));
+        
         this.courseAssignment = courseAssignment;
         buildPanels();
         pack();
+        
+        setLocationRelativeTo(null);
         setVisible(true);
     }
     

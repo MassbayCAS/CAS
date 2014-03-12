@@ -34,6 +34,7 @@ public class LoginFrame extends JFrame
     ub = new UserBase();
     buildThatNotAsAwesomeAsTheLoginPanelLoginFrameYo();
     thisFrame = this;
+    setLocationRelativeTo(null);
   }
   /*
    * buildThatNotAsAwesomeAsTheLoginPanelLoginFrameYo
@@ -96,20 +97,20 @@ public class LoginFrame extends JFrame
               dispose();
             }
             else
-              JOptionPane.showMessageDialog(null,"Incorrect Username or Passcode.",
-                                            "Case Sensitive",
+              JOptionPane.showMessageDialog(null,"Incorrect username or password.",
+                                            "Invalid Login",
                                             JOptionPane.ERROR_MESSAGE);
           }
           catch(IOException ioe)
           {
             //JOptionPane.showMessageDialog(null,ioe.getMessage());
-            JOptionPane.showMessageDialog(null,"Incorrect Username or Passcode.",
-                                          "Case Sensitive",
+            JOptionPane.showMessageDialog(null,"Incorrect username or password.",
+                                          "Invalid Login",
                                           JOptionPane.ERROR_MESSAGE);
           }
         }
         else
-          JOptionPane.showMessageDialog(null,"Username or Passcode fields can not be empty.");
+          JOptionPane.showMessageDialog(null,"Please enter a username and password.", "Incomplete Login", JOptionPane.INFORMATION_MESSAGE);
       }
       else if (ae.getSource() == loginPanel.getRegisterButton())
       {

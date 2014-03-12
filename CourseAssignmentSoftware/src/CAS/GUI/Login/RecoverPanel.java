@@ -63,12 +63,11 @@ public class RecoverPanel extends JPanel
       "How many colleges did you apply to?",
       "What was your childhood nickname?",
       "What was your first payed job?",
-      "Who was your first roommate?",
-      "Is this a joke?"
+      "Who was your first roommate?"
     };
     jComboQuestion = new JComboBox<String>(securityQuestions);
     jbCancel = new JButton("Cancel");
-    jbGetPasscode = new JButton("Recover Passcode");
+    jbGetPasscode = new JButton("Recover Password");
     
     jTextEmail = new JTextField(TEXT_LENGTH);
     jTextUsername = new JTextField(TEXT_LENGTH);

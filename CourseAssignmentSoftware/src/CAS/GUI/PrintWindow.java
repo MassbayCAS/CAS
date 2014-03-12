@@ -27,8 +27,8 @@ public class PrintWindow extends JFrame
 
     public PrintWindow(String nf)
     {
-        super();
-        setSize(480,240);
+        super("Report");
+        setSize(800,600);
         directory = System.getProperty(DEFAULT_DIRECTORY);
         fileChooser = new JFileChooser(new File(directory + OUTPUT_FOLDER));
         textArea = new JTextArea(nf);
@@ -39,6 +39,7 @@ public class PrintWindow extends JFrame
         add(panelText, BorderLayout.CENTER);
         add(panelButton, BorderLayout.SOUTH);
         
+        setLocationRelativeTo(null);
         setVisible(true);
         
     }
