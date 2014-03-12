@@ -21,8 +21,8 @@ public class LoginFrame extends JFrame
   private JFrame thisFrame;
   private LoginPanel loginPanel;
   
-  private final int WIDTH = 400;
-  private final int HEIGHT = 300;
+  private final int WIDTH = 500;
+  private final int HEIGHT = 400;
   /*
    * Constructor
    * Instantiates UserBase class 
