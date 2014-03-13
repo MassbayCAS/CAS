@@ -268,6 +268,10 @@ public class MainWindow extends JFrame {
       if (e.getSource() == reportButton) {
           ReportSelectionWindow r = new ReportSelectionWindow(courseAssignment);
       }
+        if (e.getSource() == helpButton) {
+            HelpWindow w = new HelpWindow();
+        }
+
       if (e.getSource() == assignButton) {
           if(round == 1) {
               courseAssignment.assignCourses();
