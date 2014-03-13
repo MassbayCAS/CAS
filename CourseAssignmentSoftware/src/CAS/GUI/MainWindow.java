@@ -61,6 +61,7 @@ public class MainWindow extends JFrame {
     //The button to show reports
     private JButton reportButton;
     //The mouseListener to listen for double-clicking
+    private JButton helpButton;
     private MouseListener mouseListener;
     
     //A final int for the window's width
@@ -146,9 +147,11 @@ public class MainWindow extends JFrame {
     assignButton = new JButton("Round 1");
     toggleButton = new JButton("Instructors");
     reportButton = new JButton("Report");
+      helpButton = new JButton("Help");
     assignButton.addActionListener(new ButtonListener());
     toggleButton.addActionListener(new ButtonListener());
     reportButton.addActionListener(new ButtonListener());
+      helpButton.addActionListener(new ButtonListener());
     constraints.weightx = 0.1;
     constraints.weighty = 0.2;
     constraints.gridx = 0;
@@ -191,8 +194,13 @@ public class MainWindow extends JFrame {
     buttonPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.1;
     constraints.weighty = 0.2;
-    constraints.gridx = 0;
-    constraints.gridy = 2;
+    constraints.gridx = 7;
+    constraints.gridy = 1;
+      buttonPanel.add(helpButton, constraints);
+      constraints.weightx = 0.1;
+      constraints.weighty = 0.6;
+      constraints.gridx = 7;
+      constraints.gridy = 1;
     buttonPanel.add(new JPanel(), constraints);
     bottomPanel.add(buttonPanel);
     
