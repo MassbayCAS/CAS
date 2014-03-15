@@ -61,6 +61,7 @@ public class MainWindow extends JFrame {
     //The button to show reports
     private JButton reportButton;
     //The mouseListener to listen for double-clicking
+    private JButton helpButton;
     private MouseListener mouseListener;
     
     //A final int for the window's width
@@ -78,7 +79,7 @@ public class MainWindow extends JFrame {
      */
   public MainWindow(CourseAssignment courseAssignment)
   {
-    super();
+    super("Course Assignment Software");
     setSize(WIDTH,HEIGHT);
     setMaximumSize(new Dimension(WIDTH, HEIGHT));
     setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -90,6 +91,7 @@ public class MainWindow extends JFrame {
     round = 1;
     buildPanels();
 
+    setLocationRelativeTo(null);
     setVisible(true);
   }
   
@@ -119,8 +121,8 @@ public class MainWindow extends JFrame {
     
     middleRightPanel = new JPanel();
     BorderLayout middleRightLayout = new BorderLayout();
-    middleRightLayout.setHgap(30);
-    middleRightLayout.setVgap(50);
+    middleRightLayout.setHgap(20);
+    middleRightLayout.setVgap(10);
     middleRightPanel.setLayout(middleRightLayout);
     detailsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     middleRightPanel.add(detailsPanel, BorderLayout.CENTER);
@@ -145,9 +147,11 @@ public class MainWindow extends JFrame {
     assignButton = new JButton("Round 1");
     toggleButton = new JButton("Instructors");
     reportButton = new JButton("Report");
+      helpButton = new JButton("Help");
     assignButton.addActionListener(new ButtonListener());
     toggleButton.addActionListener(new ButtonListener());
     reportButton.addActionListener(new ButtonListener());
+      helpButton.addActionListener(new ButtonListener());
     constraints.weightx = 0.1;
     constraints.weighty = 0.2;
     constraints.gridx = 0;
@@ -190,8 +194,13 @@ public class MainWindow extends JFrame {
     buttonPanel.add(new JPanel(), constraints);
     constraints.weightx = 0.1;
     constraints.weighty = 0.2;
-    constraints.gridx = 0;
-    constraints.gridy = 2;
+    constraints.gridx = 7;
+    constraints.gridy = 1;
+      buttonPanel.add(helpButton, constraints);
+      constraints.weightx = 0.1;
+      constraints.weighty = 0.6;
+      constraints.gridx = 7;
+      constraints.gridy = 1;
     buttonPanel.add(new JPanel(), constraints);
     bottomPanel.add(buttonPanel);
     
@@ -259,6 +268,10 @@ public class MainWindow extends JFrame {
       if (e.getSource() == reportButton) {
           ReportSelectionWindow r = new ReportSelectionWindow(courseAssignment);
       }
+        if (e.getSource() == helpButton) {
+            HelpWindow w = new HelpWindow();
+        }
+
       if (e.getSource() == assignButton) {
           if(round == 1) {
               courseAssignment.assignCourses();

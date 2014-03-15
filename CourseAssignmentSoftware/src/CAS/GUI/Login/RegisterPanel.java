@@ -70,8 +70,7 @@ public class RegisterPanel extends JPanel
       "How many colleges did you apply to?",
       "What was your childhood nickname?",
       "What was your first payed job?",
-      "Who was your first roommate?",
-      "Is this a joke?"
+      "Who was your first roommate?"
     };
     jComboQuestion = new JComboBox<String>(securityQuestions);
     jbCancel = new JButton("Cancel");
@@ -95,7 +94,7 @@ public class RegisterPanel extends JPanel
     gbc.gridwidth = 2;
     add(jTextUsername, gbc);
     
-    jLabelPass = new JLabel("Passcode: ");
+    jLabelPass = new JLabel("Password: ");
     gbc.gridx = 0;
     gbc.gridy = 1;
     gbc.gridwidth = 1;

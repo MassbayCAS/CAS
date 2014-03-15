@@ -33,7 +33,7 @@ public class LoginButtonPanel extends JPanel
   private void buildLoginButtonPanel()
   {
     jbLogin = new JButton("Login");
-    jbRecover = new JButton("Recovery");
+    jbRecover = new JButton("Recover Password");
     jbRegister = new JButton("Register");
     GridBagConstraints gbc = new GridBagConstraints();
     gbc.fill = GridBagConstraints.HORIZONTAL;

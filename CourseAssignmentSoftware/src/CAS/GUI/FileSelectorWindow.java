@@ -24,6 +24,7 @@ public class FileSelectorWindow {
     private final String WORK_EXTENSION = "wrk";
     private final String COURSE_EXTENSION = "crs";
     private final String TAF_EXTENSION = "taf";
+    //private final String TAF_EXTENSION = "csv";
     private final String SENIORITY_EXTENSION = "snr";
     private final String DEFAULT_DIRECTORY = "user.dir";
     private final String INPUT_FOLDER = "\\input\\";

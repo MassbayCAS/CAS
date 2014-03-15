@@ -30,13 +30,14 @@ public class RecoverFrame extends JFrame
    * */
   public RecoverFrame(JFrame jLoginFrame,UserBase ub)
   {
-    super("Recover Passcode");
+    super("Password Recovery");
     this.jLoginFrame = jLoginFrame;
     this.ub = ub;
     builtThatAwesomeRegisterFrame();
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setSize(WIDTH,HEIGHT);
     setVisible(true);
+    setLocationRelativeTo(null);
   }
   /*
    * buildThatAwesomeRegisterFrame
@@ -102,14 +103,13 @@ public class RecoverFrame extends JFrame
             String rec = ub.recover(szUsername,szEmail,szQuestion,szAnswer);
             if(rec!=null)
             {
-              JOptionPane.showMessageDialog(null,"Your passcode is\r\n"+
-                                            rec);
+              JOptionPane.showMessageDialog(null,"Your password is: \n"+rec, "Your Password", JOptionPane.INFORMATION_MESSAGE);
               setVisible(false);
               jLoginFrame.setVisible(true);
               dispose();
             }
             else
-              JOptionPane.showMessageDialog(null,"Your passcode could not be recovered.\r\nVerify you've entered the fields correctly");
+              JOptionPane.showMessageDialog(null,"Your password could not be recovered.\r\nVerify that you've entered all fields correctly.", "Recovery Error", JOptionPane.ERROR_MESSAGE);
           }
           catch(IOException e)
           {
@@ -117,7 +117,7 @@ public class RecoverFrame extends JFrame
           }
         }
         else
-          JOptionPane.showMessageDialog(null,"Recovery fields can not be empty");
+          JOptionPane.showMessageDialog(null,"Please complete all recovery fields.", "Incomplete Recovery", JOptionPane.INFORMATION_MESSAGE);
       }
     }
   }

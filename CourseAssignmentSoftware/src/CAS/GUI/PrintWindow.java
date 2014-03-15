@@ -27,8 +27,8 @@ public class PrintWindow extends JFrame
 
     public PrintWindow(String nf)
     {
-        super();
-        setSize(480,240);
+        super("Report");
+        setSize(800,600);
         directory = System.getProperty(DEFAULT_DIRECTORY);
         fileChooser = new JFileChooser(new File(directory + OUTPUT_FOLDER));
         textArea = new JTextArea(nf);
@@ -39,6 +39,7 @@ public class PrintWindow extends JFrame
         add(panelText, BorderLayout.CENTER);
         add(panelButton, BorderLayout.SOUTH);
         
+        setLocationRelativeTo(null);
         setVisible(true);
         
     }
@@ -83,7 +84,7 @@ public class PrintWindow extends JFrame
                 int choice = fileChooser.showSaveDialog(PrintWindow.this);
                 if (choice == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    String filename = file.getPath() + ".txt";
+                    String filename = file.getPath() + ".doc";
                     BufferedWriter bfWrite = null;
                     try {
                         bfWrite = new BufferedWriter(new FileWriter(filename));

@@ -29,13 +29,14 @@ public class RegisterFrame extends JFrame
    * */
   public RegisterFrame(JFrame jLoginFrame,UserBase ub)
   {
-    super("Register");
+    super("Registration");
     this.jLoginFrame = jLoginFrame;
     this.ub = ub;
     builtThatAwesomeRegisterFrame();
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setSize(WIDTH,HEIGHT);
     setVisible(true);
+    setLocationRelativeTo(null);
   }
   /*
    * builtThatAwesomeRegisterFrame
@@ -104,11 +105,10 @@ public class RegisterFrame extends JFrame
             if(!ub.register(szUsername,szPasscode,
                             szEmail,szQuestion,
                             szAnswer))
-              JOptionPane.showMessageDialog(null,"Account: "+szUsername+" already exists.","Duplicate Username",JOptionPane.INFORMATION_MESSAGE);
+              JOptionPane.showMessageDialog(null,"Username \"" +szUsername+ "\" already exists.","Duplicate Username",JOptionPane.INFORMATION_MESSAGE);
             else
             {
-              JOptionPane.showMessageDialog(null,"Account: "+
-                                            szUsername+" created successfully!");
+              JOptionPane.showMessageDialog(null,"Account \"" +szUsername+ "\" created successfully!", "Account Created", JOptionPane.INFORMATION_MESSAGE);
               setVisible(false);
               jLoginFrame.setVisible(true);
               dispose();
@@ -120,7 +120,7 @@ public class RegisterFrame extends JFrame
           }
         }
         else
-          JOptionPane.showMessageDialog(null,"Registration fields can not be empty");
+          JOptionPane.showMessageDialog(null,"Please complete all registration fields.", "Incomplete Registration", JOptionPane.INFORMATION_MESSAGE);
       }
     }
   }

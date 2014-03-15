@@ -96,20 +96,20 @@ public class LoginFrame extends JFrame
               dispose();
             }
             else
-              JOptionPane.showMessageDialog(null,"Incorrect Username or Password.",
+              JOptionPane.showMessageDialog(null,"Incorrect Username or Passcode.",
                                             "Case Sensitive",
                                             JOptionPane.ERROR_MESSAGE);
           }
           catch(IOException ioe)
           {
             //JOptionPane.showMessageDialog(null,ioe.getMessage());
-            JOptionPane.showMessageDialog(null,"Incorrect Username or Password.",
+            JOptionPane.showMessageDialog(null,"Incorrect Username or Passcode.",
                                           "Case Sensitive",
                                           JOptionPane.ERROR_MESSAGE);
           }
         }
         else
-          JOptionPane.showMessageDialog(null,"Username or Password fields can not be empty.");
+          JOptionPane.showMessageDialog(null,"Username or Passcode fields can not be empty.");
       }
       else if (ae.getSource() == loginPanel.getRegisterButton())
       {
