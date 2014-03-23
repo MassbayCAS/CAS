@@ -4,6 +4,7 @@ package CAS.GUI.Login;
  06122013
  UserBase class which will be handled from the main login frame
  */
+import CAS.GUI.Login.AccountError.ACCOUNT_ERROR;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -142,6 +143,15 @@ public class UserBase
    * @argument security answer to be used for recovery
    * @return boolean true if account is registered, false otherwise
    * */
+  private final int MINIMUM_LENGTH = 4;
+  public ACCOUNT_ERROR validateAccount(String szUsername,String szPasscode)
+  {
+      if(szUsername.length() < MINIMUM_LENGTH)
+          return ACCOUNT_ERROR.BAD_NAME_LENGTH;
+      if(szPasscode.length() < MINIMUM_LENGTH)
+          return ACCOUNT_ERROR.BAD_PASSWORD_LENGTH;
+      return ACCOUNT_ERROR.IS_VALID;
+  }
   public boolean register(String szUsername,String szPasscode,
                           String szEmail,String szQuestion,
                           String szAnswer)throws IOException
