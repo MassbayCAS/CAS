@@ -4,16 +4,23 @@ package CAS.GUI.Login;
  06122013
  UserBase class which will be handled from the main login frame
  */
+import CAS.GUI.Login.AccountError.ACCOUNT_ERROR;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.Scanner;
 
 public class UserBase
 {
   private File file;
+  private Pattern pattern;
+  private Matcher matcher;
+  private static final String EMAIL_PATTERN = 
+		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
   /*
    * Constructor
    * File will be instantiated with UserLoginData.waldo
@@ -23,6 +30,7 @@ public class UserBase
   public UserBase()
   {
     file = new File("UserLoginData.waldo");
+    pattern = Pattern.compile(EMAIL_PATTERN);
   }
   /*
    * Constructor
@@ -56,6 +64,17 @@ public class UserBase
     }
     scan.close();
     return bRet;
+  }
+    private final int MINIMUM_LENGTH = 4;
+  public ACCOUNT_ERROR validateAccount(String szUsername,String szPasscode,String email)
+  {
+      if(szUsername.length() < MINIMUM_LENGTH)
+          return ACCOUNT_ERROR.BAD_NAME_LENGTH;
+      if(szPasscode.length() < MINIMUM_LENGTH)
+          return ACCOUNT_ERROR.BAD_PASSWORD_LENGTH;
+      if(!validate(email))
+          return ACCOUNT_ERROR.BAD_EMAIL_ADDRESS;
+      return ACCOUNT_ERROR.IS_VALID;
   }
   /*
    * recover
@@ -127,6 +146,11 @@ public class UserBase
     scan.close();
     return bRet;
   }
+  private boolean validate(final String hex) 
+  {
+		matcher = pattern.matcher(hex);
+		return matcher.matches();
+  }
   /*
    * register
    * Will be called from the Registration form
@@ -142,6 +166,7 @@ public class UserBase
    * @argument security answer to be used for recovery
    * @return boolean true if account is registered, false otherwise
    * */
+
   public boolean register(String szUsername,String szPasscode,
                           String szEmail,String szQuestion,
                           String szAnswer)throws IOException
