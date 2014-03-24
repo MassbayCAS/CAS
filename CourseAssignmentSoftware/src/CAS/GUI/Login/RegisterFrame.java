@@ -103,7 +103,7 @@ public class RegisterFrame extends JFrame
                 {
                     try
                     {
-                        ACCOUNT_ERROR er = ub.validateAccount(szUsername, szPasscode);
+                        ACCOUNT_ERROR er = ub.validateAccount(szUsername, szPasscode,szEmail);
                         if(er == ACCOUNT_ERROR.IS_VALID)
                         {
                             if(!ub.register(szUsername,szPasscode,
@@ -122,8 +122,10 @@ public class RegisterFrame extends JFrame
                         {
                             JOptionPane.showMessageDialog(null,"Account name must be at least four characters");
                         }
-                        else
+                        else if (er == ACCOUNT_ERROR.BAD_PASSWORD_LENGTH)
                             JOptionPane.showMessageDialog(null,"Account passcode must be at least four characters");
+                        else
+                            JOptionPane.showMessageDialog(null,"Invalid email address");
                         
                     }
                     catch(IOException ioe)

@@ -15,6 +15,7 @@ public class AccountError {
     {
         IS_VALID,
         BAD_PASSWORD_LENGTH,
-        BAD_NAME_LENGTH
+        BAD_NAME_LENGTH,
+        BAD_EMAIL_ADDRESS
     }
 }
