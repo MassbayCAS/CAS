@@ -50,6 +50,7 @@ public class HelpWindow extends JFrame {
         
         helpText.setEditable(false);
         helpText.setLineWrap(true);
+        helpText.setWrapStyleWord(true);
         helpText.setFont(helpFont);
         
         closeButton.addActionListener(new CloseListener());
