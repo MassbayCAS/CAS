@@ -1,1 +1,7 @@
-This is a test file.
+The Round button carries out one round of course assignment per click.
+
+The Instructors/Courses button toggles between Course view and Instructors view.
+
+The Report button generates various reports, with options to Save or Print.
+
+Double-click on a Course or Instructor to view detailed information.
