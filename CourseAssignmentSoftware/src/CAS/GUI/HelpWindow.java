@@ -48,6 +48,7 @@ public class HelpWindow extends JFrame {
         }
         
         helpText.setEditable(false);
+        helpText.setLineWrap(true);
         
         closeButton.addActionListener(new CloseListener());
         
