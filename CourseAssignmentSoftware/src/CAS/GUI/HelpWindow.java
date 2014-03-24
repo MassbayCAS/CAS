@@ -16,6 +16,7 @@ public class HelpWindow extends JFrame {
     
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
+    private Font helpFont = new Font("SANS_SERIF",Font.PLAIN, 14);
     private JButton closeButton;
         
     public HelpWindow() {
@@ -49,6 +50,8 @@ public class HelpWindow extends JFrame {
         
         helpText.setEditable(false);
         helpText.setLineWrap(true);
+        helpText.setWrapStyleWord(true);
+        helpText.setFont(helpFont);
         
         closeButton.addActionListener(new CloseListener());
         
