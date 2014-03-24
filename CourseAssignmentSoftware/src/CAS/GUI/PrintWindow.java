@@ -84,8 +84,13 @@ public class PrintWindow extends JFrame
                 int choice = fileChooser.showSaveDialog(PrintWindow.this);
                 if (choice == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    String filename = file.getPath() + ".doc";
-                    BufferedWriter bfWrite = null;
+                    String filename;
+                    CharSequence cs = ".";
+                    if (file.getPath().contains(cs)) {
+                        filename = file.getPath();
+                    } else {
+                        filename = file.getPath() + ".doc";
+                    } BufferedWriter bfWrite = null;
                     try {
                         bfWrite = new BufferedWriter(new FileWriter(filename));
                         bfWrite.write(textArea.getText());
