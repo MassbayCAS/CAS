@@ -1,14 +1,15 @@
 package CAS.GUI;
 
 /*
- * Jyoti Sharma 
- * Save and Print Class for GUI
- */
+* Jyoti Sharma 
+* Save and Print Class for GUI
+*/
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
 import java.awt.print.PrinterException;
 import java.awt.*;
+import java.awt.Font;
 import java.awt.Color;
 
 
@@ -59,6 +60,8 @@ public class PrintWindow extends JFrame
         saveFile = new JButton("Save File");
         printFile = new JButton("Print File");
         add(textArea);
+        Font font = new Font("Monospaced", Font.PLAIN, 12);
+        textArea.setFont(font);
         
         saveFile.addActionListener(new ButtonListener());
         add(saveFile);
@@ -84,8 +87,13 @@ public class PrintWindow extends JFrame
                 int choice = fileChooser.showSaveDialog(PrintWindow.this);
                 if (choice == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    String filename = file.getPath() + ".doc";
-                    BufferedWriter bfWrite = null;
+                    String filename;
+                    CharSequence cs = ".";
+                    if (file.getPath().contains(cs)) {
+                        filename = file.getPath();
+                    } else {
+                        filename = file.getPath() + ".doc";
+                    } BufferedWriter bfWrite = null;
                     try {
                         bfWrite = new BufferedWriter(new FileWriter(filename));
                         bfWrite.write(textArea.getText());
