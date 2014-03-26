@@ -93,6 +93,7 @@ public class LoginFrame extends JFrame
             if(ub.authenticate(szUsername,szPasscode))
             {
               setVisible(false);
+              
               new FileSelectorWindow();
               dispose();
             }
