@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 
 /**
- * @author Peter Collins - Final Project CS208 DataIO is responsible for reading
- * our data into classes / data structures, and writing formatted reports to a
- * file for printing.
- */
+* @author Peter Collins - Final Project CS208 DataIO is responsible for reading
+* our data into classes / data structures, and writing formatted reports to a
+* file for printing.
+*/
 public class DataIO {
 
     /**
@@ -75,15 +75,16 @@ public class DataIO {
         StringBuilder sb = new StringBuilder();
         PriorityQueue<Course> coursePQ = GetSortedCourses(courses, isAssigned);
 
-        // the following can be modified to retreieve whatever course fields
+        // the following can be modified to retreive whatever course fields
         // are desireable for the report
-        sb.append(AddBuffer("Work Area", 65));
-        sb.append(AddBuffer("ID", 20));
-        sb.append(AddBuffer("Section", 25));
-        sb.append(AddBuffer("Course Name", 85));
-        sb.append("Instructor\n");
-        sb.append("--------------------------------------------------------------------------------------"
-                + "------------------------------------------------------------------------------------\n");
+        sb.append(AddBuffer("Work Area", 25));
+        sb.append(AddBuffer("ID", 10));
+        sb.append(AddBuffer("Section", 10));
+        sb.append(AddBuffer("Course Name", 35));
+        if(isAssigned)
+            sb.append("Instructor");
+        sb.append("\n------------------------------------------------------"
+                + "------------------------------------------------------\n");
         while (!coursePQ.isEmpty() && coursePQ.peek() != null) {
             Course c = coursePQ.poll();
             String profName = "";
@@ -91,10 +92,10 @@ public class DataIO {
             if (c.getInstructor() != null) {
                 profName = c.getInstructor().getName();
             }
-            sb.append(AddBuffer(c.getWorkArea(), 65));
-            sb.append(AddBuffer(c.getClassCode(), 20));
-            sb.append(AddBuffer(c.getSection(), 15));
-            sb.append(AddBuffer(c.getTitle(), 85));
+            sb.append(AddBuffer(c.getWorkArea(), 25));
+            sb.append(AddBuffer(c.getClassCode(), 10));
+            sb.append(AddBuffer(c.getSection(), 10));
+            sb.append(AddBuffer(c.getTitle(), 35));
             sb.append(profName);
             sb.append("\n");
         }
@@ -133,11 +134,11 @@ public class DataIO {
     public static String GetUnfulfilledRequestReport(HashMap<String, Course> courses, HashMap<String, Instructor> instructors) {
         StringBuilder sb = new StringBuilder();
         sb.append(AddBuffer("Instructor", 50));
-        sb.append(AddBuffer("Code", 20));
-        sb.append(AddBuffer("Section", 15));
-        sb.append("Course Name\n");
-        sb.append("--------------------------------------------------------------------"
-                + "--------------------------------------------------------------------\n");
+        sb.append(AddBuffer("Code", 10));
+        sb.append(AddBuffer("Section", 10));
+        sb.append("Course Name");
+        sb.append("\n-------------------------------------------------------"
+                + "-------------------------------------------------------\n");
         ArrayList<Instructor> sortedInstructors = new ArrayList(instructors.values());
         Collections.sort(sortedInstructors);
 
@@ -146,8 +147,8 @@ public class DataIO {
             if (!unfulfilled.isEmpty()) {
                 sb.append(AddBuffer(instructor.getName(), 50));
                 for (Course course : unfulfilled) {
-                    sb.append(AddBuffer(course.getClassCode(), 20));
-                    sb.append(AddBuffer(course.getSection(), 15));
+                    sb.append(AddBuffer(course.getClassCode(), 10));
+                    sb.append(AddBuffer(course.getSection(), 10));
                     sb.append(course.getTitle());
                     sb.append("\n");
                 }
@@ -158,7 +159,7 @@ public class DataIO {
 
     private static String AddBuffer(String s, int buffSize) {
         String temp = s;
-        for (int i = s.length(); i <= (buffSize - s.length()); i++) {
+        for (int i = s.length(); i <= buffSize; i++) {
             temp += " ";
         }
 
