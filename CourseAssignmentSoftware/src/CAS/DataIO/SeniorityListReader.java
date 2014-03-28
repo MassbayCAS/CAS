@@ -53,7 +53,10 @@ public class SeniorityListReader
         name ="";
         input = "";
         
-        
+        if(theMap == null)
+            System.out.println("Map is empty!");
+        else
+            System.out.println("The Map Is Not Empty!");
         StringBuilder snip;
         StringTokenizer st;
         while(scan.hasNextLine()){  //loop that continue untill the end of the file
