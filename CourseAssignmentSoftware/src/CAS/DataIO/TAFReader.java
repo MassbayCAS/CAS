@@ -138,7 +138,12 @@ public class TAFReader
                     {
                         //tok[3] == date == redundant
                         //email == tok[4] == redundant
-                        name = tok[0]+", "+tok[1];
+                        System.out.println(tok[1]);
+                        name = tok[0]+",";
+                        if(tok[1].charAt(0) != ' ')
+                            name+=" ";
+                        name+=tok[1];
+                        System.out.println(name);
                         number = tok[2];
                     }
                         break;
@@ -182,8 +187,6 @@ public class TAFReader
                             System.out.println(split[2]);
                             addDaysToList(preferredDays,split[0]);//700
                             addTimesToList(prefTimes,split[1],split[2]);//2130
-                            
-                            
                         }
                     }
                         break;
