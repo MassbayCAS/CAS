@@ -81,8 +81,20 @@ public class SeniorityListReader
                 //System.out.println("name: " + name);
                 senior =Integer.parseInt(st.nextToken()); //gets the next token and addit to the senior field if there is a space throws a parse exception
                 //System.out.println("senior: " + senior);
-                try {
-                theMap.get(name).getSeniorities().put(workArea,senior);
+                try
+                {
+                    System.out.println(name);
+                    //String instructorName = theMap.get(name).getSeniorities();
+                    Instructor mapInstructor = theMap.get(name);
+                    if(mapInstructor != null)
+                    {
+                        HashMap<String,Integer> hInsMap = mapInstructor.getSeniorities();
+                        if(hInsMap != null)
+                        {
+                            hInsMap.put(workArea, senior);
+                        }
+                    //theMap.get(name).getSeniorities().put(workArea,senior);
+                    }
                 }
                 catch (NoSuchElementException e){}
                 
