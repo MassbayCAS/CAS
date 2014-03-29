@@ -147,10 +147,13 @@ public class DataIO {
             if (!unfulfilled.isEmpty()) {
                 sb.append(AddBuffer(instructor.getName(), 50));
                 for (Course course : unfulfilled) {
-                    sb.append(AddBuffer(course.getClassCode(), 10));
-                    sb.append(AddBuffer(course.getSection(), 10));
-                    sb.append(course.getTitle());
-                    sb.append("\n");
+                    if(course != null)
+                    {
+                        sb.append(AddBuffer(course.getClassCode(), 10));
+                        sb.append(AddBuffer(course.getSection(), 10));
+                        sb.append(course.getTitle());
+                        sb.append("\n");
+                    }
                 }
             }
         }
