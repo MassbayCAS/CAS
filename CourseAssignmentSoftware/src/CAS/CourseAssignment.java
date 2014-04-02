@@ -87,28 +87,27 @@ public class CourseAssignment {
                 if(theKey == null)
                     break;
                 Course preferredCourse = courses.get(theKey);
-                if(preferredCourse.getInstructor() == null)
+                if(preferredCourse !=null)
                 {
-                    preferredCourse.setInstructor(instructor);
-                    instructor.getCourses().add(preferredCourse); 
-                    assigned = true;
-                }
-                else  if(preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse) < 0)
-                {
-                    Instructor instructor2 = preferredCourse.getInstructor();
-                    
-                    
-                    //instructor2.getCourses().remove(preferredCourse);
-                    preferredCourse.setInstructor(instructor);
-                    instructor.getCourses().add(preferredCourse);                  //instructor.getCourses().add(preferredCourse);
-                    instructor2.getCourses().remove(preferredCourse);
-                    
-                    theQueue.offer(instructor2);
-                    assigned = true;
-                }
-                else
-                {
-            
+                    if(preferredCourse.getInstructor() == null)
+                    {
+                        preferredCourse.setInstructor(instructor);
+                        instructor.getCourses().add(preferredCourse); 
+                        assigned = true;
+                    }
+                    else  if(preferredCourse.getInstructor().compareSeniorities(instructor, preferredCourse) < 0)
+                    {
+                        Instructor instructor2 = preferredCourse.getInstructor();
+
+
+                        //instructor2.getCourses().remove(preferredCourse);
+                        preferredCourse.setInstructor(instructor);
+                        instructor.getCourses().add(preferredCourse);                  //instructor.getCourses().add(preferredCourse);
+                        instructor2.getCourses().remove(preferredCourse);
+
+                        theQueue.offer(instructor2);
+                        assigned = true;
+                    }
                 }
             }
         }

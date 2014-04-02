@@ -1,6 +1,6 @@
 package CAS.GUI.Login;
 import CAS.GUI.FileSelectorWindow;
-
+import web.FileDownload;
 /*
  Tauseef Pirzada
  06122013
@@ -92,7 +92,17 @@ public class LoginFrame extends JFrame
             if(ub.authenticate(szUsername,szPasscode))
             {
               setVisible(false);
-              new FileSelectorWindow();
+              try
+              {
+                  
+                FileDownload.download("http://Eignh.com/webform3/TAF2014.csv",
+                        System.getProperty("user.dir")+"\\input");
+                new FileSelectorWindow();
+              }
+              catch(IOException e)
+              {
+                  JOptionPane.showMessageDialog(null,e.getMessage());
+              }
               dispose();
             }
             else
