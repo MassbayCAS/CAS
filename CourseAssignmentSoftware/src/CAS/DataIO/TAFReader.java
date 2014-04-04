@@ -154,13 +154,16 @@ public class TAFReader
                     {
                         preferredCourse = new ArrayDeque<String>();
                         String[] courseSplit;
+                        String[] lengthCheck;
                         String line;
                         for(int j = 0; j < tok.length; ++j)
                         {
                             line = tok[j].substring(1,tok[j].length()-1); //remove quotation marks
                             courseSplit = line.split(" ");
-                            String courseName = courseSplit[0].replace('-',',');
-                           
+                            lengthCheck = courseSplit[0].replace('-',',').split(",");
+                            while(lengthCheck[1].length() < 3)
+                                lengthCheck[1] = "0" + lengthCheck[1];
+                            String courseName = lengthCheck[0]+","+lengthCheck[1];
                             //remove quotation marks from courses
                             //extract the course number and section from entire name
                             //"CS248-300 Computer Science”
