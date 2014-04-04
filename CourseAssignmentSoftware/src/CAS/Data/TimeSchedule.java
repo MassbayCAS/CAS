@@ -50,10 +50,12 @@ public class TimeSchedule {
     }
     
     public String toString() {
-        if (startTime.equals(endTime)) {
+        if (startTime.equals(endTime)) 
+        {
             return " ";
         }
-        else {
+        else
+        {
             return startTime + " - " + endTime;
         }
     }
