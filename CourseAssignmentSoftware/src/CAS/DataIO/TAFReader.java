@@ -118,13 +118,16 @@ public class TAFReader
         String[] tok;
         int lineCount = 0;
         System.out.println("We are inside the loadinstructor method");
+        HashMap<String,Course> courseList = CourseReader.getCourseMap();
+        System.out.println(courseList.toString());
         while(scan.hasNextLine())
         {
             
             info = scan.nextLine();
             if(info.equals(""))
             {
-                
+                System.out.println(preferredCourse.toString());
+                System.out.println(prefTimes.toString());
                 theMap.put(name,new Instructor(new TAF(preferredDays,prefTimes,preferredCourse),name,number));
                 lineCount = 0;
             }
@@ -138,7 +141,7 @@ public class TAFReader
                     {
                         //tok[3] == date == redundant
                         //email == tok[4] == redundant
-                        System.out.println(tok[1]);
+                        //System.out.println(tok[1]);
                         name = tok[0]+",";
                         if(tok[1].charAt(0) != ' ')
                             name+=" ";
@@ -156,12 +159,17 @@ public class TAFReader
                         {
                             line = tok[j].substring(1,tok[j].length()-1); //remove quotation marks
                             courseSplit = line.split(" ");
+                            String courseName = courseSplit[0].replace('-',',');
+                           
                             //remove quotation marks from courses
                             //extract the course number and section from entire name
                             //"CS248-300 Computer Science”
                             //will be added as
                             //CS248-300
-                            preferredCourse.add(courseSplit[0]);
+                           // System.out.println(courseName);
+                            preferredCourse.add(courseName);
+                            System.out.println(preferredCourse.toString());
+                            
                         }
                     }
                         break;
@@ -182,9 +190,9 @@ public class TAFReader
                             //remove quotation marks
                             System.out.println(line);
                             split = line.split("-");//Monday
-                            System.out.println(split[0]);
-                            System.out.println(split[1]);
-                            System.out.println(split[2]);
+                            //System.out.println(split[0]);
+                            //System.out.println(split[1]);
+                            //System.out.println(split[2]);
                             addDaysToList(preferredDays,split[0]);//700
                             addTimesToList(prefTimes,split[1],split[2]);//2130
                         }
