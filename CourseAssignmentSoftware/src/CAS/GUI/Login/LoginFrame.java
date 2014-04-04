@@ -97,7 +97,7 @@ public class LoginFrame extends JFrame
               {
                   
                 FileDownload.download("http://Eignh.com/webform3/TAF2014.csv",
-                        System.getProperty("user.dir")+"\\input");
+                        System.getProperty("user.dir"));
                 new FileSelectorWindow();
               }
               catch(IOException e)
