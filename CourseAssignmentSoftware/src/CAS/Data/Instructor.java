@@ -55,14 +55,18 @@ public class Instructor implements Comparable<Instructor> {
         ArrayList<Course> unfulfilledRequests = new ArrayList<Course>();
         for (String courseKey : taf.getProcessedCourses()) {
             boolean unfulfilled = true;
+            
             Course course = cs.get(courseKey);
-            for (Course assigned : courses) {
-                if (course.equals(assigned)) {
-                    unfulfilled = false;
+            if(course != null)
+            {
+                for (Course assigned : courses) {
+                    if (course.equals(assigned)) {
+                        unfulfilled = false;
+                    }
                 }
-            }
-            if (unfulfilled) {
-                unfulfilledRequests.add(course);
+                if (unfulfilled) {
+                    unfulfilledRequests.add(course);
+                }
             }
         }
         return unfulfilledRequests;

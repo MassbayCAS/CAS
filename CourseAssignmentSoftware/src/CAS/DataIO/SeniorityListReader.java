@@ -53,10 +53,10 @@ public class SeniorityListReader
         name ="";
         input = "";
         
-        if(theMap == null)
-            System.out.println("Map is empty!");
-        else
-            System.out.println("The Map Is Not Empty!");
+        //if(theMap == null)
+          //  System.out.println("Map is empty!");
+        //else
+          //  System.out.println("The Map Is Not Empty!");
         StringBuilder snip;
         StringTokenizer st;
         while(scan.hasNextLine()){  //loop that continue untill the end of the file
@@ -83,7 +83,7 @@ public class SeniorityListReader
                 //System.out.println("senior: " + senior);
                 try
                 {
-                    System.out.println(name);
+                    //System.out.println(name);
                     //String instructorName = theMap.get(name).getSeniorities();
                     Instructor mapInstructor = theMap.get(name);
                     if(mapInstructor != null)
@@ -91,7 +91,7 @@ public class SeniorityListReader
                         HashMap<String,Integer> hInsMap = mapInstructor.getSeniorities();
                         if(hInsMap != null)
                         {
-                            hInsMap.put(workArea, senior);
+                           hInsMap.put(workArea, senior);
                         }
                     //theMap.get(name).getSeniorities().put(workArea,senior);
                     }

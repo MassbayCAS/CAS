@@ -34,6 +34,8 @@ public class CourseReader {
      * @throws FileNotFoundException
      * @throws IncorrectFormatException
      */
+    private static HashMap<String,Course> courseList;
+    
     public static HashMap<String, Course> loadCourses(String filename, String workAreaFilename) throws FileNotFoundException, IncorrectFormatException {
         return loadCourses(new File(filename), new File(workAreaFilename));
     }
@@ -49,7 +51,8 @@ public class CourseReader {
      */
     public static HashMap<String, Course> loadCourses(File file, File workAreaFile) throws FileNotFoundException, IncorrectFormatException {
         Scanner scan = new Scanner(file);
-        HashMap<String, Course> courseList = new HashMap<String, Course>();
+        //HashMap<String,Course> 
+        courseList = new HashMap<String, Course>();
 
         HashMap<String, String> workAreas = loadWorkAreas(workAreaFile);
 
@@ -205,7 +208,10 @@ public class CourseReader {
         }
         return courseList;
     }
-
+    public static HashMap<String,Course> getCourseMap()
+    {
+        return courseList;
+    }
     /**
      * The loadWorkAreas method generates a HashMap of work areas from a file
      *

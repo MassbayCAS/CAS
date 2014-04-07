@@ -81,7 +81,7 @@ public class InstructorPanel extends JPanel
    preferredCoursesLabel = new JLabel("Preferred Courses: ");
 
    preferredTimesList = "Preferred Times: ";
-   preferredTimesArray = new ArrayList<TimeSchedule>();
+   preferredTimesArray = thisInstructor.getPreferredTimes();
    for(TimeSchedule t:preferredTimesArray)
    {
    preferredTimesList += "Start: " + t.getStartTime().toString() + " End: " + t.getEndTime().toString()+ "\n";    
